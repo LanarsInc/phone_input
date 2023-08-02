@@ -45,6 +45,9 @@ class CountrySelector extends StatefulWidget {
   /// whether the search input is auto focussed
   final bool searchAutofocus;
 
+  /// Whether to show the search input
+  final bool showSearchInput;
+
   /// The [TextStyle] of the country subtitle
   final TextStyle? subtitleStyle;
 
@@ -61,11 +64,13 @@ class CountrySelector extends StatefulWidget {
   final Color? searchBoxIconColor;
   final double flagSize;
   final FlagCache flagCache;
+  final bool isBottomSheet;
 
   const CountrySelector({
     Key? key,
     required this.onCountrySelected,
     required this.flagCache,
+    required this.isBottomSheet,
     this.scrollController,
     this.scrollPhysics,
     this.addFavoritesSeparator = true,
@@ -74,6 +79,7 @@ class CountrySelector extends StatefulWidget {
     this.favoriteCountries = const [],
     this.countries,
     this.searchAutofocus = kIsWeb,
+    this.showSearchInput = true,
     this.subtitleStyle,
     this.titleStyle,
     this.searchBoxDecoration,
@@ -124,15 +130,15 @@ class CountrySelectorState extends State<CountrySelector> {
     return Column(
       children: [
         const SizedBox(height: 8),
-        Container(
+        widget.isBottomSheet ? Container(
           width: 50,
           height: 4,
           decoration: BoxDecoration(
             color: Theme.of(context).colorScheme.secondary,
             borderRadius: BorderRadius.circular(8),
           ),
-        ),
-        SizedBox(
+        ) : const SizedBox.shrink(),
+        widget.showSearchInput ? SizedBox(
           height: 70,
           width: double.infinity,
           child: SearchBox(
@@ -143,9 +149,9 @@ class CountrySelectorState extends State<CountrySelector> {
             style: widget.searchBoxTextStyle,
             searchIconColor: widget.searchBoxIconColor,
           ),
-        ),
-        const SizedBox(height: 16),
-        const Divider(height: 0, thickness: 1.2),
+        ) : const SizedBox.shrink(),
+        widget.showSearchInput ? const SizedBox(height: 16) : const SizedBox.shrink(),
+        widget.showSearchInput ? const Divider(height: 0, thickness: 1.2) : const SizedBox.shrink(),
         Flexible(
           child: CountryList(
             favorites: _favoriteCountryFinder.filteredCountries,

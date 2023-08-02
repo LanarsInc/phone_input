@@ -12,6 +12,7 @@ abstract class CountrySelectorNavigator {
   final bool sortCountries;
   final String? noResultMessage;
   final bool searchAutofocus;
+  final bool showSearchInput;
   final TextStyle? subtitleStyle;
   final TextStyle? titleStyle;
   final InputDecoration? searchBoxDecoration;
@@ -29,6 +30,7 @@ abstract class CountrySelectorNavigator {
     this.sortCountries = false,
     this.noResultMessage,
     required this.searchAutofocus,
+    this.showSearchInput = true,
     this.subtitleStyle,
     this.titleStyle,
     this.searchBoxDecoration,
@@ -44,6 +46,7 @@ abstract class CountrySelectorNavigator {
   CountrySelector _getCountrySelector({
     required ValueChanged<Country> onCountrySelected,
     required FlagCache flagCache,
+    required bool isBottomSheet,
     ScrollController? scrollController,
   }) {
     return CountrySelector(
@@ -55,14 +58,15 @@ abstract class CountrySelectorNavigator {
       noResultMessage: noResultMessage,
       scrollController: scrollController,
       searchAutofocus: searchAutofocus,
+      showSearchInput: showSearchInput,
       subtitleStyle: subtitleStyle,
       titleStyle: titleStyle,
-      searchBoxDecoration: searchBoxDecoration,
       searchBoxTextStyle: searchBoxTextStyle,
       searchBoxIconColor: searchBoxIconColor,
       scrollPhysics: scrollPhysics,
       flagSize: flagSize,
       flagCache: flagCache,
+      isBottomSheet: isBottomSheet,
     );
   }
 
@@ -76,6 +80,7 @@ abstract class CountrySelectorNavigator {
     bool sortCountries,
     String? noResultMessage,
     bool searchAutofocus,
+    bool showSearchInput,
     TextStyle? subtitleStyle,
     TextStyle? titleStyle,
     InputDecoration? searchBoxDecoration,
@@ -108,6 +113,7 @@ abstract class CountrySelectorNavigator {
     bool sortCountries,
     String? noResultMessage,
     bool searchAutofocus,
+    bool showSearchInput,
     TextStyle? subtitleStyle,
     TextStyle? titleStyle,
     InputDecoration? searchBoxDecoration,
@@ -125,6 +131,7 @@ abstract class CountrySelectorNavigator {
     bool sortCountries,
     String? noResultMessage,
     bool searchAutofocus,
+    bool showSearchInput,
     TextStyle? subtitleStyle,
     TextStyle? titleStyle,
     InputDecoration? searchBoxDecoration,
@@ -146,6 +153,7 @@ abstract class CountrySelectorNavigator {
     bool sortCountries,
     String? noResultMessage,
     bool searchAutofocus,
+    bool showSearchInput,
     TextStyle? subtitleStyle,
     TextStyle? titleStyle,
     InputDecoration? searchBoxDecoration,
@@ -169,6 +177,7 @@ class DialogNavigator extends CountrySelectorNavigator {
     bool sortCountries = false,
     String? noResultMessage,
     bool searchAutofocus = kIsWeb,
+    bool showSearchInput = true,
     TextStyle? subtitleStyle,
     TextStyle? titleStyle,
     InputDecoration? searchBoxDecoration,
@@ -183,6 +192,7 @@ class DialogNavigator extends CountrySelectorNavigator {
           sortCountries: sortCountries,
           noResultMessage: noResultMessage,
           searchAutofocus: searchAutofocus,
+          showSearchInput: showSearchInput,
           subtitleStyle: subtitleStyle,
           titleStyle: titleStyle,
           searchBoxDecoration: searchBoxDecoration,
@@ -200,6 +210,7 @@ class DialogNavigator extends CountrySelectorNavigator {
           width: width,
           height: height,
           child: _getCountrySelector(
+            isBottomSheet: false,
             onCountrySelected: (country) =>
                 Navigator.of(context, rootNavigator: true).pop(country),
             flagCache: flagCache,
@@ -281,6 +292,7 @@ class BottomSheetNavigator extends CountrySelectorNavigator {
     bool sortCountries = false,
     String? noResultMessage,
     bool searchAutofocus = kIsWeb,
+    bool showSearchInput = true,
     TextStyle? subtitleStyle,
     TextStyle? titleStyle,
     InputDecoration? searchBoxDecoration,
@@ -295,6 +307,7 @@ class BottomSheetNavigator extends CountrySelectorNavigator {
           sortCountries: sortCountries,
           noResultMessage: noResultMessage,
           searchAutofocus: searchAutofocus,
+          showSearchInput: showSearchInput,
           subtitleStyle: subtitleStyle,
           titleStyle: titleStyle,
           searchBoxDecoration: searchBoxDecoration,
@@ -312,6 +325,7 @@ class BottomSheetNavigator extends CountrySelectorNavigator {
         data: MediaQueryData.fromView(View.of(context)),
         child: SafeArea(
           child: _getCountrySelector(
+            isBottomSheet: true,
             onCountrySelected: (country) {
               selected = country;
               Navigator.pop(context, country);
@@ -337,6 +351,7 @@ class ModalBottomSheetNavigator extends CountrySelectorNavigator {
     bool sortCountries = false,
     String? noResultMessage,
     bool searchAutofocus = kIsWeb,
+    bool showSearchInput = true,
     TextStyle? subtitleStyle,
     TextStyle? titleStyle,
     InputDecoration? searchBoxDecoration,
@@ -351,6 +366,7 @@ class ModalBottomSheetNavigator extends CountrySelectorNavigator {
           sortCountries: sortCountries,
           noResultMessage: noResultMessage,
           searchAutofocus: searchAutofocus,
+          showSearchInput: showSearchInput,
           subtitleStyle: subtitleStyle,
           titleStyle: titleStyle,
           searchBoxDecoration: searchBoxDecoration,
@@ -369,6 +385,7 @@ class ModalBottomSheetNavigator extends CountrySelectorNavigator {
       builder: (_) => SizedBox(
         height: height ?? MediaQuery.of(context).size.height - 90,
         child: _getCountrySelector(
+          isBottomSheet: true,
           onCountrySelected: (country) => Navigator.pop(context, country),
           flagCache: flagCache,
         ),
@@ -397,6 +414,7 @@ class DraggableModalBottomSheetNavigator extends CountrySelectorNavigator {
     double flagSize = 40,
     String? noResultMessage,
     bool searchAutofocus = kIsWeb,
+    bool showSearchInput = true,
     TextStyle? subtitleStyle,
     TextStyle? titleStyle,
     InputDecoration? searchBoxDecoration,
@@ -412,6 +430,7 @@ class DraggableModalBottomSheetNavigator extends CountrySelectorNavigator {
           sortCountries: sortCountries,
           noResultMessage: noResultMessage,
           searchAutofocus: searchAutofocus,
+          showSearchInput: showSearchInput,
           subtitleStyle: subtitleStyle,
           titleStyle: titleStyle,
           searchBoxDecoration: searchBoxDecoration,
@@ -447,6 +466,7 @@ class DraggableModalBottomSheetNavigator extends CountrySelectorNavigator {
               ),
             ),
             child: _getCountrySelector(
+              isBottomSheet: true,
               onCountrySelected: (country) => Navigator.pop(context, country),
               scrollController: scrollController,
               flagCache: flagCache,

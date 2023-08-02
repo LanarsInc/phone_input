@@ -39,10 +39,6 @@ class SearchBox extends StatelessWidget {
               ),
               filled: true,
               isDense: true,
-              border: OutlineInputBorder(
-                borderSide: BorderSide.none,
-                borderRadius: BorderRadius.circular(20),
-              ),
             ),
       ),
     );

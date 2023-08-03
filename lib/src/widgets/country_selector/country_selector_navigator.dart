@@ -18,6 +18,7 @@ abstract class CountrySelectorNavigator {
   final InputDecoration? searchBoxDecoration;
   final TextStyle? searchBoxTextStyle;
   final Color? searchBoxIconColor;
+  final Color? bottomSheetDragHandlerColor;
   final ScrollPhysics? scrollPhysics;
   final double flagSize;
   final bool useRootNavigator;
@@ -33,9 +34,10 @@ abstract class CountrySelectorNavigator {
     this.showSearchInput = true,
     this.subtitleStyle,
     this.titleStyle,
-    this.searchBoxDecoration,
     this.searchBoxTextStyle,
+    this.bottomSheetDragHandlerColor,
     this.searchBoxIconColor,
+    this.searchBoxDecoration,
     this.scrollPhysics,
     this.flagSize = 40,
     this.useRootNavigator = true,
@@ -61,8 +63,10 @@ abstract class CountrySelectorNavigator {
       showSearchInput: showSearchInput,
       subtitleStyle: subtitleStyle,
       titleStyle: titleStyle,
+      searchBoxDecoration: searchBoxDecoration,
       searchBoxTextStyle: searchBoxTextStyle,
       searchBoxIconColor: searchBoxIconColor,
+      bottomSheetDragHandlerColor: bottomSheetDragHandlerColor,
       scrollPhysics: scrollPhysics,
       flagSize: flagSize,
       flagCache: flagCache,
@@ -119,6 +123,7 @@ abstract class CountrySelectorNavigator {
     InputDecoration? searchBoxDecoration,
     TextStyle? searchBoxTextStyle,
     Color? searchBoxIconColor,
+    Color? bottomSheetDragHandlerColor,
     ScrollPhysics? scrollPhysics,
   }) = BottomSheetNavigator._;
 
@@ -137,6 +142,7 @@ abstract class CountrySelectorNavigator {
     InputDecoration? searchBoxDecoration,
     TextStyle? searchBoxTextStyle,
     Color? searchBoxIconColor,
+    Color? bottomSheetDragHandlerColor,
     ScrollPhysics? scrollPhysics,
   }) = ModalBottomSheetNavigator._;
 
@@ -159,6 +165,7 @@ abstract class CountrySelectorNavigator {
     InputDecoration? searchBoxDecoration,
     TextStyle? searchBoxTextStyle,
     Color? searchBoxIconColor,
+    Color? bottomSheetDragHandlerColor,
     ScrollPhysics? scrollPhysics,
   }) = DraggableModalBottomSheetNavigator._;
 }
@@ -298,6 +305,7 @@ class BottomSheetNavigator extends CountrySelectorNavigator {
     InputDecoration? searchBoxDecoration,
     TextStyle? searchBoxTextStyle,
     Color? searchBoxIconColor,
+    Color? bottomSheetDragHandlerColor,
     ScrollPhysics? scrollPhysics,
   }) : super(
           countries: countries,
@@ -313,6 +321,7 @@ class BottomSheetNavigator extends CountrySelectorNavigator {
           searchBoxDecoration: searchBoxDecoration,
           searchBoxTextStyle: searchBoxTextStyle,
           searchBoxIconColor: searchBoxIconColor,
+          bottomSheetDragHandlerColor: bottomSheetDragHandlerColor,
           scrollPhysics: scrollPhysics,
         );
 
@@ -357,6 +366,7 @@ class ModalBottomSheetNavigator extends CountrySelectorNavigator {
     InputDecoration? searchBoxDecoration,
     TextStyle? searchBoxTextStyle,
     Color? searchBoxIconColor,
+    Color? bottomSheetDragHandlerColor,
     ScrollPhysics? scrollPhysics,
   }) : super(
           countries: countries,
@@ -372,6 +382,7 @@ class ModalBottomSheetNavigator extends CountrySelectorNavigator {
           searchBoxDecoration: searchBoxDecoration,
           searchBoxTextStyle: searchBoxTextStyle,
           searchBoxIconColor: searchBoxIconColor,
+          bottomSheetDragHandlerColor: bottomSheetDragHandlerColor,
           scrollPhysics: scrollPhysics,
         );
 
@@ -420,6 +431,7 @@ class DraggableModalBottomSheetNavigator extends CountrySelectorNavigator {
     InputDecoration? searchBoxDecoration,
     TextStyle? searchBoxTextStyle,
     Color? searchBoxIconColor,
+    Color? bottomSheetDragHandlerColor,
     ScrollPhysics? scrollPhysics,
     bool useRootNavigator = true,
   }) : super(
@@ -436,6 +448,7 @@ class DraggableModalBottomSheetNavigator extends CountrySelectorNavigator {
           searchBoxDecoration: searchBoxDecoration,
           searchBoxTextStyle: searchBoxTextStyle,
           searchBoxIconColor: searchBoxIconColor,
+          bottomSheetDragHandlerColor: bottomSheetDragHandlerColor,
           scrollPhysics: scrollPhysics,
           flagSize: flagSize,
         );

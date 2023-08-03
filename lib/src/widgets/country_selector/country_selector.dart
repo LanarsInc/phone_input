@@ -62,6 +62,10 @@ class CountrySelector extends StatefulWidget {
 
   /// The [Color] of the Search Icon in the Search Box
   final Color? searchBoxIconColor;
+
+  /// The [Color] of the divider at the top on the bottom sheet
+  final Color? bottomSheetDragHandlerColor;
+
   final double flagSize;
   final FlagCache flagCache;
   final bool isBottomSheet;
@@ -85,6 +89,7 @@ class CountrySelector extends StatefulWidget {
     this.searchBoxDecoration,
     this.searchBoxTextStyle,
     this.searchBoxIconColor,
+    this.bottomSheetDragHandlerColor,
     this.flagSize = 40,
   }) : super(key: key);
 
@@ -134,7 +139,7 @@ class CountrySelectorState extends State<CountrySelector> {
           width: 50,
           height: 4,
           decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.secondary,
+            color: widget.bottomSheetDragHandlerColor ?? Theme.of(context).colorScheme.secondary,
             borderRadius: BorderRadius.circular(8),
           ),
         ) : const SizedBox.shrink(),

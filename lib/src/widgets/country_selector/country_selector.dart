@@ -1,4 +1,4 @@
-import 'package:circle_flags/circle_flags.dart';
+import 'package:phone_form_field/src/flags/flags.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:phone_form_field/l10n/generated/phone_field_localization.dart';
@@ -67,6 +67,7 @@ class CountrySelector extends StatefulWidget {
   final Color? bottomSheetDragHandlerColor;
 
   final double flagSize;
+  final bool isFlagCircle;
   final FlagCache flagCache;
   final bool isBottomSheet;
 
@@ -90,7 +91,8 @@ class CountrySelector extends StatefulWidget {
     this.searchBoxTextStyle,
     this.searchBoxIconColor,
     this.bottomSheetDragHandlerColor,
-    this.flagSize = 40,
+    this.flagSize = 48,
+    this.isFlagCircle = true,
   }) : super(key: key);
 
   @override
@@ -155,7 +157,7 @@ class CountrySelectorState extends State<CountrySelector> {
             searchIconColor: widget.searchBoxIconColor,
           ),
         ) : const SizedBox.shrink(),
-        widget.showSearchInput ? const SizedBox(height: 16) : const SizedBox.shrink(),
+        const SizedBox(height: 16),
         widget.showSearchInput ? const Divider(height: 0, thickness: 1.2) : const SizedBox.shrink(),
         Flexible(
           child: CountryList(
@@ -164,6 +166,7 @@ class CountrySelectorState extends State<CountrySelector> {
             showDialCode: widget.showCountryCode,
             onTap: widget.onCountrySelected,
             flagSize: widget.flagSize,
+            isFlagCircle: widget.isFlagCircle,
             scrollController: widget.scrollController,
             scrollPhysics: widget.scrollPhysics,
             noResultMessage: widget.noResultMessage,

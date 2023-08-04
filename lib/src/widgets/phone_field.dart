@@ -1,6 +1,6 @@
 import 'dart:ui' as ui show BoxHeightStyle, BoxWidthStyle;
 
-import 'package:circle_flags/circle_flags.dart';
+import 'package:phone_form_field/src/flags/flags.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:phone_form_field/src/constants/patterns.dart';
@@ -19,6 +19,7 @@ class PhoneField extends StatefulWidget {
   final bool showDialCode;
   final String? errorText;
   final double flagSize;
+  final bool isFlagCircle;
   final InputDecoration decoration;
   final bool isCountrySelectionEnabled;
   final bool isCountryChipPersistent;
@@ -73,6 +74,7 @@ class PhoneField extends StatefulWidget {
     required this.showFlagInInput,
     required this.selectorNavigator,
     required this.flagSize,
+    required this.isFlagCircle,
     required this.errorText,
     required this.decoration,
     required this.isCountrySelectionEnabled,

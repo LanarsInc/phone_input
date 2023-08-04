@@ -1,4 +1,4 @@
-import 'package:circle_flags/circle_flags.dart';
+import 'package:phone_form_field/src/flags/flags.dart';
 import 'package:flutter/material.dart';
 
 import '../../../l10n/generated/phone_field_localization.dart';
@@ -11,6 +11,7 @@ class CountryList extends StatelessWidget {
   /// List of countries to display
   final List<Country> countries;
   final double flagSize;
+  final bool isFlagCircle;
 
   /// list of favorite countries to display at the top
   final List<Country> favorites;
@@ -42,7 +43,8 @@ class CountryList extends StatelessWidget {
     this.scrollController,
     this.scrollPhysics,
     this.showDialCode = true,
-    this.flagSize = 40,
+    this.flagSize = 48,
+    this.isFlagCircle = true,
     this.subtitleStyle,
     this.titleStyle,
   }) : super(key: key) {
@@ -77,11 +79,12 @@ class CountryList extends StatelessWidget {
 
         return ListTile(
           key: ValueKey(country.isoCode.name),
-          leading: CircleFlag(
+          leading: Flag(
             country.isoCode.name,
             key: ValueKey('circle-flag-${country.isoCode.name}'),
             size: flagSize,
             cache: flagCache,
+            isFlagCircle: isFlagCircle,
           ),
           title: Align(
             alignment: AlignmentDirectional.centerStart,

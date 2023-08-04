@@ -1,4 +1,4 @@
-import 'package:circle_flags/circle_flags.dart';
+import 'package:phone_form_field/src/flags/flags.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:phone_form_field/phone_form_field.dart';
@@ -21,6 +21,7 @@ abstract class CountrySelectorNavigator {
   final Color? bottomSheetDragHandlerColor;
   final ScrollPhysics? scrollPhysics;
   final double flagSize;
+  final bool isFlagCircle;
   final bool useRootNavigator;
 
   const CountrySelectorNavigator({
@@ -39,7 +40,8 @@ abstract class CountrySelectorNavigator {
     this.searchBoxIconColor,
     this.searchBoxDecoration,
     this.scrollPhysics,
-    this.flagSize = 40,
+    this.isFlagCircle = true,
+    this.flagSize = 48,
     this.useRootNavigator = true,
   });
 
@@ -68,6 +70,7 @@ abstract class CountrySelectorNavigator {
       searchBoxIconColor: searchBoxIconColor,
       bottomSheetDragHandlerColor: bottomSheetDragHandlerColor,
       scrollPhysics: scrollPhysics,
+      isFlagCircle: isFlagCircle,
       flagSize: flagSize,
       flagCache: flagCache,
       isBottomSheet: isBottomSheet,
@@ -91,6 +94,8 @@ abstract class CountrySelectorNavigator {
     TextStyle? searchBoxTextStyle,
     Color? searchBoxIconColor,
     ScrollPhysics? scrollPhysics,
+    double flagSize,
+    bool isFlagCircle,
   }) = DialogNavigator._;
 
   const factory CountrySelectorNavigator.searchDelegate({
@@ -107,6 +112,8 @@ abstract class CountrySelectorNavigator {
     TextStyle? searchBoxTextStyle,
     Color? searchBoxIconColor,
     ScrollPhysics? scrollPhysics,
+    double flagSize,
+    bool isFlagCircle,
   }) = SearchDelegateNavigator._;
 
   const factory CountrySelectorNavigator.bottomSheet({
@@ -125,6 +132,8 @@ abstract class CountrySelectorNavigator {
     Color? searchBoxIconColor,
     Color? bottomSheetDragHandlerColor,
     ScrollPhysics? scrollPhysics,
+    double flagSize,
+    bool isFlagCircle,
   }) = BottomSheetNavigator._;
 
   const factory CountrySelectorNavigator.modalBottomSheet({
@@ -144,6 +153,8 @@ abstract class CountrySelectorNavigator {
     Color? searchBoxIconColor,
     Color? bottomSheetDragHandlerColor,
     ScrollPhysics? scrollPhysics,
+    double flagSize,
+    bool isFlagCircle,
   }) = ModalBottomSheetNavigator._;
 
   const factory CountrySelectorNavigator.draggableBottomSheet({
@@ -167,6 +178,7 @@ abstract class CountrySelectorNavigator {
     Color? searchBoxIconColor,
     Color? bottomSheetDragHandlerColor,
     ScrollPhysics? scrollPhysics,
+    bool isFlagCircle,
   }) = DraggableModalBottomSheetNavigator._;
 }
 
@@ -191,6 +203,8 @@ class DialogNavigator extends CountrySelectorNavigator {
     TextStyle? searchBoxTextStyle,
     Color? searchBoxIconColor,
     ScrollPhysics? scrollPhysics,
+    double flagSize = 48,
+    bool isFlagCircle = true,
   }) : super(
           countries: countries,
           favorites: favorites,
@@ -206,6 +220,8 @@ class DialogNavigator extends CountrySelectorNavigator {
           searchBoxTextStyle: searchBoxTextStyle,
           searchBoxIconColor: searchBoxIconColor,
           scrollPhysics: scrollPhysics,
+          flagSize: flagSize,
+          isFlagCircle: isFlagCircle,
         );
 
   @override
@@ -218,8 +234,7 @@ class DialogNavigator extends CountrySelectorNavigator {
           height: height,
           child: _getCountrySelector(
             isBottomSheet: false,
-            onCountrySelected: (country) =>
-                Navigator.of(context, rootNavigator: true).pop(country),
+            onCountrySelected: (country) => Navigator.of(context, rootNavigator: true).pop(country),
             flagCache: flagCache,
           ),
         ),
@@ -243,6 +258,8 @@ class SearchDelegateNavigator extends CountrySelectorNavigator {
     TextStyle? searchBoxTextStyle,
     Color? searchBoxIconColor,
     ScrollPhysics? scrollPhysics,
+    double flagSize = 48,
+    bool isFlagCircle = true,
   }) : super(
           countries: countries,
           favorites: favorites,
@@ -257,6 +274,8 @@ class SearchDelegateNavigator extends CountrySelectorNavigator {
           searchBoxTextStyle: searchBoxTextStyle,
           searchBoxIconColor: searchBoxIconColor,
           scrollPhysics: scrollPhysics,
+          flagSize: flagSize,
+          isFlagCircle: isFlagCircle,
         );
 
   CountrySelectorSearchDelegate _getCountrySelectorSearchDelegate({
@@ -265,17 +284,18 @@ class SearchDelegateNavigator extends CountrySelectorNavigator {
     ScrollController? scrollController,
   }) {
     return CountrySelectorSearchDelegate(
-        onCountrySelected: onCountrySelected,
-        scrollController: scrollController,
-        addFavoritesSeparator: addSeparator,
-        countries: countries,
-        favoriteCountries: favorites ?? [],
-        noResultMessage: noResultMessage,
-        searchAutofocus: searchAutofocus,
-        showCountryCode: showCountryCode,
-        titleStyle: titleStyle,
-        subtitleStyle: subtitleStyle,
-        flagCache: flagCache);
+      onCountrySelected: onCountrySelected,
+      scrollController: scrollController,
+      addFavoritesSeparator: addSeparator,
+      countries: countries,
+      favoriteCountries: favorites ?? [],
+      noResultMessage: noResultMessage,
+      searchAutofocus: searchAutofocus,
+      showCountryCode: showCountryCode,
+      titleStyle: titleStyle,
+      subtitleStyle: subtitleStyle,
+      flagCache: flagCache,
+    );
   }
 
   @override
@@ -307,6 +327,8 @@ class BottomSheetNavigator extends CountrySelectorNavigator {
     Color? searchBoxIconColor,
     Color? bottomSheetDragHandlerColor,
     ScrollPhysics? scrollPhysics,
+    double flagSize = 48,
+    bool isFlagCircle = true,
   }) : super(
           countries: countries,
           favorites: favorites,
@@ -323,6 +345,8 @@ class BottomSheetNavigator extends CountrySelectorNavigator {
           searchBoxIconColor: searchBoxIconColor,
           bottomSheetDragHandlerColor: bottomSheetDragHandlerColor,
           scrollPhysics: scrollPhysics,
+          flagSize: flagSize,
+          isFlagCircle: isFlagCircle,
         );
 
   @override
@@ -368,6 +392,8 @@ class ModalBottomSheetNavigator extends CountrySelectorNavigator {
     Color? searchBoxIconColor,
     Color? bottomSheetDragHandlerColor,
     ScrollPhysics? scrollPhysics,
+    double flagSize = 48,
+    bool isFlagCircle = true,
   }) : super(
           countries: countries,
           favorites: favorites,
@@ -384,6 +410,8 @@ class ModalBottomSheetNavigator extends CountrySelectorNavigator {
           searchBoxIconColor: searchBoxIconColor,
           bottomSheetDragHandlerColor: bottomSheetDragHandlerColor,
           scrollPhysics: scrollPhysics,
+          flagSize: flagSize,
+          isFlagCircle: isFlagCircle,
         );
 
   @override
@@ -422,6 +450,7 @@ class DraggableModalBottomSheetNavigator extends CountrySelectorNavigator {
     bool addSeparator = true,
     bool showCountryCode = true,
     bool sortCountries = false,
+    bool isFlagCircle = true,
     double flagSize = 40,
     String? noResultMessage,
     bool searchAutofocus = kIsWeb,
@@ -451,6 +480,7 @@ class DraggableModalBottomSheetNavigator extends CountrySelectorNavigator {
           bottomSheetDragHandlerColor: bottomSheetDragHandlerColor,
           scrollPhysics: scrollPhysics,
           flagSize: flagSize,
+          isFlagCircle: isFlagCircle,
         );
 
   @override

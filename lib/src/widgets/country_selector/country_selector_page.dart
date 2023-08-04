@@ -1,4 +1,4 @@
-import 'package:circle_flags/circle_flags.dart';
+import 'package:phone_form_field/src/flags/flags.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:phone_form_field/l10n/generated/phone_field_localization.dart';
@@ -47,6 +47,7 @@ class CountrySelectorSearchDelegate extends SearchDelegate<Country> {
   /// whether the search input is auto focussed
   final bool searchAutofocus;
   final double flagSize;
+  final bool isFlagCircle;
 
   LocalizedCountryRegistry? _localizedCountryRegistry;
 
@@ -70,7 +71,8 @@ class CountrySelectorSearchDelegate extends SearchDelegate<Country> {
     List<IsoCode> favoriteCountries = const [],
     List<IsoCode>? countries,
     this.searchAutofocus = kIsWeb,
-    this.flagSize = 40,
+    this.flagSize = 48,
+    this.isFlagCircle = true,
     this.titleStyle,
     this.subtitleStyle,
   })  : countriesIso = countries ?? IsoCode.values,
@@ -127,6 +129,7 @@ class CountrySelectorSearchDelegate extends SearchDelegate<Country> {
       showDialCode: showCountryCode,
       onTap: onCountrySelected,
       flagSize: flagSize,
+      isFlagCircle: isFlagCircle,
       scrollController: scrollController,
       scrollPhysics: scrollPhysics,
       noResultMessage: noResultMessage,

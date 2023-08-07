@@ -3,6 +3,7 @@ part of 'phone_field.dart';
 class PhoneFieldState extends State<PhoneField> {
   PhoneFieldController get controller => widget.controller;
   final _flagCache = FlagCache();
+
   PhoneFieldState();
 
   @override
@@ -31,8 +32,7 @@ class PhoneFieldState extends State<PhoneField> {
       return;
     }
     SystemChannels.textInput.invokeMethod('TextInput.hide');
-    final selected =
-        await widget.selectorNavigator.navigate(context, _flagCache);
+    final selected = await widget.selectorNavigator.navigate(context, _flagCache);
     if (selected != null) {
       controller.isoCode = selected.isoCode;
     }
@@ -42,6 +42,7 @@ class PhoneFieldState extends State<PhoneField> {
 
   @override
   Widget build(BuildContext context) {
+    final maxLength = MetadataFinder.getMetadataLengthForIsoCode(controller.isoCode).fixedLine.last;
     // the idea here is to have a mouse region that surround the input which
     // contains a flag button and a text field. The text field is surrounded
     // by padding so we want to request focus even when clicking outside of the
@@ -66,8 +67,9 @@ class PhoneFieldState extends State<PhoneField> {
             decoration: _getInnerInputDecoration(),
             inputFormatters: widget.inputFormatters ??
                 [
-                  FilteringTextInputFormatter.allow(RegExp(
-                      '[${Patterns.plus}${Patterns.digits}${Patterns.punctuation}]')),
+                  CustomMaxLengthFormatter(maxLength),
+                  FilteringTextInputFormatter.allow(
+                      RegExp('[${Patterns.plus}${Patterns.digits}${Patterns.punctuation}]')),
                 ],
             autofillHints: widget.autofillHints,
             keyboardType: widget.keyboardType,
@@ -163,10 +165,8 @@ class PhoneFieldState extends State<PhoneField> {
     return widget.decoration.copyWith(
       hintText: null,
       errorText: widget.errorText,
-      prefix:
-          directionality == TextDirection.ltr ? _getCountryCodeChip() : null,
-      suffix:
-          directionality == TextDirection.rtl ? _getCountryCodeChip() : null,
+      prefix: directionality == TextDirection.ltr ? _getCountryCodeChip() : null,
+      suffix: directionality == TextDirection.rtl ? _getCountryCodeChip() : null,
     );
   }
 

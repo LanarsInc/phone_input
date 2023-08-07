@@ -3,6 +3,7 @@ part of 'phone_field.dart';
 class PhoneFieldState extends State<PhoneField> {
   PhoneFieldController get controller => widget.controller;
   final _flagCache = FlagCache();
+  final _layerLink = LayerLink();
 
   PhoneFieldState();
 
@@ -32,7 +33,7 @@ class PhoneFieldState extends State<PhoneField> {
       return;
     }
     SystemChannels.textInput.invokeMethod('TextInput.hide');
-    final selected = await widget.selectorNavigator.navigate(context, _flagCache);
+    final selected = await widget.selectorNavigator.navigate(context, _flagCache, _layerLink);
     if (selected != null) {
       controller.isoCode = selected.isoCode;
     }
@@ -50,7 +51,7 @@ class PhoneFieldState extends State<PhoneField> {
     // When the country chip is not shown it request focus to the inner text
     // field which doesn't span the whole input
     // When the country chip is shown, clicking on it request country selection
-    return MouseRegion(
+    final item = MouseRegion(
       cursor: SystemMouseCursors.text,
       child: GestureDetector(
         onTap: controller.focusNode.requestFocus,
@@ -109,6 +110,11 @@ class PhoneFieldState extends State<PhoneField> {
         ),
       ),
     );
+    if (widget.selectorNavigator is DropdownNavigator) {
+      return CompositedTransformTarget(link: _layerLink, child: item);
+    }
+
+    return item;
   }
 
   Widget _getCountryCodeChip() {

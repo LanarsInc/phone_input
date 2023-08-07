@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:phone_form_field/src/flags/flags.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -23,6 +25,7 @@ abstract class CountrySelectorNavigator {
   final double flagSize;
   final bool isFlagCircle;
   final bool useRootNavigator;
+  final double? offsetHeight;
 
   const CountrySelectorNavigator({
     this.countries,
@@ -43,9 +46,10 @@ abstract class CountrySelectorNavigator {
     this.isFlagCircle = true,
     this.flagSize = 48,
     this.useRootNavigator = true,
+    this.offsetHeight,
   });
 
-  Future<Country?> navigate(BuildContext context, FlagCache flagCache);
+  Future<Country?> navigate(BuildContext context, FlagCache flagCache, LayerLink layerLink);
 
   CountrySelector _getCountrySelector({
     required ValueChanged<Country> onCountrySelected,
@@ -180,6 +184,21 @@ abstract class CountrySelectorNavigator {
     ScrollPhysics? scrollPhysics,
     bool isFlagCircle,
   }) = DraggableModalBottomSheetNavigator._;
+
+  const factory CountrySelectorNavigator.dropdown({
+    List<IsoCode>? countries,
+    List<IsoCode>? favorites,
+    bool addSeparator,
+    bool showCountryCode,
+    bool showSearchInput,
+    bool sortCountries,
+    TextStyle? subtitleStyle,
+    TextStyle? titleStyle,
+    ScrollPhysics? scrollPhysics,
+    double flagSize,
+    bool isFlagCircle,
+    double? offsetHeight,
+  }) = DropdownNavigator._;
 }
 
 class DialogNavigator extends CountrySelectorNavigator {
@@ -225,7 +244,7 @@ class DialogNavigator extends CountrySelectorNavigator {
         );
 
   @override
-  Future<Country?> navigate(BuildContext context, FlagCache flagCache) {
+  Future<Country?> navigate(BuildContext context, FlagCache flagCache, LayerLink layerLink) {
     return showDialog(
       context: context,
       builder: (_) => Dialog(
@@ -299,7 +318,7 @@ class SearchDelegateNavigator extends CountrySelectorNavigator {
   }
 
   @override
-  Future<Country?> navigate(BuildContext context, FlagCache flagCache) {
+  Future<Country?> navigate(BuildContext context, FlagCache flagCache, LayerLink layerLink) {
     return showSearch(
       context: context,
       delegate: _getCountrySelectorSearchDelegate(
@@ -350,7 +369,7 @@ class BottomSheetNavigator extends CountrySelectorNavigator {
         );
 
   @override
-  Future<Country?> navigate(BuildContext context, FlagCache flagCache) {
+  Future<Country?> navigate(BuildContext context, FlagCache flagCache, LayerLink layerLink) {
     Country? selected;
     final ctrl = showBottomSheet(
       context: context,
@@ -415,10 +434,7 @@ class ModalBottomSheetNavigator extends CountrySelectorNavigator {
         );
 
   @override
-  Future<Country?> navigate(
-    BuildContext context,
-    FlagCache flagCache,
-  ) {
+  Future<Country?> navigate(BuildContext context, FlagCache flagCache, LayerLink layerLink) {
     return showModalBottomSheet<Country>(
       context: context,
       builder: (_) => SizedBox(
@@ -484,7 +500,7 @@ class DraggableModalBottomSheetNavigator extends CountrySelectorNavigator {
         );
 
   @override
-  Future<Country?> navigate(BuildContext context, FlagCache flagCache) {
+  Future<Country?> navigate(BuildContext context, FlagCache flagCache, LayerLink layerLink) {
     final effectiveBorderRadius = borderRadius ??
         const BorderRadius.only(
           topLeft: Radius.circular(16),
@@ -520,5 +536,88 @@ class DraggableModalBottomSheetNavigator extends CountrySelectorNavigator {
       useRootNavigator: useRootNavigator,
       isScrollControlled: true,
     );
+  }
+}
+
+class DropdownNavigator extends CountrySelectorNavigator {
+  const DropdownNavigator._({
+    List<IsoCode>? countries,
+    List<IsoCode>? favorites,
+    bool addSeparator = true,
+    bool showCountryCode = true,
+    bool showSearchInput = false,
+    bool sortCountries = false,
+    bool searchAutofocus = kIsWeb,
+    TextStyle? subtitleStyle,
+    TextStyle? titleStyle,
+    ScrollPhysics? scrollPhysics,
+    double flagSize = 48,
+    bool isFlagCircle = true,
+    double? offsetHeight,
+  }) : super(
+          countries: countries,
+          favorites: favorites,
+          addSeparator: addSeparator,
+          showCountryCode: showCountryCode,
+          showSearchInput: showSearchInput,
+          sortCountries: sortCountries,
+          searchAutofocus: searchAutofocus,
+          subtitleStyle: subtitleStyle,
+          titleStyle: titleStyle,
+          scrollPhysics: scrollPhysics,
+          flagSize: flagSize,
+          isFlagCircle: isFlagCircle,
+          offsetHeight: offsetHeight,
+        );
+
+  @override
+  Future<Country?> navigate(BuildContext context, FlagCache flagCache, LayerLink layerLink) async {
+    OverlayEntry? dropdownOverlayEntry;
+    final completer = Completer<Country?>();
+
+    RenderBox renderBox = context.findRenderObject() as RenderBox;
+    final size = renderBox.size;
+    final offset = renderBox.localToGlobal(Offset.zero);
+
+    dropdownOverlayEntry = OverlayEntry(
+      builder: (context) {
+        return GestureDetector(
+          onTap: () {
+            dropdownOverlayEntry?.remove();
+            completer.complete(null);
+          },
+          behavior: HitTestBehavior.translucent,
+          child: Stack(
+            children: [
+              CompositedTransformFollower(
+                offset: offsetHeight != null
+                    ? Offset(0, size.height).translate(0, offsetHeight!)
+                    : Offset(0, size.height),
+                link: layerLink,
+                showWhenUnlinked: false,
+                child: Material(
+                  child: SizedBox(
+                    height: 300,
+                    width: size.width,
+                    child: _getCountrySelector(
+                      isBottomSheet: false,
+                      onCountrySelected: (country) {
+                        completer.complete(country);
+                        dropdownOverlayEntry?.remove();
+                      },
+                      flagCache: flagCache,
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+
+    Overlay.of(context).insert(dropdownOverlayEntry);
+
+    return completer.future;
   }
 }

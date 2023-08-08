@@ -26,6 +26,8 @@ abstract class CountrySelectorNavigator {
   final bool isFlagCircle;
   final bool useRootNavigator;
   final double? offsetHeight;
+  final bool showCountryName;
+  final bool showCountryFlag;
 
   const CountrySelectorNavigator({
     this.countries,
@@ -47,6 +49,8 @@ abstract class CountrySelectorNavigator {
     this.flagSize = 48,
     this.useRootNavigator = true,
     this.offsetHeight,
+    this.showCountryName = true,
+    this.showCountryFlag = true,
   });
 
   Future<Country?> navigate(BuildContext context, FlagCache flagCache, LayerLink layerLink);
@@ -78,6 +82,8 @@ abstract class CountrySelectorNavigator {
       flagSize: flagSize,
       flagCache: flagCache,
       isBottomSheet: isBottomSheet,
+      showCountryName: showCountryName,
+      showCountryFlag: showCountryFlag,
     );
   }
 
@@ -100,6 +106,8 @@ abstract class CountrySelectorNavigator {
     ScrollPhysics? scrollPhysics,
     double flagSize,
     bool isFlagCircle,
+    bool showCountryName,
+    bool showCountryFlag,
   }) = DialogNavigator._;
 
   const factory CountrySelectorNavigator.searchDelegate({
@@ -138,6 +146,8 @@ abstract class CountrySelectorNavigator {
     ScrollPhysics? scrollPhysics,
     double flagSize,
     bool isFlagCircle,
+    bool showCountryName,
+    bool showCountryFlag,
   }) = BottomSheetNavigator._;
 
   const factory CountrySelectorNavigator.modalBottomSheet({
@@ -159,6 +169,8 @@ abstract class CountrySelectorNavigator {
     ScrollPhysics? scrollPhysics,
     double flagSize,
     bool isFlagCircle,
+    bool showCountryName,
+    bool showCountryFlag,
   }) = ModalBottomSheetNavigator._;
 
   const factory CountrySelectorNavigator.draggableBottomSheet({
@@ -183,6 +195,8 @@ abstract class CountrySelectorNavigator {
     Color? bottomSheetDragHandlerColor,
     ScrollPhysics? scrollPhysics,
     bool isFlagCircle,
+    bool showCountryName,
+    bool showCountryFlag,
   }) = DraggableModalBottomSheetNavigator._;
 
   const factory CountrySelectorNavigator.dropdown({
@@ -198,6 +212,8 @@ abstract class CountrySelectorNavigator {
     double flagSize,
     bool isFlagCircle,
     double? offsetHeight,
+    bool showCountryName,
+    bool showCountryFlag,
   }) = DropdownNavigator._;
 }
 
@@ -224,6 +240,8 @@ class DialogNavigator extends CountrySelectorNavigator {
     ScrollPhysics? scrollPhysics,
     double flagSize = 48,
     bool isFlagCircle = true,
+    bool showCountryName = true,
+    bool showCountryFlag = true,
   }) : super(
           countries: countries,
           favorites: favorites,
@@ -241,6 +259,8 @@ class DialogNavigator extends CountrySelectorNavigator {
           scrollPhysics: scrollPhysics,
           flagSize: flagSize,
           isFlagCircle: isFlagCircle,
+          showCountryName: showCountryName,
+          showCountryFlag: showCountryFlag,
         );
 
   @override
@@ -348,6 +368,8 @@ class BottomSheetNavigator extends CountrySelectorNavigator {
     ScrollPhysics? scrollPhysics,
     double flagSize = 48,
     bool isFlagCircle = true,
+    bool showCountryName = true,
+    bool showCountryFlag = true,
   }) : super(
           countries: countries,
           favorites: favorites,
@@ -366,6 +388,8 @@ class BottomSheetNavigator extends CountrySelectorNavigator {
           scrollPhysics: scrollPhysics,
           flagSize: flagSize,
           isFlagCircle: isFlagCircle,
+          showCountryFlag: showCountryFlag,
+          showCountryName: showCountryName,
         );
 
   @override
@@ -413,6 +437,8 @@ class ModalBottomSheetNavigator extends CountrySelectorNavigator {
     ScrollPhysics? scrollPhysics,
     double flagSize = 48,
     bool isFlagCircle = true,
+    bool showCountryName = true,
+    bool showCountryFlag = true,
   }) : super(
           countries: countries,
           favorites: favorites,
@@ -431,6 +457,8 @@ class ModalBottomSheetNavigator extends CountrySelectorNavigator {
           scrollPhysics: scrollPhysics,
           flagSize: flagSize,
           isFlagCircle: isFlagCircle,
+          showCountryName: showCountryName,
+          showCountryFlag: showCountryFlag,
         );
 
   @override
@@ -479,6 +507,8 @@ class DraggableModalBottomSheetNavigator extends CountrySelectorNavigator {
     Color? bottomSheetDragHandlerColor,
     ScrollPhysics? scrollPhysics,
     bool useRootNavigator = true,
+    bool showCountryName = true,
+    bool showCountryFlag = true,
   }) : super(
           countries: countries,
           favorites: favorites,
@@ -497,6 +527,8 @@ class DraggableModalBottomSheetNavigator extends CountrySelectorNavigator {
           scrollPhysics: scrollPhysics,
           flagSize: flagSize,
           isFlagCircle: isFlagCircle,
+          showCountryName: showCountryName,
+          showCountryFlag: showCountryFlag,
         );
 
   @override
@@ -554,6 +586,8 @@ class DropdownNavigator extends CountrySelectorNavigator {
     double flagSize = 48,
     bool isFlagCircle = true,
     double? offsetHeight,
+    bool showCountryName = true,
+    bool showCountryFlag = true,
   }) : super(
           countries: countries,
           favorites: favorites,
@@ -568,6 +602,8 @@ class DropdownNavigator extends CountrySelectorNavigator {
           flagSize: flagSize,
           isFlagCircle: isFlagCircle,
           offsetHeight: offsetHeight,
+          showCountryName: showCountryName,
+          showCountryFlag: showCountryFlag,
         );
 
   @override

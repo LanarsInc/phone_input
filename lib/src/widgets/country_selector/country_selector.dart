@@ -70,6 +70,8 @@ class CountrySelector extends StatefulWidget {
   final bool isFlagCircle;
   final FlagCache flagCache;
   final bool isBottomSheet;
+  final bool showCountryName;
+  final bool showCountryFlag;
 
   const CountrySelector({
     Key? key,
@@ -93,6 +95,8 @@ class CountrySelector extends StatefulWidget {
     this.bottomSheetDragHandlerColor,
     this.flagSize = 48,
     this.isFlagCircle = true,
+    this.showCountryName = true,
+    this.showCountryFlag = true,
   }) : super(key: key);
 
   @override
@@ -157,10 +161,12 @@ class CountrySelectorState extends State<CountrySelector> {
             searchIconColor: widget.searchBoxIconColor,
           ),
         ) : const SizedBox.shrink(),
-        const SizedBox(height: 16),
+        const SizedBox(height: 8),
         widget.showSearchInput ? const Divider(height: 0, thickness: 1.2) : const SizedBox.shrink(),
         Flexible(
           child: CountryList(
+            showCountryFlag: widget.showCountryFlag,
+            showCountryName: widget.showCountryName,
             favorites: _favoriteCountryFinder.filteredCountries,
             countries: _countryFinder.filteredCountries,
             showDialCode: widget.showCountryCode,

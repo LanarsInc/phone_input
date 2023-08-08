@@ -1,7 +1,7 @@
+import 'package:phone_form_field/l10n/generated/phone_field_localization.dart';
 import 'package:phone_form_field/src/flags/flags.dart';
 import 'package:flutter/material.dart';
 
-import '../../../l10n/generated/phone_field_localization.dart';
 import 'country.dart';
 
 class CountryList extends StatelessWidget {
@@ -29,8 +29,8 @@ class CountryList extends StatelessWidget {
 
   late final List<Country?> _allListElement;
 
-  final TextStyle? subtitleStyle;
-  final TextStyle? titleStyle;
+  final TextStyle? countryCodeStyle;
+  final TextStyle? countryNameStyle;
   final FlagCache? flagCache;
   final bool showCountryName;
   final bool showCountryFlag;
@@ -47,8 +47,8 @@ class CountryList extends StatelessWidget {
     this.showDialCode = true,
     this.flagSize = 48,
     this.isFlagCircle = true,
-    this.subtitleStyle,
-    this.titleStyle,
+    this.countryCodeStyle,
+    this.countryNameStyle,
     this.showCountryName = true,
     this.showCountryFlag = true,
   }) : super(key: key) {
@@ -100,7 +100,7 @@ class CountryList extends StatelessWidget {
                       ? Text(
                           country.name,
                           textAlign: TextAlign.start,
-                          style: titleStyle,
+                          style: countryNameStyle,
                         )
                       : Row(
                           children: [
@@ -109,7 +109,7 @@ class CountryList extends StatelessWidget {
                                     child: Text(
                                       country.name,
                                       textAlign: TextAlign.start,
-                                      style: titleStyle,
+                                      style: countryNameStyle,
                                     ),
                                   )
                                 : const SizedBox.shrink(),
@@ -119,7 +119,7 @@ class CountryList extends StatelessWidget {
                                     country.displayCountryCode,
                                     textDirection: TextDirection.ltr,
                                     textAlign: TextAlign.start,
-                                    style: subtitleStyle,
+                                    style: countryCodeStyle,
                                   )
                                 : const SizedBox.shrink(),
                           ],
@@ -133,7 +133,7 @@ class CountryList extends StatelessWidget {
                     country.displayCountryCode,
                     textDirection: TextDirection.ltr,
                     textAlign: TextAlign.start,
-                    style: subtitleStyle,
+                    style: countryCodeStyle,
                   ),
                 )
               : null,

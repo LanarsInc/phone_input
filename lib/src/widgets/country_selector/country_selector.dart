@@ -9,7 +9,7 @@ import 'package:phone_numbers_parser/phone_numbers_parser.dart';
 import 'country_finder.dart';
 import 'country.dart';
 import 'country_list.dart';
-import 'search_box.dart';
+import 'search_input.dart';
 
 class CountrySelector extends StatefulWidget {
   /// List of countries to display in the selector
@@ -49,19 +49,19 @@ class CountrySelector extends StatefulWidget {
   final bool showSearchInput;
 
   /// The [TextStyle] of the country subtitle
-  final TextStyle? subtitleStyle;
+  final TextStyle? countryCodeStyle;
 
   /// The [TextStyle] of the country title
-  final TextStyle? titleStyle;
+  final TextStyle? countryNameStyle;
 
   /// The [InputDecoration] of the Search Box
-  final InputDecoration? searchBoxDecoration;
+  final InputDecoration? searchInputDecoration;
 
   /// The [TextStyle] of the Search Box
-  final TextStyle? searchBoxTextStyle;
+  final TextStyle? searchInputTextStyle;
 
   /// The [Color] of the Search Icon in the Search Box
-  final Color? searchBoxIconColor;
+  final Color? defaultSearchInputIconColor;
 
   /// The [Color] of the divider at the top on the bottom sheet
   final Color? bottomSheetDragHandlerColor;
@@ -87,11 +87,11 @@ class CountrySelector extends StatefulWidget {
     this.countries,
     this.searchAutofocus = kIsWeb,
     this.showSearchInput = true,
-    this.subtitleStyle,
-    this.titleStyle,
-    this.searchBoxDecoration,
-    this.searchBoxTextStyle,
-    this.searchBoxIconColor,
+    this.countryCodeStyle,
+    this.countryNameStyle,
+    this.searchInputDecoration,
+    this.searchInputTextStyle,
+    this.defaultSearchInputIconColor,
     this.bottomSheetDragHandlerColor,
     this.flagSize = 48,
     this.isFlagCircle = true,
@@ -152,13 +152,13 @@ class CountrySelectorState extends State<CountrySelector> {
         widget.showSearchInput ? SizedBox(
           height: 70,
           width: double.infinity,
-          child: SearchBox(
+          child: SearchInput(
             autofocus: widget.searchAutofocus,
             onChanged: _onSearch,
             onSubmitted: onSubmitted,
-            decoration: widget.searchBoxDecoration,
-            style: widget.searchBoxTextStyle,
-            searchIconColor: widget.searchBoxIconColor,
+            decoration: widget.searchInputDecoration,
+            style: widget.searchInputTextStyle,
+            defaultSearchInputIconColor: widget.defaultSearchInputIconColor,
           ),
         ) : const SizedBox.shrink(),
         const SizedBox(height: 8),
@@ -176,8 +176,8 @@ class CountrySelectorState extends State<CountrySelector> {
             scrollController: widget.scrollController,
             scrollPhysics: widget.scrollPhysics,
             noResultMessage: widget.noResultMessage,
-            titleStyle: widget.titleStyle,
-            subtitleStyle: widget.subtitleStyle,
+            countryNameStyle: widget.countryNameStyle,
+            countryCodeStyle: widget.countryCodeStyle,
             flagCache: widget.flagCache,
           ),
         ),

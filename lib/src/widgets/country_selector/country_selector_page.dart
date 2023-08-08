@@ -52,10 +52,10 @@ class CountrySelectorSearchDelegate extends SearchDelegate<Country> {
   LocalizedCountryRegistry? _localizedCountryRegistry;
 
   /// Override default title TextStyle
-  final TextStyle? titleStyle;
+  final TextStyle? countryNameStyle;
 
   /// Override default subtitle TextStyle
-  final TextStyle? subtitleStyle;
+  final TextStyle? countryCodeStyle;
 
   final FlagCache? flagCache;
 
@@ -73,8 +73,8 @@ class CountrySelectorSearchDelegate extends SearchDelegate<Country> {
     this.searchAutofocus = kIsWeb,
     this.flagSize = 48,
     this.isFlagCircle = true,
-    this.titleStyle,
-    this.subtitleStyle,
+    this.countryNameStyle,
+    this.countryCodeStyle,
   })  : countriesIso = countries ?? IsoCode.values,
         favoriteCountriesIso = favoriteCountries;
 
@@ -133,8 +133,8 @@ class CountrySelectorSearchDelegate extends SearchDelegate<Country> {
       scrollController: scrollController,
       scrollPhysics: scrollPhysics,
       noResultMessage: noResultMessage,
-      titleStyle: titleStyle,
-      subtitleStyle: subtitleStyle,
+      countryNameStyle: countryNameStyle,
+      countryCodeStyle: countryCodeStyle,
       flagCache: flagCache,
     );
   }

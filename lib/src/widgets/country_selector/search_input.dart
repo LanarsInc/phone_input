@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
 
-class SearchBox extends StatelessWidget {
+class SearchInput extends StatelessWidget {
   final Function(String) onChanged;
   final Function() onSubmitted;
   final bool autofocus;
   final InputDecoration? decoration;
   final TextStyle? style;
-  final Color? searchIconColor;
+  final Color? defaultSearchInputIconColor;
 
-  const SearchBox({
+  const SearchInput({
     Key? key,
     required this.onChanged,
     required this.onSubmitted,
     required this.autofocus,
     this.decoration,
     this.style,
-    this.searchIconColor,
+    this.defaultSearchInputIconColor,
   }) : super(key: key);
 
   @override
@@ -32,7 +32,7 @@ class SearchBox extends StatelessWidget {
             InputDecoration(
               prefixIcon: Icon(
                 Icons.search,
-                color: searchIconColor ??
+                color: defaultSearchInputIconColor ??
                     (Theme.of(context).brightness == Brightness.dark
                         ? Colors.white54
                         : Colors.black38),

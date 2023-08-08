@@ -7,7 +7,7 @@ import 'country_selector/country.dart';
 class CountryCodeChip extends StatelessWidget {
   final Country country;
   final bool showFlag;
-  final bool showDialCode;
+
   final TextStyle textStyle;
   final EdgeInsets padding;
   final double flagSize;
@@ -19,7 +19,6 @@ class CountryCodeChip extends StatelessWidget {
     required IsoCode isoCode,
     this.textStyle = const TextStyle(),
     this.showFlag = true,
-    this.showDialCode = true,
     this.padding = const EdgeInsets.all(20),
     this.flagSize = 20,
     this.isFlagCircle = true,
@@ -40,12 +39,11 @@ class CountryCodeChip extends StatelessWidget {
           ),
           const SizedBox(width: 8),
         ],
-        if (showDialCode)
-          Text(
-            country.displayCountryCode,
-            style: textStyle,
-            textDirection: textDirection,
-          ),
+        Text(
+          country.displayCountryCode,
+          style: textStyle,
+          textDirection: textDirection,
+        ),
       ],
     );
   }

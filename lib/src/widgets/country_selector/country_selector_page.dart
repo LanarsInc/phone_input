@@ -48,6 +48,8 @@ class CountrySelectorSearchDelegate extends SearchDelegate<Country> {
   final bool searchAutofocus;
   final double flagSize;
   final bool isFlagCircle;
+  final bool showCountryName;
+  final bool showCountryFlag;
 
   LocalizedCountryRegistry? _localizedCountryRegistry;
 
@@ -75,6 +77,8 @@ class CountrySelectorSearchDelegate extends SearchDelegate<Country> {
     this.isFlagCircle = true,
     this.countryNameStyle,
     this.countryCodeStyle,
+    this.showCountryName = true,
+    this.showCountryFlag = true,
   })  : countriesIso = countries ?? IsoCode.values,
         favoriteCountriesIso = favoriteCountries;
 
@@ -136,6 +140,8 @@ class CountrySelectorSearchDelegate extends SearchDelegate<Country> {
       countryNameStyle: countryNameStyle,
       countryCodeStyle: countryCodeStyle,
       flagCache: flagCache,
+      showCountryName: showCountryName,
+      showCountryFlag: showCountryFlag,
     );
   }
 

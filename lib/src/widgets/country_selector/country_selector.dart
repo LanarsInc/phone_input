@@ -27,13 +27,13 @@ class CountrySelector extends StatefulWidget {
   final ScrollPhysics? scrollPhysics;
 
   /// Determine the countries to be displayed on top of the list
-  /// Check [addFavoritesSeparator] property to enable/disable adding a
+  /// Check [addFavouriteSeparator] property to enable/disable adding a
   /// list divider between favorites and others defaults countries
   final List<IsoCode> favoriteCountries;
 
   /// Whether to add a list divider between favorites & defaults
   /// countries.
-  final bool addFavoritesSeparator;
+  final bool addFavouriteSeparator;
 
   /// Whether to show the country country code (ie: +1 / +33 /...)
   /// as a listTile subtitle
@@ -74,13 +74,12 @@ class CountrySelector extends StatefulWidget {
   final bool showCountryFlag;
 
   const CountrySelector({
-    Key? key,
     required this.onCountrySelected,
     required this.flagCache,
     required this.isBottomSheet,
     this.scrollController,
     this.scrollPhysics,
-    this.addFavoritesSeparator = true,
+    this.addFavouriteSeparator = true,
     this.showCountryCode = false,
     this.noResultMessage,
     this.favoriteCountries = const [],
@@ -97,7 +96,8 @@ class CountrySelector extends StatefulWidget {
     this.isFlagCircle = true,
     this.showCountryName = true,
     this.showCountryFlag = true,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   CountrySelectorState createState() => CountrySelectorState();
@@ -165,6 +165,7 @@ class CountrySelectorState extends State<CountrySelector> {
         widget.showSearchInput ? const Divider(height: 0, thickness: 1.2) : const SizedBox.shrink(),
         Flexible(
           child: CountryList(
+            addFavouriteSeparator: widget.addFavouriteSeparator,
             showCountryFlag: widget.showCountryFlag,
             showCountryName: widget.showCountryName,
             favorites: _favoriteCountryFinder.filteredCountries,

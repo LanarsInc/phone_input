@@ -27,6 +27,8 @@ class CountryList extends StatelessWidget {
 
   final String? noResultMessage;
 
+  final bool addFavouriteSeparator;
+
   late final List<Country?> _allListElement;
 
   final TextStyle? countryCodeStyle;
@@ -51,6 +53,7 @@ class CountryList extends StatelessWidget {
     this.countryNameStyle,
     this.showCountryName = true,
     this.showCountryFlag = true,
+    this.addFavouriteSeparator = true,
   }) : super(key: key) {
     _allListElement = [
       ...favorites,
@@ -79,7 +82,11 @@ class CountryList extends StatelessWidget {
       itemBuilder: (BuildContext context, int index) {
         final country = _allListElement[index];
         if (country == null) {
-          return const Divider(key: ValueKey('countryListSeparator'));
+          if(addFavouriteSeparator) {
+            return const Divider(key: ValueKey('countryListSeparator'));
+          } else {
+            return const SizedBox.shrink();
+          }
         }
 
         return ListTile(

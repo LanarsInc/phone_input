@@ -9,46 +9,38 @@ import 'package:phone_form_field/src/widgets/country_selector/country_selector_p
 abstract class CountrySelectorNavigator {
   final List<IsoCode>? countries;
   final List<IsoCode>? favorites;
-  final bool addSeparator;
+  final bool addFavoriteSeparator;
   final bool showCountryCode;
-  final bool sortCountries;
   final String? noResultMessage;
-  final bool searchAutofocus;
-  final bool showSearchInput;
+  final bool searchAutofocus; //TODO doesn't work for dropdown and second time for bottomSheet
   final TextStyle? countryCodeStyle;
   final TextStyle? countryNameStyle;
   final InputDecoration? searchInputDecoration;
   final TextStyle? searchInputTextStyle;
   final Color? defaultSearchInputIconColor;
-  final Color? bottomSheetDragHandlerColor;
   final ScrollPhysics? scrollPhysics;
   final double flagSize;
   final bool isFlagCircle;
   final bool useRootNavigator;
-  final double? offsetHeight;
   final bool showCountryName;
   final bool showCountryFlag;
 
   const CountrySelectorNavigator({
     this.countries,
     this.favorites,
-    this.addSeparator = true,
+    this.addFavoriteSeparator = true,
     this.showCountryCode = true,
-    this.sortCountries = false,
     this.noResultMessage,
     required this.searchAutofocus,
-    this.showSearchInput = true,
     this.countryCodeStyle,
     this.countryNameStyle,
     this.searchInputTextStyle,
-    this.bottomSheetDragHandlerColor,
     this.defaultSearchInputIconColor,
     this.searchInputDecoration,
     this.scrollPhysics,
     this.isFlagCircle = true,
     this.flagSize = 48,
     this.useRootNavigator = true,
-    this.offsetHeight,
     this.showCountryName = true,
     this.showCountryFlag = true,
   });
@@ -65,18 +57,16 @@ abstract class CountrySelectorNavigator {
       countries: countries,
       onCountrySelected: onCountrySelected,
       favoriteCountries: favorites ?? [],
-      addFavoritesSeparator: addSeparator,
+      addFavouriteSeparator: addFavoriteSeparator,
       showCountryCode: showCountryCode,
       noResultMessage: noResultMessage,
       scrollController: scrollController,
       searchAutofocus: searchAutofocus,
-      showSearchInput: showSearchInput,
       countryCodeStyle: countryCodeStyle,
       countryNameStyle: countryNameStyle,
       searchInputDecoration: searchInputDecoration,
       searchInputTextStyle: searchInputTextStyle,
       defaultSearchInputIconColor: defaultSearchInputIconColor,
-      bottomSheetDragHandlerColor: bottomSheetDragHandlerColor,
       scrollPhysics: scrollPhysics,
       isFlagCircle: isFlagCircle,
       flagSize: flagSize,
@@ -92,9 +82,8 @@ abstract class CountrySelectorNavigator {
     double? width,
     List<IsoCode>? countries,
     List<IsoCode>? favorites,
-    bool addSeparator,
+    bool addFavoriteSeparator,
     bool showCountryCode,
-    bool sortCountries,
     String? noResultMessage,
     bool searchAutofocus,
     bool showSearchInput,
@@ -113,9 +102,8 @@ abstract class CountrySelectorNavigator {
   const factory CountrySelectorNavigator.searchDelegate({
     List<IsoCode>? countries,
     List<IsoCode>? favorites,
-    bool addSeparator,
+    bool addFavoriteSeparator,
     bool showCountryCode,
-    bool sortCountries,
     String? noResultMessage,
     bool searchAutofocus,
     TextStyle? countryCodeStyle,
@@ -126,14 +114,15 @@ abstract class CountrySelectorNavigator {
     ScrollPhysics? scrollPhysics,
     double flagSize,
     bool isFlagCircle,
+    bool showCountryName,
+    bool showCountryFlag,
   }) = SearchDelegateNavigator._;
 
   const factory CountrySelectorNavigator.bottomSheet({
     List<IsoCode>? countries,
     List<IsoCode>? favorites,
-    bool addSeparator,
+    bool addFavoriteSeparator,
     bool showCountryCode,
-    bool sortCountries,
     String? noResultMessage,
     bool searchAutofocus,
     bool showSearchInput,
@@ -154,9 +143,8 @@ abstract class CountrySelectorNavigator {
     double? height,
     List<IsoCode>? countries,
     List<IsoCode>? favorites,
-    bool addSeparator,
+    bool addFavoriteSeparator,
     bool showCountryCode,
-    bool sortCountries,
     String? noResultMessage,
     bool searchAutofocus,
     bool showSearchInput,
@@ -180,10 +168,9 @@ abstract class CountrySelectorNavigator {
     BorderRadiusGeometry? borderRadius,
     List<IsoCode>? countries,
     List<IsoCode>? favorites,
-    bool addSeparator,
+    bool addFavoriteSeparator,
     bool showCountryCode,
     double flagSize,
-    bool sortCountries,
     String? noResultMessage,
     bool searchAutofocus,
     bool showSearchInput,
@@ -200,12 +187,12 @@ abstract class CountrySelectorNavigator {
   }) = DraggableModalBottomSheetNavigator._;
 
   const factory CountrySelectorNavigator.dropdown({
+    double listHeight,
     List<IsoCode>? countries,
     List<IsoCode>? favorites,
-    bool addSeparator,
+    bool addFavoriteSeparator,
     bool showCountryCode,
     bool showSearchInput,
-    bool sortCountries,
     TextStyle? countryCodeStyle,
     TextStyle? countryNameStyle,
     ScrollPhysics? scrollPhysics,
@@ -214,24 +201,30 @@ abstract class CountrySelectorNavigator {
     double? offsetHeight,
     bool showCountryName,
     bool showCountryFlag,
+    String? noResultMessage,
+    bool searchAutofocus,
+    InputDecoration? searchInputDecoration,
+    TextStyle? searchInputTextStyle,
+    Color? defaultSearchInputIconColor,
+    bool useRootNavigator,
   }) = DropdownNavigator._;
 }
 
 class DialogNavigator extends CountrySelectorNavigator {
   final double? height;
   final double? width;
+  final bool showSearchInput;
 
   const DialogNavigator._({
     this.width,
     this.height,
+    this.showSearchInput = true,
     super.countries,
     super.favorites,
-    super.addSeparator = true,
+    super.addFavoriteSeparator = true,
     super.showCountryCode = true,
-    super.sortCountries = false,
     super.noResultMessage,
     super.searchAutofocus = kIsWeb,
-    super.showSearchInput = true,
     super.countryCodeStyle,
     super.countryNameStyle,
     super.searchInputDecoration,
@@ -267,9 +260,8 @@ class SearchDelegateNavigator extends CountrySelectorNavigator {
   const SearchDelegateNavigator._({
     super.countries,
     super.favorites,
-    super.addSeparator = true,
+    super.addFavoriteSeparator = true,
     super.showCountryCode = true,
-    super.sortCountries = false,
     super.noResultMessage,
     super.searchAutofocus = kIsWeb,
     super.countryCodeStyle,
@@ -280,6 +272,8 @@ class SearchDelegateNavigator extends CountrySelectorNavigator {
     super.scrollPhysics,
     super.flagSize = 48,
     super.isFlagCircle = true,
+    super.showCountryName = true,
+    super.showCountryFlag = true,
   });
 
   CountrySelectorSearchDelegate _getCountrySelectorSearchDelegate({
@@ -290,7 +284,7 @@ class SearchDelegateNavigator extends CountrySelectorNavigator {
     return CountrySelectorSearchDelegate(
       onCountrySelected: onCountrySelected,
       scrollController: scrollController,
-      addFavoritesSeparator: addSeparator,
+      addFavoritesSeparator: addFavoriteSeparator,
       countries: countries,
       favoriteCountries: favorites ?? [],
       noResultMessage: noResultMessage,
@@ -299,6 +293,10 @@ class SearchDelegateNavigator extends CountrySelectorNavigator {
       countryNameStyle: countryNameStyle,
       countryCodeStyle: countryCodeStyle,
       flagCache: flagCache,
+      flagSize: flagSize,
+      isFlagCircle: isFlagCircle,
+      showCountryFlag: showCountryFlag,
+      showCountryName: showCountryName,
     );
   }
 
@@ -315,21 +313,23 @@ class SearchDelegateNavigator extends CountrySelectorNavigator {
 }
 
 class BottomSheetNavigator extends CountrySelectorNavigator {
+  final bool showSearchInput;
+  final Color? bottomSheetDragHandlerColor;
+
   const BottomSheetNavigator._({
+    this.showSearchInput = true,
+    this.bottomSheetDragHandlerColor,
     super.countries,
     super.favorites,
-    super.addSeparator = true,
+    super.addFavoriteSeparator = true,
     super.showCountryCode = true,
-    super.sortCountries = false,
     super.noResultMessage,
     super.searchAutofocus = kIsWeb,
-    super.showSearchInput = true,
     super.countryCodeStyle,
     super.countryNameStyle,
     super.searchInputDecoration,
     super.searchInputTextStyle,
     super.defaultSearchInputIconColor,
-    super.bottomSheetDragHandlerColor,
     super.scrollPhysics,
     super.flagSize = 48,
     super.isFlagCircle = true,
@@ -362,23 +362,24 @@ class BottomSheetNavigator extends CountrySelectorNavigator {
 
 class ModalBottomSheetNavigator extends CountrySelectorNavigator {
   final double? height;
+  final bool showSearchInput;
+  final Color? bottomSheetDragHandlerColor;
 
   const ModalBottomSheetNavigator._({
     this.height,
+    this.showSearchInput = true,
+    this.bottomSheetDragHandlerColor,
     super.countries,
     super.favorites,
-    super.addSeparator = true,
+    super.addFavoriteSeparator = true,
     super.showCountryCode = true,
-    super.sortCountries = false,
     super.noResultMessage,
     super.searchAutofocus = kIsWeb,
-    super.showSearchInput = true,
     super.countryCodeStyle,
     super.countryNameStyle,
     super.searchInputDecoration,
     super.searchInputTextStyle,
     super.defaultSearchInputIconColor,
-    super.bottomSheetDragHandlerColor,
     super.scrollPhysics,
     super.flagSize = 48,
     super.isFlagCircle = true,
@@ -408,28 +409,29 @@ class DraggableModalBottomSheetNavigator extends CountrySelectorNavigator {
   final double minChildSize;
   final double maxChildSize;
   final BorderRadiusGeometry? borderRadius;
+  final bool showSearchInput;
+  final Color? bottomSheetDragHandlerColor;
 
   const DraggableModalBottomSheetNavigator._({
+    this.showSearchInput = true,
+    this.bottomSheetDragHandlerColor,
     this.initialChildSize = 0.7,
     this.minChildSize = 0.25,
     this.maxChildSize = 0.85,
     this.borderRadius,
     super.countries,
     super.favorites,
-    super.addSeparator = true,
+    super.addFavoriteSeparator = true,
     super.showCountryCode = true,
-    super.sortCountries = false,
     super.isFlagCircle = true,
     super.flagSize = 40,
     super.noResultMessage,
     super.searchAutofocus = kIsWeb,
-    super.showSearchInput = true,
     super.countryCodeStyle,
     super.countryNameStyle,
     super.searchInputDecoration,
     super.searchInputTextStyle,
     super.defaultSearchInputIconColor,
-    super.bottomSheetDragHandlerColor,
     super.scrollPhysics,
     super.useRootNavigator = true,
     super.showCountryName = true,
@@ -477,20 +479,29 @@ class DraggableModalBottomSheetNavigator extends CountrySelectorNavigator {
 }
 
 class DropdownNavigator extends CountrySelectorNavigator {
+  final double listHeight;
+  final bool showSearchInput;
+  final double? offsetHeight;
+
   const DropdownNavigator._({
+    this.listHeight = 300,
+    this.showSearchInput = false,
+    this.offsetHeight,
     super.countries,
     super.favorites,
-    super.addSeparator = true,
+    super.addFavoriteSeparator = true,
     super.showCountryCode = true,
-    super.showSearchInput = false,
-    super.sortCountries = false,
     super.searchAutofocus = kIsWeb,
     super.countryCodeStyle,
     super.countryNameStyle,
     super.scrollPhysics,
     super.flagSize = 48,
     super.isFlagCircle = true,
-    super.offsetHeight,
+    super.noResultMessage,
+    super.searchInputDecoration,
+    super.searchInputTextStyle,
+    super.defaultSearchInputIconColor,
+    super.useRootNavigator = true,
     super.showCountryName = true,
     super.showCountryFlag = true,
   });
@@ -522,7 +533,7 @@ class DropdownNavigator extends CountrySelectorNavigator {
                 showWhenUnlinked: false,
                 child: Material(
                   child: SizedBox(
-                    height: 300,
+                    height: listHeight,
                     width: size.width,
                     child: _getCountrySelector(
                       isBottomSheet: false,

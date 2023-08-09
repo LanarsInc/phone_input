@@ -20,7 +20,7 @@ class PhoneField extends StatefulWidget {
   final bool isFlagCircle;
   final InputDecoration decoration;
   final bool isCountrySelectionEnabled;
-  final bool isCountryChipPersistent;
+  final bool isCountryChipPersistent; //TODO doesn't work correctly first time
 
   /// configures the way the country picker selector is shown
   final CountrySelectorNavigator selectorNavigator;
@@ -123,18 +123,11 @@ class PhoneField extends StatefulWidget {
 
 class PhoneFieldState extends State<PhoneField> {
   PhoneFieldController get controller => widget.controller;
-  final _flagCache = FlagCache();
-  final _layerLink = LayerLink();
 
   @override
   void initState() {
-    controller.focusNode.addListener(onFocusChange);
-    _preloadFlagsInMemory();
     super.initState();
-  }
-
-  void _preloadFlagsInMemory() {
-    _flagCache.preload(IsoCode.values.map((isoCode) => isoCode.name));
+    controller.focusNode.addListener(onFocusChange);
   }
 
   void onFocusChange() {
@@ -152,7 +145,7 @@ class PhoneFieldState extends State<PhoneField> {
       return;
     }
     SystemChannels.textInput.invokeMethod('TextInput.hide');
-    final selected = await widget.selectorNavigator.navigate(context, _flagCache, _layerLink);
+    final selected = await widget.selectorNavigator.requestCountrySelector(context);
     if (selected != null) {
       controller.isoCode = selected.isoCode;
     }
@@ -178,15 +171,14 @@ class PhoneFieldState extends State<PhoneField> {
         // absorb pointer when the country chip is not shown, else flutter
         // still allows the country chip to be clicked even though it is not shown
         child: InputDecorator(
-          decoration: _getOutterInputDecoration(), //TODO CHECK
+          decoration: _getOutterInputDecoration(),
           isFocused: controller.focusNode.hasFocus,
-          isEmpty: _isEffectivelyEmpty(), //TODO CHECK
+          isEmpty: _isEffectivelyEmpty(),
           child: TextField(
             focusNode: controller.focusNode,
             controller: controller.nationalNumberController,
             enabled: widget.enabled,
             decoration: _getInnerInputDecoration(),
-            //TODO CHECK
             inputFormatters: widget.inputFormatters ??
                 [
                   CustomMaxLengthFormatter(maxTextFieldLength),
@@ -231,8 +223,9 @@ class PhoneFieldState extends State<PhoneField> {
         ),
       ),
     );
-    if (widget.selectorNavigator is DropdownNavigator) {
-      return CompositedTransformTarget(link: _layerLink, child: item);
+    final navigator = widget.selectorNavigator;
+    if (navigator is DropdownNavigator) {
+      return CompositedTransformTarget(link: navigator.layerLink, child: item);
     }
 
     return item;

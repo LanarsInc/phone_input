@@ -82,8 +82,7 @@ class PhoneFormField extends FormField<PhoneNumber> {
     this.onChanged,
     this.focusNode,
     bool showFlagInInput = true,
-    CountrySelectorNavigator countrySelectorNavigator =
-        const CountrySelectorNavigator.searchDelegate(),
+    required CountrySelectorNavigator countrySelectorNavigator,
     Function(PhoneNumber?)? onSaved,
     this.defaultCountry = IsoCode.US,
     InputDecoration decoration = const InputDecoration(border: UnderlineInputBorder()),

@@ -1,6 +1,6 @@
 import 'dart:ui' as ui show BoxHeightStyle, BoxWidthStyle;
 
-import 'package:phone_form_field/phone_form_field.dart';
+import 'package:phone_form_field/phone_form_field_package.dart';
 import 'package:phone_form_field/src/flags/flags.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';

@@ -1,4 +1,4 @@
-library phone_number_input;
+library phone_form_field;
 
 export 'src/widgets/phone_form_field.dart';
 export 'src/widgets/country_selector/country_selector_navigator.dart';

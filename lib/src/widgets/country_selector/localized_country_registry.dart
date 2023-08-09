@@ -1,4 +1,4 @@
-import 'package:phone_form_field/phone_form_field.dart';
+import 'package:phone_form_field/phone_form_field_package.dart';
 
 // NOTE: this is ugly, something else needs to be used.
 // If someone has the hearth for some refactor...

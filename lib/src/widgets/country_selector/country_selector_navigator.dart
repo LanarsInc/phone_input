@@ -24,8 +24,9 @@ abstract class CountrySelectorNavigator {
   final bool useRootNavigator;
   final bool showCountryName;
   final bool showCountryFlag;
+  late final FlagCache _flagCache;
 
-  const CountrySelectorNavigator({
+  CountrySelectorNavigator({
     this.countries,
     this.favorites,
     this.addFavoriteSeparator = true,
@@ -43,9 +44,12 @@ abstract class CountrySelectorNavigator {
     this.useRootNavigator = true,
     this.showCountryName = true,
     this.showCountryFlag = true,
-  });
+  }) {
+    _flagCache = FlagCache();
+    _flagCache.preload(IsoCode.values.map((isoCode) => isoCode.name));
+  }
 
-  Future<Country?> navigate(BuildContext context, FlagCache flagCache, LayerLink layerLink);
+  Future<Country?> requestCountrySelector(BuildContext context);
 
   CountrySelector _getCountrySelector({
     required ValueChanged<Country> onCountrySelected,
@@ -77,7 +81,7 @@ abstract class CountrySelectorNavigator {
     );
   }
 
-  const factory CountrySelectorNavigator.dialog({
+  factory CountrySelectorNavigator.dialog({
     double? height,
     double? width,
     List<IsoCode>? countries,
@@ -99,7 +103,7 @@ abstract class CountrySelectorNavigator {
     bool showCountryFlag,
   }) = DialogNavigator._;
 
-  const factory CountrySelectorNavigator.searchDelegate({
+  factory CountrySelectorNavigator.searchDelegate({
     List<IsoCode>? countries,
     List<IsoCode>? favorites,
     bool addFavoriteSeparator,
@@ -118,7 +122,7 @@ abstract class CountrySelectorNavigator {
     bool showCountryFlag,
   }) = SearchDelegateNavigator._;
 
-  const factory CountrySelectorNavigator.bottomSheet({
+  factory CountrySelectorNavigator.bottomSheet({
     List<IsoCode>? countries,
     List<IsoCode>? favorites,
     bool addFavoriteSeparator,
@@ -139,7 +143,7 @@ abstract class CountrySelectorNavigator {
     bool showCountryFlag,
   }) = BottomSheetNavigator._;
 
-  const factory CountrySelectorNavigator.modalBottomSheet({
+  factory CountrySelectorNavigator.modalBottomSheet({
     double? height,
     List<IsoCode>? countries,
     List<IsoCode>? favorites,
@@ -161,7 +165,7 @@ abstract class CountrySelectorNavigator {
     bool showCountryFlag,
   }) = ModalBottomSheetNavigator._;
 
-  const factory CountrySelectorNavigator.draggableBottomSheet({
+  factory CountrySelectorNavigator.draggableBottomSheet({
     double initialChildSize,
     double minChildSize,
     double maxChildSize,
@@ -186,7 +190,7 @@ abstract class CountrySelectorNavigator {
     bool showCountryFlag,
   }) = DraggableModalBottomSheetNavigator._;
 
-  const factory CountrySelectorNavigator.dropdown({
+  factory CountrySelectorNavigator.dropdown({
     double listHeight,
     List<IsoCode>? countries,
     List<IsoCode>? favorites,
@@ -207,6 +211,7 @@ abstract class CountrySelectorNavigator {
     TextStyle? searchInputTextStyle,
     Color? defaultSearchInputIconColor,
     bool useRootNavigator,
+    required LayerLink layerLink,
   }) = DropdownNavigator._;
 }
 
@@ -215,7 +220,7 @@ class DialogNavigator extends CountrySelectorNavigator {
   final double? width;
   final bool showSearchInput;
 
-  const DialogNavigator._({
+  DialogNavigator._({
     this.width,
     this.height,
     this.showSearchInput = true,
@@ -238,7 +243,7 @@ class DialogNavigator extends CountrySelectorNavigator {
   });
 
   @override
-  Future<Country?> navigate(BuildContext context, FlagCache flagCache, LayerLink layerLink) {
+  Future<Country?> requestCountrySelector(BuildContext context) {
     return showDialog(
       context: context,
       builder: (_) => Dialog(
@@ -248,7 +253,7 @@ class DialogNavigator extends CountrySelectorNavigator {
           child: _getCountrySelector(
             isBottomSheet: false,
             onCountrySelected: (country) => Navigator.of(context, rootNavigator: true).pop(country),
-            flagCache: flagCache,
+            flagCache: _flagCache,
           ),
         ),
       ),
@@ -257,7 +262,7 @@ class DialogNavigator extends CountrySelectorNavigator {
 }
 
 class SearchDelegateNavigator extends CountrySelectorNavigator {
-  const SearchDelegateNavigator._({
+  SearchDelegateNavigator._({
     super.countries,
     super.favorites,
     super.addFavoriteSeparator = true,
@@ -301,12 +306,12 @@ class SearchDelegateNavigator extends CountrySelectorNavigator {
   }
 
   @override
-  Future<Country?> navigate(BuildContext context, FlagCache flagCache, LayerLink layerLink) {
+  Future<Country?> requestCountrySelector(BuildContext context) {
     return showSearch(
       context: context,
       delegate: _getCountrySelectorSearchDelegate(
         onCountrySelected: (country) => Navigator.pop(context, country),
-        flagCache: flagCache,
+        flagCache: _flagCache,
       ),
     );
   }
@@ -316,7 +321,7 @@ class BottomSheetNavigator extends CountrySelectorNavigator {
   final bool showSearchInput;
   final Color? bottomSheetDragHandlerColor;
 
-  const BottomSheetNavigator._({
+  BottomSheetNavigator._({
     this.showSearchInput = true,
     this.bottomSheetDragHandlerColor,
     super.countries,
@@ -338,7 +343,7 @@ class BottomSheetNavigator extends CountrySelectorNavigator {
   });
 
   @override
-  Future<Country?> navigate(BuildContext context, FlagCache flagCache, LayerLink layerLink) {
+  Future<Country?> requestCountrySelector(BuildContext context) {
     Country? selected;
     final ctrl = showBottomSheet(
       context: context,
@@ -351,7 +356,7 @@ class BottomSheetNavigator extends CountrySelectorNavigator {
               selected = country;
               Navigator.pop(context, country);
             },
-            flagCache: flagCache,
+            flagCache: _flagCache,
           ),
         ),
       ),
@@ -365,7 +370,7 @@ class ModalBottomSheetNavigator extends CountrySelectorNavigator {
   final bool showSearchInput;
   final Color? bottomSheetDragHandlerColor;
 
-  const ModalBottomSheetNavigator._({
+  ModalBottomSheetNavigator._({
     this.height,
     this.showSearchInput = true,
     this.bottomSheetDragHandlerColor,
@@ -388,7 +393,7 @@ class ModalBottomSheetNavigator extends CountrySelectorNavigator {
   });
 
   @override
-  Future<Country?> navigate(BuildContext context, FlagCache flagCache, LayerLink layerLink) {
+  Future<Country?> requestCountrySelector(BuildContext context) {
     return showModalBottomSheet<Country>(
       context: context,
       builder: (_) => SizedBox(
@@ -396,7 +401,7 @@ class ModalBottomSheetNavigator extends CountrySelectorNavigator {
         child: _getCountrySelector(
           isBottomSheet: true,
           onCountrySelected: (country) => Navigator.pop(context, country),
-          flagCache: flagCache,
+          flagCache: _flagCache,
         ),
       ),
       isScrollControlled: true,
@@ -412,7 +417,7 @@ class DraggableModalBottomSheetNavigator extends CountrySelectorNavigator {
   final bool showSearchInput;
   final Color? bottomSheetDragHandlerColor;
 
-  const DraggableModalBottomSheetNavigator._({
+  DraggableModalBottomSheetNavigator._({
     this.showSearchInput = true,
     this.bottomSheetDragHandlerColor,
     this.initialChildSize = 0.7,
@@ -439,7 +444,7 @@ class DraggableModalBottomSheetNavigator extends CountrySelectorNavigator {
   });
 
   @override
-  Future<Country?> navigate(BuildContext context, FlagCache flagCache, LayerLink layerLink) {
+  Future<Country?> requestCountrySelector(BuildContext context) {
     final effectiveBorderRadius = borderRadius ??
         const BorderRadius.only(
           topLeft: Radius.circular(16),
@@ -467,7 +472,7 @@ class DraggableModalBottomSheetNavigator extends CountrySelectorNavigator {
               isBottomSheet: true,
               onCountrySelected: (country) => Navigator.pop(context, country),
               scrollController: scrollController,
-              flagCache: flagCache,
+              flagCache: _flagCache,
             ),
           );
         },
@@ -482,8 +487,9 @@ class DropdownNavigator extends CountrySelectorNavigator {
   final double listHeight;
   final bool showSearchInput;
   final double? offsetHeight;
+  final LayerLink layerLink;
 
-  const DropdownNavigator._({
+  DropdownNavigator._({
     this.listHeight = 300,
     this.showSearchInput = false,
     this.offsetHeight,
@@ -504,16 +510,16 @@ class DropdownNavigator extends CountrySelectorNavigator {
     super.useRootNavigator = true,
     super.showCountryName = true,
     super.showCountryFlag = true,
+    required this.layerLink,
   });
 
   @override
-  Future<Country?> navigate(BuildContext context, FlagCache flagCache, LayerLink layerLink) async {
+  Future<Country?> requestCountrySelector(BuildContext context) async {
     OverlayEntry? dropdownOverlayEntry;
     final completer = Completer<Country?>();
 
     RenderBox renderBox = context.findRenderObject() as RenderBox;
     final size = renderBox.size;
-    final offset = renderBox.localToGlobal(Offset.zero);
 
     dropdownOverlayEntry = OverlayEntry(
       builder: (context) {
@@ -541,7 +547,7 @@ class DropdownNavigator extends CountrySelectorNavigator {
                         completer.complete(country);
                         dropdownOverlayEntry?.remove();
                       },
-                      flagCache: flagCache,
+                      flagCache: _flagCache,
                     ),
                   ),
                 ),
@@ -551,7 +557,6 @@ class DropdownNavigator extends CountrySelectorNavigator {
         );
       },
     );
-
     Overlay.of(context).insert(dropdownOverlayEntry);
 
     return completer.future;

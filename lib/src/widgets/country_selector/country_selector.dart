@@ -110,14 +110,12 @@ class CountrySelectorState extends State<CountrySelector> {
   @override
   didChangeDependencies() {
     super.didChangeDependencies();
-    final localization =
-        PhoneFieldLocalization.of(context) ?? PhoneFieldLocalizationEn();
+    final localization = PhoneFieldLocalization.of(context) ?? PhoneFieldLocalizationEn();
     final isoCodes = widget.countries ?? IsoCode.values;
     final countryRegistry = LocalizedCountryRegistry.cached(localization);
     final notFavoriteCountries =
         countryRegistry.whereIsoIn(isoCodes, omit: widget.favoriteCountries);
-    final favoriteCountries =
-        countryRegistry.whereIsoIn(widget.favoriteCountries);
+    final favoriteCountries = countryRegistry.whereIsoIn(widget.favoriteCountries);
     _countryFinder = CountryFinder(notFavoriteCountries);
     _favoriteCountryFinder = CountryFinder(favoriteCountries, sort: false);
   }
@@ -142,26 +140,24 @@ class CountrySelectorState extends State<CountrySelector> {
       children: [
         const SizedBox(height: 8),
         widget.isBottomSheet ? Container(
-          width: 50,
-          height: 4,
-          decoration: BoxDecoration(
-            color: widget.bottomSheetDragHandlerColor ?? Theme.of(context).colorScheme.secondary,
-            borderRadius: BorderRadius.circular(8),
-          ),
-        ) : const SizedBox.shrink(),
+                width: 50,
+                height: 4,
+                decoration: BoxDecoration(
+                  color: widget.bottomSheetDragHandlerColor ?? Theme.of(context).colorScheme.secondary,
+                  borderRadius: BorderRadius.circular(8),
+                ),
+              ) : const SizedBox.shrink(),
         widget.showSearchInput ? SizedBox(
-          height: 70,
-          width: double.infinity,
-          child: SearchInput(
-            autofocus: widget.searchAutofocus,
-            onChanged: _onSearch,
-            onSubmitted: onSubmitted,
-            decoration: widget.searchInputDecoration,
-            style: widget.searchInputTextStyle,
-            defaultSearchInputIconColor: widget.defaultSearchInputIconColor,
-          ),
-        ) : const SizedBox.shrink(),
-        const SizedBox(height: 8),
+                width: double.infinity,
+                child: SearchInput(
+                  autofocus: widget.searchAutofocus,
+                  onChanged: _onSearch,
+                  onSubmitted: onSubmitted,
+                  decoration: widget.searchInputDecoration,
+                  style: widget.searchInputTextStyle,
+                  defaultSearchInputIconColor: widget.defaultSearchInputIconColor,
+                ),
+              ) : const SizedBox.shrink(),
         widget.showSearchInput ? const Divider(height: 0, thickness: 1.2) : const SizedBox.shrink(),
         Flexible(
           child: CountryList(
@@ -182,6 +178,7 @@ class CountrySelectorState extends State<CountrySelector> {
             flagCache: widget.flagCache,
           ),
         ),
+        const Padding(padding: EdgeInsets.only(bottom: 8)),
       ],
     );
   }

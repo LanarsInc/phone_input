@@ -24,6 +24,8 @@ abstract class CountrySelectorNavigator {
   final bool useRootNavigator;
   final bool showCountryName;
   final bool showCountryFlag;
+  final bool showSearchInput;
+  final Color? bottomSheetDragHandlerColor;
   late final FlagCache _flagCache;
 
   CountrySelectorNavigator({
@@ -44,6 +46,8 @@ abstract class CountrySelectorNavigator {
     this.useRootNavigator = true,
     this.showCountryName = true,
     this.showCountryFlag = true,
+    this.showSearchInput = true,
+    this.bottomSheetDragHandlerColor,
   }) {
     _flagCache = FlagCache();
     _flagCache.preload(IsoCode.values.map((isoCode) => isoCode.name));
@@ -78,6 +82,8 @@ abstract class CountrySelectorNavigator {
       isBottomSheet: isBottomSheet,
       showCountryName: showCountryName,
       showCountryFlag: showCountryFlag,
+      showSearchInput: showSearchInput,
+      bottomSheetDragHandlerColor: bottomSheetDragHandlerColor,
     );
   }
 
@@ -218,12 +224,11 @@ abstract class CountrySelectorNavigator {
 class DialogNavigator extends CountrySelectorNavigator {
   final double? height;
   final double? width;
-  final bool showSearchInput;
 
   DialogNavigator._({
     this.width,
     this.height,
-    this.showSearchInput = true,
+    super.showSearchInput = true,
     super.countries,
     super.favorites,
     super.addFavoriteSeparator = true,
@@ -318,12 +323,10 @@ class SearchDelegateNavigator extends CountrySelectorNavigator {
 }
 
 class BottomSheetNavigator extends CountrySelectorNavigator {
-  final bool showSearchInput;
-  final Color? bottomSheetDragHandlerColor;
 
   BottomSheetNavigator._({
-    this.showSearchInput = true,
-    this.bottomSheetDragHandlerColor,
+    super.showSearchInput = true,
+    super.bottomSheetDragHandlerColor,
     super.countries,
     super.favorites,
     super.addFavoriteSeparator = true,
@@ -367,13 +370,11 @@ class BottomSheetNavigator extends CountrySelectorNavigator {
 
 class ModalBottomSheetNavigator extends CountrySelectorNavigator {
   final double? height;
-  final bool showSearchInput;
-  final Color? bottomSheetDragHandlerColor;
 
   ModalBottomSheetNavigator._({
     this.height,
-    this.showSearchInput = true,
-    this.bottomSheetDragHandlerColor,
+    super.showSearchInput = true,
+    super.bottomSheetDragHandlerColor,
     super.countries,
     super.favorites,
     super.addFavoriteSeparator = true,
@@ -414,12 +415,10 @@ class DraggableModalBottomSheetNavigator extends CountrySelectorNavigator {
   final double minChildSize;
   final double maxChildSize;
   final BorderRadiusGeometry? borderRadius;
-  final bool showSearchInput;
-  final Color? bottomSheetDragHandlerColor;
 
   DraggableModalBottomSheetNavigator._({
-    this.showSearchInput = true,
-    this.bottomSheetDragHandlerColor,
+    super.showSearchInput = true,
+    super.bottomSheetDragHandlerColor,
     this.initialChildSize = 0.7,
     this.minChildSize = 0.25,
     this.maxChildSize = 0.85,
@@ -485,13 +484,12 @@ class DraggableModalBottomSheetNavigator extends CountrySelectorNavigator {
 
 class DropdownNavigator extends CountrySelectorNavigator {
   final double listHeight;
-  final bool showSearchInput;
   final double? offsetHeight;
   final LayerLink layerLink;
 
   DropdownNavigator._({
     this.listHeight = 300,
-    this.showSearchInput = false,
+    super.showSearchInput = false,
     this.offsetHeight,
     super.countries,
     super.favorites,

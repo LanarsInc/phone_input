@@ -131,6 +131,7 @@ class PhoneFormField extends FormField<PhoneNumber> {
     Iterable<String>? autofillHints,
     String? restorationId,
     bool enableIMEPersonalizedLearning = true,
+    bool showArrow = true,
   })  : assert(
           initialValue == null || controller == null,
           'One of initialValue or controller can be specified at a time',
@@ -146,6 +147,7 @@ class PhoneFormField extends FormField<PhoneNumber> {
           builder: (state) {
             final field = state as PhoneFormFieldState;
             return PhoneField(
+              showArrow: showArrow,
               controller: field._childController,
               showFlagInInput: showFlagInInput,
               selectorNavigator: countrySelectorNavigator,

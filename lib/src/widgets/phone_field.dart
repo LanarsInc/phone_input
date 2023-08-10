@@ -1,7 +1,6 @@
 import 'dart:ui' as ui show BoxHeightStyle, BoxWidthStyle;
 
 import 'package:phone_form_field/phone_form_field_package.dart';
-import 'package:phone_form_field/src/flags/flags.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:phone_form_field/src/constants/custom_max_length_formatter.dart';
@@ -21,7 +20,7 @@ class PhoneField extends StatefulWidget {
   final InputDecoration decoration;
   final bool isCountrySelectionEnabled;
   final bool isCountryChipPersistent; //TODO doesn't work correctly first time
-
+  final bool showArrow;
   /// configures the way the country picker selector is shown
   final CountrySelectorNavigator selectorNavigator;
 
@@ -56,6 +55,7 @@ class PhoneField extends StatefulWidget {
   final EdgeInsets scrollPadding;
   final bool enableInteractiveSelection;
   final TextSelectionControls? selectionControls;
+
   bool get selectionEnabled => enableInteractiveSelection;
   final MouseCursor? mouseCursor;
   final ScrollPhysics? scrollPhysics;
@@ -67,7 +67,7 @@ class PhoneField extends StatefulWidget {
 
   const PhoneField({
     // form field params
-    Key? key,
+    super.key,
     required this.controller,
     required this.showFlagInInput,
     required this.selectorNavigator,
@@ -115,7 +115,8 @@ class PhoneField extends StatefulWidget {
     required this.restorationId,
     required this.enableIMEPersonalizedLearning,
     required this.inputFormatters,
-  }) : super(key: key);
+    required this.showArrow,
+  });
 
   @override
   PhoneFieldState createState() => PhoneFieldState();
@@ -123,6 +124,7 @@ class PhoneField extends StatefulWidget {
 
 class PhoneFieldState extends State<PhoneField> {
   PhoneFieldController get controller => widget.controller;
+  bool isListVisible = false;
 
   @override
   void initState() {
@@ -144,13 +146,21 @@ class PhoneFieldState extends State<PhoneField> {
     if (!widget.isCountrySelectionEnabled) {
       return;
     }
+
     SystemChannels.textInput.invokeMethod('TextInput.hide');
+    setState(() {
+      isListVisible = true;
+    });
+
     final selected = await widget.selectorNavigator.requestCountrySelector(context);
     if (selected != null) {
       controller.isoCode = selected.isoCode;
     }
     controller.focusNode.requestFocus();
     SystemChannels.textInput.invokeMethod('TextInput.show');
+    setState(() {
+      isListVisible = false;
+    });
   }
 
   @override
@@ -257,6 +267,8 @@ class PhoneFieldState extends State<PhoneField> {
                     ),
                 flagSize: widget.flagSize,
                 isFlagCircle: widget.isFlagCircle,
+                showArrow: widget.showArrow,
+                isListVisible: isListVisible,
               ),
             ),
           ),

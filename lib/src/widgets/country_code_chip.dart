@@ -7,6 +7,8 @@ import 'country_selector/country.dart';
 class CountryCodeChip extends StatelessWidget {
   final Country country;
   final bool showFlag;
+  final bool showArrow;
+  final bool isListVisible;
 
   final TextStyle textStyle;
   final EdgeInsets padding;
@@ -23,6 +25,8 @@ class CountryCodeChip extends StatelessWidget {
     this.flagSize = 20,
     this.isFlagCircle = true,
     this.textDirection,
+    this.showArrow = true,
+    this.isListVisible = false,
   })  : country = Country(isoCode, ''),
         super(key: key);
 
@@ -44,6 +48,14 @@ class CountryCodeChip extends StatelessWidget {
           style: textStyle,
           textDirection: textDirection,
         ),
+        if (showArrow) ...[
+          const SizedBox(width: 10),
+          AnimatedRotation(
+            turns: isListVisible ? 0 : 0.5,
+            duration: const Duration(milliseconds: 300),
+            child: const Icon(Icons.arrow_drop_up),
+          ),
+        ],
       ],
     );
   }

@@ -217,6 +217,7 @@ abstract class CountrySelectorNavigator {
     TextStyle? searchInputTextStyle,
     Color? defaultSearchInputIconColor,
     bool useRootNavigator,
+    Color? backgroundColor,
     required LayerLink layerLink,
   }) = DropdownNavigator._;
 }
@@ -486,11 +487,14 @@ class DropdownNavigator extends CountrySelectorNavigator {
   final double listHeight;
   final double? offsetHeight;
   final LayerLink layerLink;
+  final Color? backgroundColor;
 
   DropdownNavigator._({
+    required this.layerLink,
     this.listHeight = 300,
-    super.showSearchInput = false,
     this.offsetHeight,
+    this.backgroundColor,
+    super.showSearchInput = false,
     super.countries,
     super.favorites,
     super.addFavoriteSeparator = true,
@@ -508,7 +512,6 @@ class DropdownNavigator extends CountrySelectorNavigator {
     super.useRootNavigator = true,
     super.showCountryName = true,
     super.showCountryFlag = true,
-    required this.layerLink,
   });
 
   @override
@@ -536,6 +539,7 @@ class DropdownNavigator extends CountrySelectorNavigator {
                 link: layerLink,
                 showWhenUnlinked: false,
                 child: Material(
+                  color: backgroundColor,
                   child: SizedBox(
                     height: listHeight,
                     width: size.width,

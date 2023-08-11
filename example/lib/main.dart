@@ -1,290 +1,189 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:phone_form_field/phone_form_field.dart';
+import 'package:phone_form_field/phone_form_field_package.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(const PhoneFormFieldApp());
 }
 
-// this example makes uses of lots of properties that would not be there
-// in a real scenario for the sake of showing the features.
-// For a simpler example see the README
-
-class PhoneFieldView extends StatelessWidget {
-  final Key inputKey;
-  final PhoneController controller;
-  final CountrySelectorNavigator selectorNavigator;
-  final bool withLabel;
-  final bool outlineBorder;
-  final bool shouldFormat;
-  final bool isCountryChipPersistent;
-  final bool mobileOnly;
-  final bool useRtl;
-
-  const PhoneFieldView({
-    Key? key,
-    required this.inputKey,
-    required this.controller,
-    required this.selectorNavigator,
-    required this.withLabel,
-    required this.outlineBorder,
-    required this.shouldFormat,
-    required this.isCountryChipPersistent,
-    required this.mobileOnly,
-    required this.useRtl,
-  }) : super(key: key);
-
-  PhoneNumberInputValidator? _getValidator() {
-    List<PhoneNumberInputValidator> validators = [];
-    if (mobileOnly) {
-      validators.add(PhoneValidator.validMobile());
-    } else {
-      validators.add(PhoneValidator.valid());
-    }
-    return validators.isNotEmpty ? PhoneValidator.compose(validators) : null;
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return AutofillGroup(
-      child: Directionality(
-        textDirection: useRtl ? TextDirection.rtl : TextDirection.ltr,
-        child: PhoneFormField(
-          key: inputKey,
-          controller: controller,
-          shouldFormat: shouldFormat && !useRtl,
-          autofocus: true,
-          autofillHints: const [AutofillHints.telephoneNumber],
-          countrySelectorNavigator: selectorNavigator,
-          defaultCountry: IsoCode.US,
-          decoration: InputDecoration(
-            label: withLabel ? const Text('Phone') : null,
-            border: outlineBorder
-                ? const OutlineInputBorder()
-                : const UnderlineInputBorder(),
-            hintText: withLabel ? '' : 'Phone',
-          ),
-          enabled: true,
-          showFlagInInput: true,
-          validator: _getValidator(),
-          autovalidateMode: AutovalidateMode.onUserInteraction,
-          cursorColor: Theme.of(context).colorScheme.primary,
-          // ignore: avoid_print
-          onSaved: (p) => print('saved $p'),
-          // ignore: avoid_print
-          onChanged: (p) => print('changed $p'),
-          isCountryChipPersistent: isCountryChipPersistent,
-        ),
-      ),
-    );
-  }
-}
-
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+class PhoneFormFieldApp extends StatelessWidget {
+  const PhoneFormFieldApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      localizationsDelegates: const [
-        ...GlobalMaterialLocalizations.delegates,
-        PhoneFieldLocalization.delegate
-      ],
-      supportedLocales: const [
-        Locale('en', ''),
-        Locale('fr', ''),
-        Locale('es', ''),
-        Locale('el', ''),
-        Locale('de', ''),
-        Locale('it', ''),
-        Locale('ru', ''),
-        Locale('sv', ''),
-        Locale('tr', ''),
-        Locale('zh', ''),
-        // ...
-      ],
-      title: 'Phone field demo',
       theme: ThemeData(
-        brightness: Brightness.light,
-        primarySwatch: Colors.blue,
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        useMaterial3: true,
       ),
-      home: const PhoneFormFieldScreen(),
+      home: const PhoneFormFieldPage(),
     );
   }
 }
 
-class PhoneFormFieldScreen extends StatefulWidget {
-  const PhoneFormFieldScreen({Key? key}) : super(key: key);
+class PhoneFormFieldPage extends StatefulWidget {
+  const PhoneFormFieldPage({super.key});
 
   @override
-  PhoneFormFieldScreenState createState() => PhoneFormFieldScreenState();
+  State<PhoneFormFieldPage> createState() => _PhoneFormFieldPageState();
 }
 
-class PhoneFormFieldScreenState extends State<PhoneFormFieldScreen> {
-  late PhoneController controller;
-  bool outlineBorder = true;
-  bool mobileOnly = true;
-  bool shouldFormat = true;
-  bool isCountryChipPersistent = false;
-  bool withLabel = true;
-  bool useRtl = false;
-  CountrySelectorNavigator selectorNavigator =
-      const CountrySelectorNavigator.searchDelegate();
-  final formKey = GlobalKey<FormState>();
-  final phoneKey = GlobalKey<FormFieldState<PhoneNumber>>();
+enum FieldType { outlined, underlined }
+
+class _PhoneFormFieldPageState extends State<PhoneFormFieldPage> {
+  FieldType fieldType = FieldType.outlined;
+  LayerLink layerLink = LayerLink();
+  bool _shouldFormat = true;
+  bool _isFlagCircle = true;
+  bool _showFlagInInput = true;
+  bool _showArrow = true;
+  late List<CountrySelectorNavigator> navigators;
+  late CountrySelectorNavigator selectorNavigator;
+  List<String> nameOfNavigators = [
+    'Page',
+    'Dialog',
+    'Bottom Sheet',
+    'Modal Bottom Sheet',
+    'Draggable Bottom Sheet',
+    'Dropdown',
+  ];
 
   @override
-  initState() {
+  void initState() {
     super.initState();
-    controller = PhoneController(null);
-    controller.addListener(() => setState(() {}));
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    controller.dispose();
+    navigators = <CountrySelectorNavigator>[
+      const CountrySelectorNavigator.searchDelegate(),
+      const CountrySelectorNavigator.dialog(),
+      const CountrySelectorNavigator.bottomSheet(),
+      const CountrySelectorNavigator.modalBottomSheet(),
+      const CountrySelectorNavigator.draggableBottomSheet(),
+      CountrySelectorNavigator.dropdown(
+        backgroundColor: const Color(0xFFE7DEF6),
+        borderRadius: BorderRadius.circular(5),
+        layerLink: layerLink,
+        showSearchInput: true,
+      ),
+    ];
+    selectorNavigator = navigators.first;
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // drawer: AppDrawer(),
-      appBar: AppBar(
-        title: const Text('Phone_form_field'),
-      ),
+      appBar: AppBar(title: const Text('Phone form field demo')),
       body: SingleChildScrollView(
-        child: Center(
-          child: Container(
-            constraints: const BoxConstraints(maxWidth: 600),
-            child: Card(
-              child: Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: Column(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              const SizedBox(height: 12),
+              ConstrainedBox(
+                constraints: const BoxConstraints(minWidth: double.infinity),
+                child: SegmentedButton<FieldType>(
+                  onSelectionChanged: (value) {
+                    setState(() {
+                      fieldType = value.first;
+                    });
+                  },
+                  segments: const [
+                    ButtonSegment<FieldType>(
+                      value: FieldType.outlined,
+                      label: Text("Outlined"),
+                    ),
+                    ButtonSegment<FieldType>(
+                      value: FieldType.underlined,
+                      label: Text("Underlined"),
+                    ),
+                  ],
+                  selected: <FieldType>{fieldType},
+                ),
+              ),
+              const SizedBox(height: 12),
+              PhoneFormField(
+                showArrow: _showArrow,
+                shouldFormat: _shouldFormat,
+                validator:
+                    PhoneValidator.compose([PhoneValidator.required(), PhoneValidator.valid()]),
+                isFlagCircle: _isFlagCircle,
+                showFlagInInput: _showFlagInInput,
+                decoration: InputDecoration(
+                  labelText: 'Phone number',
+                  border: switch (fieldType) {
+                    FieldType.outlined => const OutlineInputBorder(),
+                    FieldType.underlined => const UnderlineInputBorder(),
+                  },
+                ),
+                countrySelectorNavigator: selectorNavigator,
+              ),
+              const SizedBox(height: 8),
+              SwitchListTile(
+                title: const Text('Should format'),
+                value: _shouldFormat,
+                onChanged: (bool value) {
+                  setState(() {
+                    _shouldFormat = value;
+                  });
+                },
+              ),
+              SwitchListTile(
+                title: const Text('Circle flag'),
+                value: _isFlagCircle,
+                onChanged: (bool value) {
+                  setState(() {
+                    _isFlagCircle = value;
+                  });
+                },
+              ),
+              SwitchListTile(
+                title: const Text('Show flag in input'),
+                value: _showFlagInInput,
+                onChanged: (bool value) {
+                  setState(() {
+                    _showFlagInInput = value;
+                  });
+                },
+              ),
+              SwitchListTile(
+                title: const Text('Show arrow'),
+                value: _showArrow,
+                onChanged: (bool value) {
+                  setState(() {
+                    _showArrow = value;
+                  });
+                },
+              ),
+              ListTile(
+                title: Wrap(
+                  alignment: WrapAlignment.spaceBetween,
+                  crossAxisAlignment: WrapCrossAlignment.center,
                   children: [
-                    SwitchListTile(
-                      value: outlineBorder,
-                      onChanged: (v) => setState(() => outlineBorder = v),
-                      title: const Text('Outlined border'),
-                    ),
-                    SwitchListTile(
-                      value: withLabel,
-                      onChanged: (v) => setState(() => withLabel = v),
-                      title: const Text('Label'),
-                    ),
-                    SwitchListTile(
-                      value: isCountryChipPersistent,
-                      onChanged: (v) =>
-                          setState(() => isCountryChipPersistent = v),
-                      title: const Text('Persistent country chip'),
-                    ),
-                    SwitchListTile(
-                      value: mobileOnly,
-                      onChanged: (v) => setState(() => mobileOnly = v),
-                      title: const Text('Mobile phone number only'),
-                    ),
-                    SwitchListTile(
-                      value: shouldFormat,
-                      onChanged: (v) => setState(() => shouldFormat = v),
-                      title: const Text('Should format'),
-                    ),
-                    SwitchListTile(
-                      value: useRtl,
-                      onChanged: (v) {
-                        setState(() => useRtl = v);
+                    const Text('Country Selector'),
+                    DropdownButton<CountrySelectorNavigator>(
+                      value: selectorNavigator,
+                      onChanged: (CountrySelectorNavigator? value) {
+                        if (value != null) {
+                          setState(() => selectorNavigator = value);
+                        }
                       },
-                      title: const Text('RTL'),
-                    ),
-                    ListTile(
-                      title: Wrap(
-                        alignment: WrapAlignment.spaceBetween,
-                        crossAxisAlignment: WrapCrossAlignment.center,
-                        children: [
-                          const Text('Country selector: '),
-                          DropdownButton<CountrySelectorNavigator>(
-                            value: selectorNavigator,
-                            onChanged: (CountrySelectorNavigator? value) {
-                              if (value != null) {
-                                setState(() => selectorNavigator = value);
-                              }
-                            },
-                            items: const [
-                              DropdownMenuItem(
-                                value: CountrySelectorNavigator.bottomSheet(),
-                                child: Text('Bottom sheet'),
-                              ),
-                              DropdownMenuItem(
-                                value: CountrySelectorNavigator
-                                    .draggableBottomSheet(),
-                                child: Text('Draggable modal sheet'),
-                              ),
-                              DropdownMenuItem(
-                                value:
-                                    CountrySelectorNavigator.modalBottomSheet(
-                                  favorites: [IsoCode.US, IsoCode.BE],
-                                ),
-                                child: Text('Modal sheet'),
-                              ),
-                              DropdownMenuItem(
-                                value:
-                                    CountrySelectorNavigator.dialog(width: 720),
-                                child: Text('Dialog'),
-                              ),
-                              DropdownMenuItem(
-                                value:
-                                    CountrySelectorNavigator.searchDelegate(),
-                                child: Text('Page'),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(height: 40),
-                    Form(
-                      key: formKey,
-                      child: PhoneFieldView(
-                        inputKey: phoneKey,
-                        controller: controller,
-                        selectorNavigator: selectorNavigator,
-                        withLabel: withLabel,
-                        outlineBorder: outlineBorder,
-                        isCountryChipPersistent: isCountryChipPersistent,
-                        mobileOnly: mobileOnly,
-                        shouldFormat: shouldFormat,
-                        useRtl: useRtl,
-                      ),
-                    ),
-                    const SizedBox(height: 12),
-                    Text(controller.value.toString()),
-                    Text('is valid mobile number '
-                        '${controller.value?.isValid(type: PhoneNumberType.mobile) ?? 'false'}'),
-                    Text(
-                        'is valid fixed line number ${controller.value?.isValid(type: PhoneNumberType.fixedLine) ?? 'false'}'),
-                    const SizedBox(height: 12),
-                    ElevatedButton(
-                      onPressed: controller.value == null
-                          ? null
-                          : () => controller.reset(),
-                      child: const Text('reset'),
-                    ),
-                    const SizedBox(height: 12),
-                    ElevatedButton(
-                      onPressed: () => controller.selectNationalNumber(),
-                      child: const Text('Select national number'),
-                    ),
-                    const SizedBox(height: 12),
-                    ElevatedButton(
-                      onPressed: () => controller.value = PhoneNumber.parse(
-                        '699999999',
-                        destinationCountry: IsoCode.FR,
-                      ),
-                      child: const Text('Set +33 699 999 999'),
+                      items: navigators
+                          .asMap()
+                          .entries
+                          .map<DropdownMenuItem<CountrySelectorNavigator>>(
+                        (entry) {
+                          int index = entry.key;
+                          CountrySelectorNavigator value = entry.value;
+                          return DropdownMenuItem<CountrySelectorNavigator>(
+                            value: value,
+                            child: Text(nameOfNavigators[index]),
+                          );
+                        },
+                      ).toList(),
                     ),
                   ],
                 ),
               ),
-            ),
+            ],
           ),
         ),
       ),

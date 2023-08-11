@@ -71,6 +71,8 @@ class CountrySelector extends StatefulWidget {
   final bool isBottomSheet;
   final bool showCountryName;
   final bool showCountryFlag;
+  final double? searchInputHeight;
+  final double? searchInputWidth;
 
   const CountrySelector({
     required this.onCountrySelected,
@@ -94,6 +96,8 @@ class CountrySelector extends StatefulWidget {
     this.isFlagCircle = true,
     this.showCountryName = true,
     this.showCountryFlag = true,
+    this.searchInputHeight,
+    this.searchInputWidth,
     super.key,
   });
 
@@ -146,7 +150,8 @@ class CountrySelectorState extends State<CountrySelector> {
                 ),
               ) : const SizedBox.shrink(),
         widget.showSearchInput ? SizedBox(
-                width: double.infinity,
+                height: widget.searchInputHeight,
+                width: widget.searchInputWidth ?? double.infinity,
                 child: SearchInput(
                   autofocus: widget.searchAutofocus,
                   onChanged: _onSearch,
@@ -158,24 +163,26 @@ class CountrySelectorState extends State<CountrySelector> {
               ) : const SizedBox.shrink(),
         widget.showSearchInput ? const Divider(height: 0, thickness: 1.2) : const SizedBox.shrink(),
         Flexible(
-          child: CountryList(
-            addFavouriteSeparator: widget.addFavouriteSeparator,
-            showCountryFlag: widget.showCountryFlag,
-            showCountryName: widget.showCountryName,
-            favorites: _favoriteCountryFinder.filteredCountries,
-            countries: _countryFinder.filteredCountries,
-            showDialCode: widget.showCountryCode,
-            onTap: widget.onCountrySelected,
-            flagSize: widget.flagSize,
-            isFlagCircle: widget.isFlagCircle,
-            scrollController: widget.scrollController,
-            scrollPhysics: widget.scrollPhysics,
-            noResultMessage: widget.noResultMessage,
-            countryNameStyle: widget.countryNameStyle,
-            countryCodeStyle: widget.countryCodeStyle,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 8.0),
+            child: CountryList(
+              addFavouriteSeparator: widget.addFavouriteSeparator,
+              showCountryFlag: widget.showCountryFlag,
+              showCountryName: widget.showCountryName,
+              favorites: _favoriteCountryFinder.filteredCountries,
+              countries: _countryFinder.filteredCountries,
+              showDialCode: widget.showCountryCode,
+              onTap: widget.onCountrySelected,
+              flagSize: widget.flagSize,
+              isFlagCircle: widget.isFlagCircle,
+              scrollController: widget.scrollController,
+              scrollPhysics: widget.scrollPhysics,
+              noResultMessage: widget.noResultMessage,
+              countryNameStyle: widget.countryNameStyle,
+              countryCodeStyle: widget.countryCodeStyle,
+            ),
           ),
         ),
-        const Padding(padding: EdgeInsets.only(bottom: 8)),
       ],
     );
   }

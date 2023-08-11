@@ -25,6 +25,8 @@ abstract class CountrySelectorNavigator {
   final bool showCountryFlag;
   final bool showSearchInput;
   final Color? bottomSheetDragHandlerColor;
+  final double? searchInputHeight;
+  final double? searchInputWidth;
 
   const CountrySelectorNavigator({
     this.countries,
@@ -46,6 +48,8 @@ abstract class CountrySelectorNavigator {
     this.showCountryFlag = true,
     this.showSearchInput = true,
     this.bottomSheetDragHandlerColor,
+    this.searchInputWidth,
+    this.searchInputHeight,
   });
 
   Future<Country?> requestCountrySelector(BuildContext context);
@@ -77,6 +81,8 @@ abstract class CountrySelectorNavigator {
       showCountryFlag: showCountryFlag,
       showSearchInput: showSearchInput,
       bottomSheetDragHandlerColor: bottomSheetDragHandlerColor,
+      searchInputHeight: searchInputHeight,
+      searchInputWidth: searchInputWidth,
     );
   }
 
@@ -100,6 +106,8 @@ abstract class CountrySelectorNavigator {
     bool isFlagCircle,
     bool showCountryName,
     bool showCountryFlag,
+    double? searchInputHeight,
+    double? searchInputWidth,
   }) = DialogNavigator._;
 
   const factory CountrySelectorNavigator.searchDelegate({
@@ -140,6 +148,8 @@ abstract class CountrySelectorNavigator {
     bool isFlagCircle,
     bool showCountryName,
     bool showCountryFlag,
+    double? searchInputHeight,
+    double? searchInputWidth,
   }) = BottomSheetNavigator._;
 
   const factory CountrySelectorNavigator.modalBottomSheet({
@@ -162,6 +172,8 @@ abstract class CountrySelectorNavigator {
     bool isFlagCircle,
     bool showCountryName,
     bool showCountryFlag,
+    double? searchInputHeight,
+    double? searchInputWidth,
   }) = ModalBottomSheetNavigator._;
 
   const factory CountrySelectorNavigator.draggableBottomSheet({
@@ -187,9 +199,12 @@ abstract class CountrySelectorNavigator {
     bool isFlagCircle,
     bool showCountryName,
     bool showCountryFlag,
+    double? searchInputHeight,
+    double? searchInputWidth,
   }) = DraggableModalBottomSheetNavigator._;
 
   const factory CountrySelectorNavigator.dropdown({
+    BorderRadiusGeometry? borderRadius,
     double listHeight,
     List<IsoCode>? countries,
     List<IsoCode>? favorites,
@@ -212,6 +227,8 @@ abstract class CountrySelectorNavigator {
     bool useRootNavigator,
     Color? backgroundColor,
     required LayerLink layerLink,
+    double? searchInputHeight,
+    double? searchInputWidth,
   }) = DropdownNavigator._;
 }
 
@@ -239,6 +256,8 @@ class DialogNavigator extends CountrySelectorNavigator {
     super.isFlagCircle = true,
     super.showCountryName = true,
     super.showCountryFlag = true,
+    super.searchInputHeight,
+    super.searchInputWidth,
   });
 
   @override
@@ -332,6 +351,8 @@ class BottomSheetNavigator extends CountrySelectorNavigator {
     super.isFlagCircle = true,
     super.showCountryName = true,
     super.showCountryFlag = true,
+    super.searchInputHeight,
+    super.searchInputWidth,
   });
 
   @override
@@ -379,6 +400,8 @@ class ModalBottomSheetNavigator extends CountrySelectorNavigator {
     super.isFlagCircle = true,
     super.showCountryName = true,
     super.showCountryFlag = true,
+    super.searchInputHeight,
+    super.searchInputWidth,
   });
 
   @override
@@ -427,6 +450,8 @@ class DraggableModalBottomSheetNavigator extends CountrySelectorNavigator {
     super.useRootNavigator = true,
     super.showCountryName = true,
     super.showCountryFlag = true,
+    super.searchInputHeight,
+    super.searchInputWidth,
   });
 
   @override
@@ -473,12 +498,14 @@ class DropdownNavigator extends CountrySelectorNavigator {
   final double? offsetHeight;
   final LayerLink layerLink;
   final Color? backgroundColor;
+  final BorderRadiusGeometry? borderRadius;
 
   const DropdownNavigator._({
     required this.layerLink,
     this.listHeight = 300,
     this.offsetHeight,
     this.backgroundColor,
+    this.borderRadius,
     super.showSearchInput = false,
     super.countries,
     super.favorites,
@@ -497,6 +524,8 @@ class DropdownNavigator extends CountrySelectorNavigator {
     super.useRootNavigator = true,
     super.showCountryName = true,
     super.showCountryFlag = true,
+    super.searchInputHeight,
+    super.searchInputWidth,
   });
 
   @override
@@ -524,6 +553,7 @@ class DropdownNavigator extends CountrySelectorNavigator {
                 link: layerLink,
                 showWhenUnlinked: false,
                 child: Material(
+                  borderRadius: borderRadius,
                   color: backgroundColor,
                   child: SizedBox(
                     height: listHeight,

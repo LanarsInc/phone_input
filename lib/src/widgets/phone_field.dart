@@ -174,60 +174,54 @@ class PhoneFieldState extends State<PhoneField> {
         MetadataFinder.getMetadataLengthForIsoCode(controller.isoCode).fixedLine.last;
     final item = MouseRegion(
       cursor: SystemMouseCursors.text,
-      child: GestureDetector(
-        onTap: controller.focusNode.requestFocus,
-        // absorb pointer when the country chip is not shown, else flutter
-        // still allows the country chip to be clicked even though it is not shown
-        child: InputDecorator(
-          decoration: _getOutterInputDecoration(),
-          isFocused: controller.focusNode.hasFocus,
-          isEmpty: _isEffectivelyEmpty(),
-          child: TextField(
-            focusNode: controller.focusNode,
-            controller: controller.nationalNumberController,
-            enabled: widget.enabled,
-            decoration: _getInnerInputDecoration(),
-            inputFormatters: widget.inputFormatters ??
-                [
-                  CustomMaxLengthFormatter(maxTextFieldLength),
-                  FilteringTextInputFormatter.allow(
-                      RegExp('[${Patterns.plus}${Patterns.digits}${Patterns.punctuation}]')),
-                ],
-            autofillHints: widget.autofillHints,
-            keyboardType: widget.keyboardType,
-            textInputAction: widget.textInputAction,
-            style: widget.style,
-            strutStyle: widget.strutStyle,
-            textAlign: widget.textAlign,
-            textAlignVertical: widget.textAlignVertical,
-            autofocus: widget.autofocus,
-            obscuringCharacter: widget.obscuringCharacter,
-            obscureText: widget.obscureText,
-            autocorrect: widget.autocorrect,
-            smartDashesType: widget.smartDashesType,
-            smartQuotesType: widget.smartQuotesType,
-            enableSuggestions: widget.enableSuggestions,
-            contextMenuBuilder: widget.contextMenuBuilder,
-            showCursor: widget.showCursor,
-            onEditingComplete: widget.onEditingComplete,
-            onSubmitted: widget.onSubmitted,
-            onAppPrivateCommand: widget.onAppPrivateCommand,
-            cursorWidth: widget.cursorWidth,
-            cursorHeight: widget.cursorHeight,
-            cursorRadius: widget.cursorRadius,
-            cursorColor: widget.cursorColor,
-            selectionHeightStyle: widget.selectionHeightStyle,
-            selectionWidthStyle: widget.selectionWidthStyle,
-            keyboardAppearance: widget.keyboardAppearance,
-            scrollPadding: widget.scrollPadding,
-            enableInteractiveSelection: widget.enableInteractiveSelection,
-            selectionControls: widget.selectionControls,
-            mouseCursor: widget.mouseCursor,
-            scrollController: widget.scrollController,
-            scrollPhysics: widget.scrollPhysics,
-            restorationId: widget.restorationId,
-            enableIMEPersonalizedLearning: widget.enableIMEPersonalizedLearning,
-          ),
+      child: InputDecorator(
+        decoration: _getOutterInputDecoration(),
+        isFocused: controller.focusNode.hasFocus,
+        child: TextField(
+          focusNode: controller.focusNode,
+          controller: controller.nationalNumberController,
+          enabled: widget.enabled,
+          decoration: _getInnerInputDecoration(),
+          inputFormatters: widget.inputFormatters ??
+              [
+                CustomMaxLengthFormatter(maxTextFieldLength),
+                FilteringTextInputFormatter.allow(
+                    RegExp('[${Patterns.plus}${Patterns.digits}${Patterns.punctuation}]')),
+              ],
+          autofillHints: widget.autofillHints,
+          keyboardType: widget.keyboardType,
+          textInputAction: widget.textInputAction,
+          style: widget.style,
+          strutStyle: widget.strutStyle,
+          textAlign: widget.textAlign,
+          textAlignVertical: widget.textAlignVertical,
+          autofocus: widget.autofocus,
+          obscuringCharacter: widget.obscuringCharacter,
+          obscureText: widget.obscureText,
+          autocorrect: widget.autocorrect,
+          smartDashesType: widget.smartDashesType,
+          smartQuotesType: widget.smartQuotesType,
+          enableSuggestions: widget.enableSuggestions,
+          contextMenuBuilder: widget.contextMenuBuilder,
+          showCursor: widget.showCursor,
+          onEditingComplete: widget.onEditingComplete,
+          onSubmitted: widget.onSubmitted,
+          onAppPrivateCommand: widget.onAppPrivateCommand,
+          cursorWidth: widget.cursorWidth,
+          cursorHeight: widget.cursorHeight,
+          cursorRadius: widget.cursorRadius,
+          cursorColor: widget.cursorColor,
+          selectionHeightStyle: widget.selectionHeightStyle,
+          selectionWidthStyle: widget.selectionWidthStyle,
+          keyboardAppearance: widget.keyboardAppearance,
+          scrollPadding: widget.scrollPadding,
+          enableInteractiveSelection: widget.enableInteractiveSelection,
+          selectionControls: widget.selectionControls,
+          mouseCursor: widget.mouseCursor,
+          scrollController: widget.scrollController,
+          scrollPhysics: widget.scrollPhysics,
+          restorationId: widget.restorationId,
+          enableIMEPersonalizedLearning: widget.enableIMEPersonalizedLearning,
         ),
       ),
     );
@@ -297,16 +291,5 @@ class PhoneFieldState extends State<PhoneField> {
       prefix: directionality == TextDirection.ltr ? _getCountryCodeChip() : null,
       suffix: directionality == TextDirection.rtl ? _getCountryCodeChip() : null,
     );
-  }
-
-  bool _isEffectivelyEmpty() {
-    final outterDecoration = _getOutterInputDecoration();
-    // when there is not label and an hint text we need to have
-    // isEmpty false so the country code is displayed along the
-    // hint text to not have the hint text in the middle
-    if (outterDecoration.label == null && outterDecoration.hintText != null) {
-      return false;
-    }
-    return controller.nationalNumberController.text.isEmpty;
   }
 }

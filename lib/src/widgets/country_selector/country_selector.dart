@@ -140,47 +140,49 @@ class CountrySelectorState extends State<CountrySelector> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        const SizedBox(height: 8),
+        widget.isBottomSheet ? const SizedBox(height: 8) : const SizedBox.shrink(),
         widget.isBottomSheet ? Container(
                 width: 50,
                 height: 4,
                 decoration: BoxDecoration(
-                  color: widget.bottomSheetDragHandlerColor ?? Theme.of(context).colorScheme.secondary,
+                  color:
+                      widget.bottomSheetDragHandlerColor ?? Theme.of(context).colorScheme.secondary,
                   borderRadius: BorderRadius.circular(8),
                 ),
               ) : const SizedBox.shrink(),
-        widget.showSearchInput ? SizedBox(
-                height: widget.searchInputHeight,
-                width: widget.searchInputWidth ?? double.infinity,
-                child: SearchInput(
-                  autofocus: widget.searchAutofocus,
-                  onChanged: _onSearch,
-                  onSubmitted: onSubmitted,
-                  decoration: widget.searchInputDecoration,
-                  style: widget.searchInputTextStyle,
-                  defaultSearchInputIconColor: widget.defaultSearchInputIconColor,
+        widget.showSearchInput ? Padding(
+                padding: const EdgeInsets.all(16),
+                child: SizedBox(
+                  height: widget.searchInputHeight,
+                  width: widget.searchInputWidth ?? double.infinity,
+                  child: SearchInput(
+                    autofocus: widget.searchAutofocus,
+                    onChanged: _onSearch,
+                    onSubmitted: onSubmitted,
+                    decoration: widget.searchInputDecoration,
+                    style: widget.searchInputTextStyle,
+                    defaultSearchInputIconColor: widget.defaultSearchInputIconColor,
+                  ),
                 ),
-              ) : const SizedBox.shrink(),
+              )
+            : const SizedBox.shrink(),
         widget.showSearchInput ? const Divider(height: 0, thickness: 1.2) : const SizedBox.shrink(),
         Flexible(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 8.0),
-            child: CountryList(
-              addFavouriteSeparator: widget.addFavouriteSeparator,
-              showCountryFlag: widget.showCountryFlag,
-              showCountryName: widget.showCountryName,
-              favorites: _favoriteCountryFinder.filteredCountries,
-              countries: _countryFinder.filteredCountries,
-              showDialCode: widget.showCountryCode,
-              onTap: widget.onCountrySelected,
-              flagSize: widget.flagSize,
-              isFlagCircle: widget.isFlagCircle,
-              scrollController: widget.scrollController,
-              scrollPhysics: widget.scrollPhysics,
-              noResultMessage: widget.noResultMessage,
-              countryNameStyle: widget.countryNameStyle,
-              countryCodeStyle: widget.countryCodeStyle,
-            ),
+          child: CountryList(
+            addFavouriteSeparator: widget.addFavouriteSeparator,
+            showCountryFlag: widget.showCountryFlag,
+            showCountryName: widget.showCountryName,
+            favorites: _favoriteCountryFinder.filteredCountries,
+            countries: _countryFinder.filteredCountries,
+            showDialCode: widget.showCountryCode,
+            onTap: widget.onCountrySelected,
+            flagSize: widget.flagSize,
+            isFlagCircle: widget.isFlagCircle,
+            scrollController: widget.scrollController,
+            scrollPhysics: widget.scrollPhysics,
+            noResultMessage: widget.noResultMessage,
+            countryNameStyle: widget.countryNameStyle,
+            countryCodeStyle: widget.countryCodeStyle,
           ),
         ),
       ],

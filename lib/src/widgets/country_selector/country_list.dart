@@ -80,68 +80,71 @@ class CountryList extends StatelessWidget {
       itemBuilder: (BuildContext context, int index) {
         final country = _allListElement[index];
         if (country == null) {
-          if(addFavouriteSeparator) {
+          if (addFavouriteSeparator) {
             return const Divider(key: ValueKey('countryListSeparator'));
           } else {
             return const SizedBox.shrink();
           }
         }
 
-        return ListTile(
-          key: ValueKey(country.isoCode.name),
-          leading: showCountryFlag
-              ? Flag(
-                  country.isoCode.name,
-                  key: ValueKey('circle-flag-${country.isoCode.name}'),
-                  size: flagSize,
-                  isFlagCircle: isFlagCircle,
-                )
-              : null,
-          title: showCountryName || showDialCode
-              ? Align(
-                  alignment: AlignmentDirectional.centerStart,
-                  child: showDialCode && showCountryFlag && showCountryName
-                      ? Text(
-                          country.name,
-                          textAlign: TextAlign.start,
-                          style: countryNameStyle,
-                        )
-                      : Row(
-                          children: [
-                            showCountryName
-                                ? Expanded(
-                                    child: Text(
-                                      country.name,
+        return Material(
+          color: Colors.transparent,
+          child: ListTile(
+            key: ValueKey(country.isoCode.name),
+            leading: showCountryFlag
+                ? Flag(
+                    country.isoCode.name,
+                    key: ValueKey('circle-flag-${country.isoCode.name}'),
+                    size: flagSize,
+                    isFlagCircle: isFlagCircle,
+                  )
+                : null,
+            title: showCountryName || showDialCode
+                ? Align(
+                    alignment: AlignmentDirectional.centerStart,
+                    child: showDialCode && showCountryFlag && showCountryName
+                        ? Text(
+                            country.name,
+                            textAlign: TextAlign.start,
+                            style: countryNameStyle,
+                          )
+                        : Row(
+                            children: [
+                              showCountryName
+                                  ? Expanded(
+                                      child: Text(
+                                        country.name,
+                                        textAlign: TextAlign.start,
+                                        style: countryNameStyle,
+                                      ),
+                                    )
+                                  : const SizedBox.shrink(),
+                              const SizedBox(width: 4),
+                              showDialCode
+                                  ? Text(
+                                      country.displayCountryCode,
+                                      textDirection: TextDirection.ltr,
                                       textAlign: TextAlign.start,
-                                      style: countryNameStyle,
-                                    ),
-                                  )
-                                : const SizedBox.shrink(),
-                            const SizedBox(width: 4),
-                            showDialCode
-                                ? Text(
-                                    country.displayCountryCode,
-                                    textDirection: TextDirection.ltr,
-                                    textAlign: TextAlign.start,
-                                    style: countryCodeStyle,
-                                  )
-                                : const SizedBox.shrink(),
-                          ],
-                        ),
-                )
-              : null,
-          subtitle: showDialCode && showCountryFlag && showCountryName
-              ? Align(
-                  alignment: AlignmentDirectional.centerStart,
-                  child: Text(
-                    country.displayCountryCode,
-                    textDirection: TextDirection.ltr,
-                    textAlign: TextAlign.start,
-                    style: countryCodeStyle,
-                  ),
-                )
-              : null,
-          onTap: () => onTap(country),
+                                      style: countryCodeStyle,
+                                    )
+                                  : const SizedBox.shrink(),
+                            ],
+                          ),
+                  )
+                : null,
+            subtitle: showDialCode && showCountryFlag && showCountryName
+                ? Align(
+                    alignment: AlignmentDirectional.centerStart,
+                    child: Text(
+                      country.displayCountryCode,
+                      textDirection: TextDirection.ltr,
+                      textAlign: TextAlign.start,
+                      style: countryCodeStyle,
+                    ),
+                  )
+                : null,
+            onTap: () => onTap(country),
+          ),
         );
       },
     );

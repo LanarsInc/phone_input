@@ -265,6 +265,7 @@ class DialogNavigator extends CountrySelectorNavigator {
     return showDialog(
       context: context,
       builder: (_) => Dialog(
+        clipBehavior: Clip.hardEdge,
         child: SizedBox(
           width: width,
           height: height,
@@ -359,6 +360,7 @@ class BottomSheetNavigator extends CountrySelectorNavigator {
   Future<Country?> requestCountrySelector(BuildContext context) {
     Country? selected;
     final ctrl = showBottomSheet(
+      clipBehavior: Clip.hardEdge,
       context: context,
       builder: (_) => MediaQuery(
         data: MediaQueryData.fromView(View.of(context)),
@@ -407,6 +409,7 @@ class ModalBottomSheetNavigator extends CountrySelectorNavigator {
   @override
   Future<Country?> requestCountrySelector(BuildContext context) {
     return showModalBottomSheet<Country>(
+      clipBehavior: Clip.hardEdge,
       context: context,
       builder: (_) => SizedBox(
         height: height ?? MediaQuery.of(context).size.height - 90,
@@ -462,6 +465,7 @@ class DraggableModalBottomSheetNavigator extends CountrySelectorNavigator {
           topRight: Radius.circular(16),
         );
     return showModalBottomSheet<Country>(
+      clipBehavior: Clip.hardEdge,
       context: context,
       shape: RoundedRectangleBorder(
         borderRadius: effectiveBorderRadius,
@@ -545,6 +549,7 @@ class DropdownNavigator extends CountrySelectorNavigator {
           },
           behavior: HitTestBehavior.translucent,
           child: Stack(
+            clipBehavior: Clip.hardEdge,
             children: [
               CompositedTransformFollower(
                 offset: offsetHeight != null

@@ -20,27 +20,25 @@ class SearchInput extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(16, 16, 16, 16),
-      child: TextField(
-        autofocus: autofocus,
-        onChanged: onChanged,
-        onSubmitted: (_) => onSubmitted(),
-        cursorColor: style?.color,
-        style: style,
-        decoration: decoration ??
-            InputDecoration(
-              border: const OutlineInputBorder(),
-              prefixIcon: Icon(
-                Icons.search,
-                color: defaultSearchInputIconColor ??
-                    (Theme.of(context).brightness == Brightness.dark
-                        ? Colors.white54
-                        : Colors.black38),
-              ),
-              filled: true,
+    return TextField(
+      autofocus: autofocus,
+      onChanged: onChanged,
+      onSubmitted: (_) => onSubmitted(),
+      cursorColor: style?.color,
+      style: style,
+      decoration: decoration ??
+          InputDecoration(
+            contentPadding: EdgeInsets.zero,
+            border: const OutlineInputBorder(),
+            prefixIcon: Icon(
+              Icons.search,
+              color: defaultSearchInputIconColor ??
+                  (Theme.of(context).brightness == Brightness.dark
+                      ? Colors.white54
+                      : Colors.black38),
             ),
-      ),
+            filled: true,
+          ),
     );
   }
 }

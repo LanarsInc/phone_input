@@ -140,7 +140,7 @@ class CountrySelectorState extends State<CountrySelector> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        widget.isBottomSheet ? const SizedBox(height: 8) : const SizedBox.shrink(),
+        widget.isBottomSheet ? const SizedBox(height: 16) : const SizedBox.shrink(),
         widget.isBottomSheet ? Container(
                 width: 50,
                 height: 4,

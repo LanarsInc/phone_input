@@ -362,16 +362,13 @@ class BottomSheetNavigator extends CountrySelectorNavigator {
     final ctrl = showBottomSheet(
       clipBehavior: Clip.hardEdge,
       context: context,
-      builder: (_) => MediaQuery(
-        data: MediaQueryData.fromView(View.of(context)),
-        child: SafeArea(
-          child: _getCountrySelector(
-            isBottomSheet: true,
-            onCountrySelected: (country) {
-              selected = country;
-              Navigator.pop(context, country);
-            },
-          ),
+      builder: (_) => SafeArea(
+        child: _getCountrySelector(
+          isBottomSheet: true,
+          onCountrySelected: (country) {
+            selected = country;
+            Navigator.pop(context, country);
+          },
         ),
       ),
     );

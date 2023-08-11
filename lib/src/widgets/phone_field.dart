@@ -19,7 +19,6 @@ class PhoneField extends StatefulWidget {
   final bool isFlagCircle;
   final InputDecoration decoration;
   final bool isCountrySelectionEnabled;
-  final bool isCountryChipPersistent; //TODO doesn't work correctly first time
   final bool showArrow;
   /// configures the way the country picker selector is shown
   final CountrySelectorNavigator selectorNavigator;
@@ -76,7 +75,6 @@ class PhoneField extends StatefulWidget {
     required this.errorText,
     required this.decoration,
     required this.isCountrySelectionEnabled,
-    required this.isCountryChipPersistent,
     // textfield  inputs
     required this.keyboardType,
     required this.textInputAction,
@@ -302,7 +300,6 @@ class PhoneFieldState extends State<PhoneField> {
   }
 
   bool _isEffectivelyEmpty() {
-    if (widget.isCountryChipPersistent) return false;
     final outterDecoration = _getOutterInputDecoration();
     // when there is not label and an hint text we need to have
     // isEmpty false so the country code is displayed along the

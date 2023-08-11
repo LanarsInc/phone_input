@@ -53,7 +53,7 @@ class CountryCodeChip extends StatelessWidget {
           AnimatedRotation(
             turns: isListVisible ? 0 : 0.5,
             duration: const Duration(milliseconds: 300),
-            child: const Icon(Icons.arrow_drop_up),
+            child: const Icon(Icons.arrow_drop_up, size: 20),
           ),
         ],
       ],

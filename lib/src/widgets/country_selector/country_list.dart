@@ -33,7 +33,6 @@ class CountryList extends StatelessWidget {
 
   final TextStyle? countryCodeStyle;
   final TextStyle? countryNameStyle;
-  final FlagCache? flagCache;
   final bool showCountryName;
   final bool showCountryFlag;
 
@@ -43,7 +42,6 @@ class CountryList extends StatelessWidget {
     required this.favorites,
     required this.onTap,
     required this.noResultMessage,
-    required this.flagCache,
     this.scrollController,
     this.scrollPhysics,
     this.showDialCode = true,
@@ -96,7 +94,6 @@ class CountryList extends StatelessWidget {
                   country.isoCode.name,
                   key: ValueKey('circle-flag-${country.isoCode.name}'),
                   size: flagSize,
-                  cache: flagCache,
                   isFlagCircle: isFlagCircle,
                 )
               : null,

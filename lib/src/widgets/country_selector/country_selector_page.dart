@@ -59,12 +59,9 @@ class CountrySelectorSearchDelegate extends SearchDelegate<Country> {
   /// Override default subtitle TextStyle
   final TextStyle? countryCodeStyle;
 
-  final FlagCache? flagCache;
-
   CountrySelectorSearchDelegate({
     Key? key,
     required this.onCountrySelected,
-    required this.flagCache,
     this.scrollController,
     this.scrollPhysics,
     this.addFavoritesSeparator = true,
@@ -139,7 +136,6 @@ class CountrySelectorSearchDelegate extends SearchDelegate<Country> {
       noResultMessage: noResultMessage,
       countryNameStyle: countryNameStyle,
       countryCodeStyle: countryCodeStyle,
-      flagCache: flagCache,
       showCountryName: showCountryName,
       showCountryFlag: showCountryFlag,
     );

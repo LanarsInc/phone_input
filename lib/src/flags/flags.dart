@@ -15,15 +15,9 @@ class Flag extends StatelessWidget {
     super.key,
     this.size = 48,
     this.isFlagCircle = true,
-    FlagCache? cache,
-  }) : loader = _createLoader(cache, isoCode);
+  }) : loader = _createLoader(isoCode);
 
-  /// check if a flag has been preloaded if so, returns its byteloader
-  static BytesLoader _createLoader(FlagCache? cache, String isoCode) {
-    final cacheEntry = cache?._loaders[isoCode];
-    if (cacheEntry != null) {
-      return cacheEntry;
-    }
+  static BytesLoader _createLoader(String isoCode) {
     return _FlagAssetLoader(isoCode);
   }
 
@@ -93,44 +87,5 @@ class _FlagAssetLoader extends SvgAssetLoader {
   @override
   SvgCacheKey cacheKey(BuildContext? context) {
     return SvgCacheKey(keyData: isoCode, theme: theme, colorMapper: colorMapper);
-  }
-}
-
-/// a flag loader cache that allows for preloading
-/// svg bytes.
-/// Currently only caches preloaded items
-class FlagCache {
-  final _loaders = <String, SvgBytesLoader>{};
-
-  /// preloads flag data into svg cache
-  preload(
-    Iterable<String> isoCodes, [
-    BuildContext? context,
-    AssetBundle? assetBundle,
-  ]) async {
-    final tasks = <Future>[];
-    for (final isoCode in isoCodes) {
-      final task = _createLoader(isoCode, context, assetBundle)
-          .then((loader) => _addLoaderToCache(isoCode, loader));
-      tasks.add(task);
-    }
-    await Future.wait(tasks);
-  }
-
-  Future<SvgBytesLoader> _createLoader(
-      String isoCode, BuildContext? context, AssetBundle? assetBundle) async {
-    final assetName = _FlagAssetLoader.computeAssetName(isoCode);
-    final byteData = await _FlagAssetLoader.loadAsset(assetName, context, assetBundle);
-    final loader = SvgBytesLoader(Uint8List.sublistView(byteData));
-    // add it to svg cache
-    svg.cache.putIfAbsent(loader.cacheKey(context), () => loader.loadBytes(context));
-    return loader;
-  }
-
-  void _addLoaderToCache(
-    String isoCode,
-    SvgBytesLoader loader,
-  ) {
-    _loaders[isoCode] = loader;
   }
 }

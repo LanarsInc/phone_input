@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:phone_form_field/src/flags/flags.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:phone_form_field/phone_form_field_package.dart';
@@ -26,9 +25,8 @@ abstract class CountrySelectorNavigator {
   final bool showCountryFlag;
   final bool showSearchInput;
   final Color? bottomSheetDragHandlerColor;
-  late final FlagCache _flagCache;
 
-  CountrySelectorNavigator({
+  const CountrySelectorNavigator({
     this.countries,
     this.favorites,
     this.addFavoriteSeparator = true,
@@ -48,16 +46,12 @@ abstract class CountrySelectorNavigator {
     this.showCountryFlag = true,
     this.showSearchInput = true,
     this.bottomSheetDragHandlerColor,
-  }) {
-    _flagCache = FlagCache();
-    _flagCache.preload(IsoCode.values.map((isoCode) => isoCode.name));
-  }
+  });
 
   Future<Country?> requestCountrySelector(BuildContext context);
 
   CountrySelector _getCountrySelector({
     required ValueChanged<Country> onCountrySelected,
-    required FlagCache flagCache,
     required bool isBottomSheet,
     ScrollController? scrollController,
   }) {
@@ -78,7 +72,6 @@ abstract class CountrySelectorNavigator {
       scrollPhysics: scrollPhysics,
       isFlagCircle: isFlagCircle,
       flagSize: flagSize,
-      flagCache: flagCache,
       isBottomSheet: isBottomSheet,
       showCountryName: showCountryName,
       showCountryFlag: showCountryFlag,
@@ -87,7 +80,7 @@ abstract class CountrySelectorNavigator {
     );
   }
 
-  factory CountrySelectorNavigator.dialog({
+  const factory CountrySelectorNavigator.dialog({
     double? height,
     double? width,
     List<IsoCode>? countries,
@@ -109,7 +102,7 @@ abstract class CountrySelectorNavigator {
     bool showCountryFlag,
   }) = DialogNavigator._;
 
-  factory CountrySelectorNavigator.searchDelegate({
+  const factory CountrySelectorNavigator.searchDelegate({
     List<IsoCode>? countries,
     List<IsoCode>? favorites,
     bool addFavoriteSeparator,
@@ -128,7 +121,7 @@ abstract class CountrySelectorNavigator {
     bool showCountryFlag,
   }) = SearchDelegateNavigator._;
 
-  factory CountrySelectorNavigator.bottomSheet({
+  const factory CountrySelectorNavigator.bottomSheet({
     List<IsoCode>? countries,
     List<IsoCode>? favorites,
     bool addFavoriteSeparator,
@@ -149,7 +142,7 @@ abstract class CountrySelectorNavigator {
     bool showCountryFlag,
   }) = BottomSheetNavigator._;
 
-  factory CountrySelectorNavigator.modalBottomSheet({
+  const factory CountrySelectorNavigator.modalBottomSheet({
     double? height,
     List<IsoCode>? countries,
     List<IsoCode>? favorites,
@@ -171,7 +164,7 @@ abstract class CountrySelectorNavigator {
     bool showCountryFlag,
   }) = ModalBottomSheetNavigator._;
 
-  factory CountrySelectorNavigator.draggableBottomSheet({
+  const factory CountrySelectorNavigator.draggableBottomSheet({
     double initialChildSize,
     double minChildSize,
     double maxChildSize,
@@ -196,7 +189,7 @@ abstract class CountrySelectorNavigator {
     bool showCountryFlag,
   }) = DraggableModalBottomSheetNavigator._;
 
-  factory CountrySelectorNavigator.dropdown({
+  const factory CountrySelectorNavigator.dropdown({
     double listHeight,
     List<IsoCode>? countries,
     List<IsoCode>? favorites,
@@ -226,7 +219,7 @@ class DialogNavigator extends CountrySelectorNavigator {
   final double? height;
   final double? width;
 
-  DialogNavigator._({
+  const DialogNavigator._({
     this.width,
     this.height,
     super.showSearchInput = true,
@@ -259,7 +252,6 @@ class DialogNavigator extends CountrySelectorNavigator {
           child: _getCountrySelector(
             isBottomSheet: false,
             onCountrySelected: (country) => Navigator.of(context, rootNavigator: true).pop(country),
-            flagCache: _flagCache,
           ),
         ),
       ),
@@ -268,7 +260,7 @@ class DialogNavigator extends CountrySelectorNavigator {
 }
 
 class SearchDelegateNavigator extends CountrySelectorNavigator {
-  SearchDelegateNavigator._({
+  const SearchDelegateNavigator._({
     super.countries,
     super.favorites,
     super.addFavoriteSeparator = true,
@@ -289,7 +281,6 @@ class SearchDelegateNavigator extends CountrySelectorNavigator {
 
   CountrySelectorSearchDelegate _getCountrySelectorSearchDelegate({
     required ValueChanged<Country> onCountrySelected,
-    required FlagCache flagCache,
     ScrollController? scrollController,
   }) {
     return CountrySelectorSearchDelegate(
@@ -303,7 +294,6 @@ class SearchDelegateNavigator extends CountrySelectorNavigator {
       showCountryCode: showCountryCode,
       countryNameStyle: countryNameStyle,
       countryCodeStyle: countryCodeStyle,
-      flagCache: flagCache,
       flagSize: flagSize,
       isFlagCircle: isFlagCircle,
       showCountryFlag: showCountryFlag,
@@ -317,15 +307,13 @@ class SearchDelegateNavigator extends CountrySelectorNavigator {
       context: context,
       delegate: _getCountrySelectorSearchDelegate(
         onCountrySelected: (country) => Navigator.pop(context, country),
-        flagCache: _flagCache,
       ),
     );
   }
 }
 
 class BottomSheetNavigator extends CountrySelectorNavigator {
-
-  BottomSheetNavigator._({
+  const BottomSheetNavigator._({
     super.showSearchInput = true,
     super.bottomSheetDragHandlerColor,
     super.countries,
@@ -360,7 +348,6 @@ class BottomSheetNavigator extends CountrySelectorNavigator {
               selected = country;
               Navigator.pop(context, country);
             },
-            flagCache: _flagCache,
           ),
         ),
       ),
@@ -372,7 +359,7 @@ class BottomSheetNavigator extends CountrySelectorNavigator {
 class ModalBottomSheetNavigator extends CountrySelectorNavigator {
   final double? height;
 
-  ModalBottomSheetNavigator._({
+  const ModalBottomSheetNavigator._({
     this.height,
     super.showSearchInput = true,
     super.bottomSheetDragHandlerColor,
@@ -403,7 +390,6 @@ class ModalBottomSheetNavigator extends CountrySelectorNavigator {
         child: _getCountrySelector(
           isBottomSheet: true,
           onCountrySelected: (country) => Navigator.pop(context, country),
-          flagCache: _flagCache,
         ),
       ),
       isScrollControlled: true,
@@ -417,7 +403,7 @@ class DraggableModalBottomSheetNavigator extends CountrySelectorNavigator {
   final double maxChildSize;
   final BorderRadiusGeometry? borderRadius;
 
-  DraggableModalBottomSheetNavigator._({
+  const DraggableModalBottomSheetNavigator._({
     super.showSearchInput = true,
     super.bottomSheetDragHandlerColor,
     this.initialChildSize = 0.7,
@@ -472,7 +458,6 @@ class DraggableModalBottomSheetNavigator extends CountrySelectorNavigator {
               isBottomSheet: true,
               onCountrySelected: (country) => Navigator.pop(context, country),
               scrollController: scrollController,
-              flagCache: _flagCache,
             ),
           );
         },
@@ -489,7 +474,7 @@ class DropdownNavigator extends CountrySelectorNavigator {
   final LayerLink layerLink;
   final Color? backgroundColor;
 
-  DropdownNavigator._({
+  const DropdownNavigator._({
     required this.layerLink,
     this.listHeight = 300,
     this.offsetHeight,
@@ -549,7 +534,6 @@ class DropdownNavigator extends CountrySelectorNavigator {
                         completer.complete(country);
                         dropdownOverlayEntry?.remove();
                       },
-                      flagCache: _flagCache,
                     ),
                   ),
                 ),

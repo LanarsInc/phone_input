@@ -68,14 +68,12 @@ class CountrySelector extends StatefulWidget {
 
   final double flagSize;
   final bool isFlagCircle;
-  final FlagCache flagCache;
   final bool isBottomSheet;
   final bool showCountryName;
   final bool showCountryFlag;
 
   const CountrySelector({
     required this.onCountrySelected,
-    required this.flagCache,
     required this.isBottomSheet,
     this.scrollController,
     this.scrollPhysics,
@@ -175,7 +173,6 @@ class CountrySelectorState extends State<CountrySelector> {
             noResultMessage: widget.noResultMessage,
             countryNameStyle: widget.countryNameStyle,
             countryCodeStyle: widget.countryCodeStyle,
-            flagCache: widget.flagCache,
           ),
         ),
         const Padding(padding: EdgeInsets.only(bottom: 8)),

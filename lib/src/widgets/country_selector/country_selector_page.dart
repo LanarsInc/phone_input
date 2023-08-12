@@ -132,6 +132,7 @@ class CountrySelectorSearchDelegate extends SearchDelegate<Country> {
     _updateList();
 
     return CountryList(
+      addFavouriteSeparator: addFavoritesSeparator,
       favorites: _favoriteCountryFinder.filteredCountries,
       countries: _countryFinder.filteredCountries,
       showDialCode: showCountryCode,

@@ -119,9 +119,6 @@ abstract class CountrySelectorNavigator {
     // bool searchAutofocus, //TODO not implemented yet
     TextStyle? countryCodeStyle,
     TextStyle? countryNameStyle,
-    InputDecoration? searchInputDecoration,
-    TextStyle? searchInputTextStyle,
-    Color? defaultSearchInputIconColor,
     ScrollPhysics? scrollPhysics,
     double flagSize,
     bool isFlagCircle,
@@ -195,7 +192,7 @@ abstract class CountrySelectorNavigator {
     TextStyle? searchInputTextStyle,
     Color? defaultSearchInputIconColor,
     Color? bottomSheetDragHandlerColor,
-    ScrollPhysics? scrollPhysics,
+    // ScrollPhysics? scrollPhysics, //TODO Doesn't work yet
     bool isFlagCircle,
     bool showCountryName,
     bool showCountryFlag,
@@ -289,9 +286,6 @@ class SearchDelegateNavigator extends CountrySelectorNavigator {
     // super.searchAutofocus,
     super.countryCodeStyle,
     super.countryNameStyle,
-    super.searchInputDecoration,
-    super.searchInputTextStyle,
-    super.defaultSearchInputIconColor,
     super.scrollPhysics,
     super.flagSize = 48,
     super.isFlagCircle = true,
@@ -304,6 +298,7 @@ class SearchDelegateNavigator extends CountrySelectorNavigator {
     ScrollController? scrollController,
   }) {
     return CountrySelectorSearchDelegate(
+      scrollPhysics: scrollPhysics,
       onCountrySelected: onCountrySelected,
       scrollController: scrollController,
       addFavoritesSeparator: addFavoriteSeparator,
@@ -446,7 +441,7 @@ class DraggableModalBottomSheetNavigator extends CountrySelectorNavigator {
     super.searchInputDecoration,
     super.searchInputTextStyle,
     super.defaultSearchInputIconColor,
-    super.scrollPhysics,
+    // super.scrollPhysics,
     super.useRootNavigator = true,
     super.showCountryName = true,
     super.showCountryFlag = true,

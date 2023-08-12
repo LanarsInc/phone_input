@@ -1,11 +1,22 @@
 import 'package:flutter/material.dart';
 
 class SearchInput extends StatelessWidget {
+  /// Callback triggered when the content of the search input changes.
   final Function(String) onChanged;
+
+  /// Callback triggered when the search input is submitted.
   final Function() onSubmitted;
+
+  /// Determines if the search input should automatically receive focus.
   final bool autofocus;
+
+  /// Custom decoration for styling the search input field.
   final InputDecoration? decoration;
+
+  /// TextStyle for customizing the appearance of the search input.
   final TextStyle? style;
+
+  /// The color of the default search input icon.
   final Color? defaultSearchInputIconColor;
 
   const SearchInput({

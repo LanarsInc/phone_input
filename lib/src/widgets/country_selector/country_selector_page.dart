@@ -1,4 +1,3 @@
-import 'package:phone_form_field/src/flags/flags.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:phone_form_field/l10n/generated/phone_field_localization.dart';
@@ -44,20 +43,28 @@ class CountrySelectorSearchDelegate extends SearchDelegate<Country> {
   /// The message displayed instead of the list when the search has no results
   final String? noResultMessage;
 
-  /// whether the search input is auto focussed
+  /// Whether the search input is auto focussed
   final bool searchAutofocus;
-  final double flagSize;
-  final bool isFlagCircle;
-  final bool showCountryName;
-  final bool showCountryFlag;
 
-  LocalizedCountryRegistry? _localizedCountryRegistry;
+  /// The size factor for displaying flags within the UI.
+  final double flagSize;
+
+  /// Determines if the displayed flags should be circular.
+  final bool isFlagCircle;
+
+  /// Determines if the country name should be shown.
+  final bool showCountryName;
+
+  /// Determines if the country flag should be shown
+  final bool showCountryFlag;
 
   /// Override default title TextStyle
   final TextStyle? countryNameStyle;
 
   /// Override default subtitle TextStyle
   final TextStyle? countryCodeStyle;
+
+  LocalizedCountryRegistry? _localizedCountryRegistry;
 
   CountrySelectorSearchDelegate({
     Key? key,

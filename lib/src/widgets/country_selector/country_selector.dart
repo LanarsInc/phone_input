@@ -66,12 +66,26 @@ class CountrySelector extends StatefulWidget {
   /// The [Color] of the divider at the top on the bottom sheet
   final Color? bottomSheetDragHandlerColor;
 
+  /// The size factor for displaying flags within the UI.
   final double flagSize;
+
+  /// Determines if the displayed flags should be circular.
   final bool isFlagCircle;
+
+  /// Determines if the component is being used within a bottom sheet.
+  /// For display bottomSheetDragHandler and some paddings
   final bool isBottomSheet;
+
+  /// Determines if the country name should be shown.
   final bool showCountryName;
+
+  /// Determines if the country flag should be shown
   final bool showCountryFlag;
+
+  /// The height of the search input field, if specified.
   final double? searchInputHeight;
+
+  /// The width of the search input field, if specified.
   final double? searchInputWidth;
 
   const CountrySelector({

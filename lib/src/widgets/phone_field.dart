@@ -251,7 +251,7 @@ class PhoneFieldState extends State<PhoneField> {
                 key: const ValueKey('country-code-chip'),
                 isoCode: controller.isoCode,
                 showFlag: widget.showFlagInInput,
-                textStyle: widget.countryCodeStyle ??
+                countryCodeTextStyle: widget.countryCodeStyle ??
                     widget.decoration.labelStyle ??
                     TextStyle(
                       fontSize: 16,

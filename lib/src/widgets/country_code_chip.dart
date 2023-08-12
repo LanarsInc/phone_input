@@ -4,31 +4,44 @@ import 'package:phone_numbers_parser/phone_numbers_parser.dart';
 
 import 'country_selector/country.dart';
 
+// The widget that displays a suffix in PhoneFormField
 class CountryCodeChip extends StatelessWidget {
+  /// The country associated with the component.
   final Country country;
+
+  /// Determines if the country flag should be displayed.
   final bool showFlag;
+
+  /// Determines if an arrow indicator should be displayed.
   final bool showArrow;
+
+  /// Determines if the list is visible.
+  /// Changing this variable reproduces the arrow animation
   final bool isListVisible;
 
-  final TextStyle textStyle;
-  final EdgeInsets padding;
+  /// TextStyle for customizing the appearance of the country code.
+  final TextStyle countryCodeTextStyle;
+
+  /// The size factor for displaying flags within the UI.
   final double flagSize;
+
+  /// Determines if the displayed flags should be circular.
   final bool isFlagCircle;
+
+  /// The direction of the text within the component.
   final TextDirection? textDirection;
 
   CountryCodeChip({
-    Key? key,
+    super.key,
     required IsoCode isoCode,
-    this.textStyle = const TextStyle(),
+    this.countryCodeTextStyle = const TextStyle(),
     this.showFlag = true,
-    this.padding = const EdgeInsets.all(20),
     this.flagSize = 20,
     this.isFlagCircle = true,
     this.textDirection,
     this.showArrow = true,
     this.isListVisible = false,
-  })  : country = Country(isoCode, ''),
-        super(key: key);
+  }) : country = Country(isoCode, '');
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +58,7 @@ class CountryCodeChip extends StatelessWidget {
         ],
         Text(
           country.displayCountryCode,
-          style: textStyle,
+          style: countryCodeTextStyle,
           textDirection: textDirection,
         ),
         if (showArrow) ...[

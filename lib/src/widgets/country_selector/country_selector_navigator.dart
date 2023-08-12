@@ -204,8 +204,10 @@ abstract class CountrySelectorNavigator {
   }) = DraggableModalBottomSheetNavigator._;
 
   const factory CountrySelectorNavigator.dropdown({
+    required LayerLink layerLink,
     BorderRadiusGeometry? borderRadius,
     double listHeight,
+    Color? backgroundColor,
     List<IsoCode>? countries,
     List<IsoCode>? favorites,
     bool addFavoriteSeparator,
@@ -225,8 +227,6 @@ abstract class CountrySelectorNavigator {
     TextStyle? searchInputTextStyle,
     Color? defaultSearchInputIconColor,
     bool useRootNavigator,
-    Color? backgroundColor,
-    required LayerLink layerLink,
     double? searchInputHeight,
     double? searchInputWidth,
   }) = DropdownNavigator._;

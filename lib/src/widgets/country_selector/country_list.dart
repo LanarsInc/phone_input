@@ -10,7 +10,11 @@ class CountryList extends StatelessWidget {
 
   /// List of countries to display
   final List<Country> countries;
+
+  /// The size factor for displaying flags within the UI.
   final double flagSize;
+
+  /// Determines if the displayed flags should be circular.
   final bool isFlagCircle;
 
   /// list of favorite countries to display at the top
@@ -25,16 +29,25 @@ class CountryList extends StatelessWidget {
   /// whether the country dialcode should be displayed as the [ListTile.subtitle]
   final bool showDialCode;
 
+  /// Message to display when there are no search results.
   final String? noResultMessage;
 
+  /// Determines if separators should be added between favorite and other countries.
   final bool addFavouriteSeparator;
 
-  late final List<Country?> _allListElement;
-
+  /// TextStyle for displaying the country code.
   final TextStyle? countryCodeStyle;
+
+  /// TextStyle for displaying the country name.
   final TextStyle? countryNameStyle;
+
+  /// Determines if the country name should be shown.
   final bool showCountryName;
+
+  /// Determines if the country flag should be shown
   final bool showCountryFlag;
+
+  late final List<Country?> _allListElement;
 
   CountryList({
     Key? key,

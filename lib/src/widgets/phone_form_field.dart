@@ -75,7 +75,7 @@ class PhoneFormField extends FormField<PhoneNumber> {
   /// the focusNode of the national number
   final FocusNode? focusNode;
 
-  PhoneFormField({
+    PhoneFormField({
     Key? key,
     this.controller,
     this.shouldFormat = true,
@@ -92,6 +92,7 @@ class PhoneFormField extends FormField<PhoneNumber> {
     bool isFlagCircle = true,
     PhoneNumberInputValidator? validator,
     bool isCountrySelectionEnabled = true,
+    bool showArrow = true,
     // textfield inputs
     TextInputType keyboardType = TextInputType.phone,
     TextInputAction? textInputAction,
@@ -130,7 +131,6 @@ class PhoneFormField extends FormField<PhoneNumber> {
     Iterable<String>? autofillHints,
     String? restorationId,
     bool enableIMEPersonalizedLearning = true,
-    bool showArrow = true,
   })  : assert(
           initialValue == null || controller == null,
           'One of initialValue or controller can be specified at a time',

@@ -245,8 +245,8 @@ class PhoneFieldState extends State<PhoneField> {
             color: Colors.transparent,
             child: Padding(
               padding: !widget.showFlagInInput
-                  ? EdgeInsets.zero
-                  : const EdgeInsetsDirectional.fromSTEB(8, 0, 8, 0),
+                  ? const EdgeInsets.only(right: 4)
+                  : const EdgeInsetsDirectional.fromSTEB(8, 0, 4, 0),
               child: CountryCodeChip(
                 key: const ValueKey('country-code-chip'),
                 isoCode: controller.isoCode,

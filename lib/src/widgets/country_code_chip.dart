@@ -62,7 +62,6 @@ class CountryCodeChip extends StatelessWidget {
           textDirection: textDirection,
         ),
         if (showArrow) ...[
-          const SizedBox(width: 10),
           AnimatedRotation(
             turns: isListVisible ? 0 : 0.5,
             duration: const Duration(milliseconds: 300),

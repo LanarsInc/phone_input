@@ -6,8 +6,10 @@ import 'package:flutter/services.dart';
 import 'package:phone_form_field/phone_form_field_package.dart';
 import 'package:phone_form_field/src/constants/patterns.dart';
 import 'package:phone_form_field/src/controllers/phone_field_controller.dart';
+import 'package:phone_form_field/src/number_parser/models/iso_code.dart';
+import 'package:phone_form_field/src/number_parser/models/phone_number.dart';
+import 'package:phone_form_field/src/number_parser/models/phone_number_exceptions.dart';
 import 'package:phone_form_field/src/validation/validator_translator.dart';
-import 'package:phone_numbers_parser/phone_numbers_parser.dart';
 
 import 'phone_field.dart';
 

@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:phone_form_field/phone_form_field_package.dart';
+import 'package:phone_form_field/src/number_parser/models/iso_code.dart';
 import 'package:phone_form_field/src/widgets/country_selector/country_selector_page.dart';
 
 abstract class CountrySelectorNavigator {

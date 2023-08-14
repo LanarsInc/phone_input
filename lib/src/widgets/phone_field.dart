@@ -4,7 +4,7 @@ import 'package:phone_form_field/phone_form_field_package.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:phone_form_field/src/constants/custom_max_length_formatter.dart';
-import 'package:phone_numbers_parser/src/metadata/metadata_finder.dart';
+import 'package:phone_form_field/src/number_parser/metadata/metadata_finder.dart';
 import 'package:phone_form_field/src/constants/patterns.dart';
 import 'package:phone_form_field/src/controllers/phone_field_controller.dart';
 

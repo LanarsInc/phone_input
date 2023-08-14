@@ -2,6 +2,7 @@
 
 import 'package:diacritic/diacritic.dart';
 import 'package:phone_form_field/phone_form_field_package.dart';
+import 'package:phone_form_field/src/number_parser/models/iso_code.dart';
 
 class CountryFinder {
   late final List<Country> _allCountries;

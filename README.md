@@ -40,13 +40,12 @@ PhoneInput(
   labelText: 'Phone',          // default to null
   border: OutlineInputBorder() // default to UnderlineInputBorder(),
 // ...
-),
   validator: PhoneValidator.validMobile(),   // default PhoneValidator.valid()
   isCountrySelectionEnabled: true, // default
   countrySelectorNavigator: CountrySelectorNavigator.bottomSheet(),
   showFlagInInput: true,  // default
   flagShape: BoxShape.circle, // default
-  showArrow = true,
+  showArrow: true,
   flagSize: 16,           // default
   autofillHints: [AutofillHints.telephoneNumber], // default to null
   enabled: true,          // default
@@ -54,7 +53,7 @@ PhoneInput(
   onSaved: (PhoneNumber p) => print('saved $p'),   // default null
   onChanged: (PhoneNumber p) => print('changed $p'), // default null
 // ... + other textfield params
-)
+),
 
 ```
 
@@ -66,7 +65,7 @@ Here is the list of the parameters available for all built-in country selectors:
 
 * countries - The list of countries that will be available in the list view widget.
 * favorites - The list of countries to be displayed at the top of the list.
-* addFavouriteSeparator - The boolean value determines whether the divider between favorite and default countries will be visible or hidden.
+* addFavouriteSeparator - The boolean value determines whether to display divider between favorite and default countries.
 * showCountryCode - The boolean value determines whether to display the country dial code.
 * showCountryName - The boolean value determines whether to display the country name.
 * showCountryFlag - The boolean value determines whether to display the country flag.
@@ -78,21 +77,23 @@ Here is the list of the parameters available for all built-in country selectors:
 
 ### Built-in country selector
 
-| Name            | Description                          |
-|-----------------|--------------------------------------|
-| Search Delegate | Open a page for choosing the country |
-| Dialog | Open a dialog for choosing the country |
-| Bottom Sheet | Open a bottom sheet that expands to occupy all available space in both the horizontal and vertical axes. |
-| Modal Bottom Sheet | Launch a modal bottom sheet that is expanded in the horizontal direction. |
+| Name            | Description                                                                                                                                           |
+|-----------------|-------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Search Delegate | Open a page for choosing the country                                                                                                                  |
+| Dialog | Open a dialog for choosing the country                                                                                                                |
+| Bottom Sheet | Open a bottom sheet that expands to occupy all available space in both the horizontal and vertical axes.                                              |
+| Modal Bottom Sheet | Open a modal bottom sheet that is expanded in the horizontal direction.                                                                               |
 | Draggable Bottom Sheet | Open a modal bottom sheet that is expanded horizontally and can be dragged from a minimum to a maximum height based on the currently available space. |
-| Dropdown | Open a dropdown menu under text input with customizable height. |
+| Dropdown | Open a dropdown menu under text input with customizable height.                                                                                       |
 
 ### Extra parameters
 
 * **CountrySelectorNavigator.searchDelegate**
+  
   No extra parameters.
 
 * **CountrySelectorNavigator.dialog**
+  
   Extra parameters:
   * `showSearchInput` Whether to show the search input
   * `searchInputDecoration` The [InputDecoration] of the Search Input
@@ -102,30 +103,36 @@ Here is the list of the parameters available for all built-in country selectors:
   * `searchInputWidth` The width of the search input field, if specified.
 
 * **CountrySelectorNavigator.bottomSheet**
+  
   Extra parameters:
   * `bottomSheetDragHandlerColor` The [Color] of the divider at the top on the bottom sheet
-    and other extra params as in the dialog
+  * and other extra params as in the dialog
 
 * **CountrySelectorNavigator.modalBottomSheet**
+  
   Extra parameters:
   * `height` Provides the capability to define the height of the bottom sheet.
+  * and other extra params as in the bottomSheet
 
 * **CountrySelectorNavigator.draggableBottomSheet**
+  
   Extra parameters:
   * `initialChildSize` Defines the initial height of the bottom sheet.
   * `minChildSize` Defines the minimum height that the bottom sheet can occupy.
   * `maxChildSize` Defines the maximum height that the bottom sheet can occupy.
   * `borderRadius` Controls the rounded corner radius of the bottom sheet.
-    and other extra params as in the dialog
+  * and other extra params as in the dialog
 
 * **CountrySelectorNavigator.dropdown**
+  
   Since dropdown is implemented using overlay it is necessary to pass Layer Link.
+  
   Extra parameters:
   * required `layerLink` The LayerLink for overlay positioning
   * `borderRadius` The dropdown's border-radius
   * `listHeight` The height of the dropdown list
-  * `backgroundColor` The background color of the dropdown
-    and other extra params as in the dialog
+  * `backgroundColor` The background color of the dropdown 
+  * and other extra params as in the dialog
 
 ## Integration with Customs Text Fields
 
@@ -163,8 +170,7 @@ Builder(
 
 ```
 
-Also note that with dropdown selector, you need to additionally wrap TextField in CompositedTransformTarget, pass LayerLink to it and inside pass TextField wrapped in Builder.
-Also, note the integration with the dropdown selector
+Also, note what you need to do with with dropdown selector:
 1. Start by wrapping your TextField with CompositedTransformTarget.
 2. Provide a LayerLink to CompositedTransformTarget.
 3. Wrap Your TextField with a Builder.
@@ -193,8 +199,8 @@ CompositedTransformTarget(
 
 ## Validation
 
-* With PhoneInput widget you can use a number of build-it validators for phone numbers.
-* You can customize validate behavior through autovalidateMode parameter in PhoneInput widget.
+* With Phone Input widget you can use a number of build-it validators for phone numbers.
+* You can customize validate behavior through autovalidateMode parameter in Phone Input widget.
 * Each validator can be customized with an optional `errorText` property to change the displayed error message.
 * Most of the validators have an optional `allowEmpty` property that prevents the field from being flagged as valid if it is empty. This can be useful if you want to display a different error message for empty fields.
 

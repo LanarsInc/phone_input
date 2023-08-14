@@ -99,13 +99,13 @@ class _PhoneFormFieldPageState extends State<PhoneFormFieldPage> {
                   selected: <FieldType>{fieldType},
                 ),
               ),
-              const SizedBox(height: 12),
+              const SizedBox(height: 24),
               PhoneFormField(
                 showArrow: _showArrow,
                 shouldFormat: _shouldFormat,
                 validator:
                     PhoneValidator.compose([PhoneValidator.required(), PhoneValidator.valid()]),
-                isFlagCircle: _isFlagCircle,
+                flagShape: _isFlagCircle ? BoxShape.circle : BoxShape.rectangle,
                 showFlagInInput: _showFlagInInput,
                 decoration: InputDecoration(
                   labelText: 'Phone number',

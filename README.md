@@ -1,6 +1,8 @@
-# phone_form_field
+# phone_input
 
-The Phone Form Field is a versatile package that provides cross-platform support for phone number input fields. This package is designed to simplify the process of capturing phone numbers from users.
+The Phone Input is a versatile package that provides cross-platform support for phone number input fields. This package is designed to simplify the process of capturing phone numbers from users.
+
+It was based on the phone Phone Form Field package - https://pub.dev/packages/phone_form_field
 
 ## Features
 
@@ -13,114 +15,84 @@ The Phone Form Field is a versatile package that provides cross-platform support
 
 ## Demo
 
-<img src="https://raw.githubusercontent.com/LanarsInc/phone_form_field/refactor/country_selector/example/assets/phone_form_field_example.gif" width="356">
+<img src="https://raw.githubusercontent.com/LanarsInc/phone_form_field/main/example/assets/phone_form_field_example.gif" width="356">
 
-## Usage
+## Getting Started
 
 Just create a phone form field widget and pass desired country selector that's it, you can already use it.
 
 ```dart
 
-PhoneFormField(countrySelectorNavigator: const CountrySelectorNavigator.dialog()),
+PhoneInput(countrySelectorNavigator: const CountrySelectorNavigator.dialog()),
 
 ```
-Of course, you can pass any available params for customization of your Phone Form Field
+Of course, you can pass any available params for customization of your Phone Input
 
 ```dart
 
-PhoneFormField(
-key: const Key('phone-field'),
-controller: null,     // Phone controller 
-initialValue: null,   // can't be supplied simultaneously with a controller
-shouldFormat: true    // default 
-defaultCountry: IsoCode.US, // default 
-decoration: InputDecoration(
-labelText: 'Phone',          // default to null
-border: OutlineInputBorder() // default to UnderlineInputBorder(),
+PhoneInput(
+  key: const Key('phone-field'),
+  controller: null,     // Phone controller 
+  initialValue: null,   // can't be supplied simultaneously with a controller
+  shouldFormat: true    // default 
+  defaultCountry: IsoCode.US, // default 
+  decoration: InputDecoration(
+  labelText: 'Phone',          // default to null
+  border: OutlineInputBorder() // default to UnderlineInputBorder(),
 // ...
 ),
-validator: PhoneValidator.validMobile(),   // default PhoneValidator.valid()
-isCountrySelectionEnabled: true, // default
-countrySelectorNavigator: CountrySelectorNavigator.bottomSheet(),
-showFlagInInput: true,  // default
-isFlagCircle: true, // defaule
-showArrow = true,
-flagSize: 16,           // default
-autofillHints: [AutofillHints.telephoneNumber], // default to null
-enabled: true,          // default
-autofocus: false,       // default
-onSaved: (PhoneNumber p) => print('saved $p'),   // default null
-onChanged: (PhoneNumber p) => print('saved $p'), // default null
+  validator: PhoneValidator.validMobile(),   // default PhoneValidator.valid()
+  isCountrySelectionEnabled: true, // default
+  countrySelectorNavigator: CountrySelectorNavigator.bottomSheet(),
+  showFlagInInput: true,  // default
+  flagShape: BoxShape.circle, // default
+  showArrow = true,
+  flagSize: 16,           // default
+  autofillHints: [AutofillHints.telephoneNumber], // default to null
+  enabled: true,          // default
+  autofocus: false,       // default
+  onSaved: (PhoneNumber p) => print('saved $p'),   // default null
+  onChanged: (PhoneNumber p) => print('changed $p'), // default null
 // ... + other textfield params
-)
-
-```
-
-## Validation
-
-### Built-in validators
-
-* required : `PhoneValidator.required`
-* valid : `PhoneValidator.valid` (default value if no other validator is specified)
-* valid mobile number : `PhoneValidator.validMobile`
-* valid fixed line number : `PhoneValidator.validFixedLine`
-* valid type : `PhoneValidator.validType`
-* valid country : `PhoneValidator.validCountry`
-* none : `PhoneValidator.none` (use this to disable the default validator)
-
-### Validators details
-
-* The phone_form_field package includes a number of built-in validators for phone numbers. Each validator can be customized with an optional `errorText` property to change the displayed error message.
-* Most of the validators have an optional `allowEmpty` property that prevents the field from being flagged as valid if it is empty. This can be useful if you want to display a different error message for empty fields.
-
-### Composing validators
-
-You can also create your own custom validators by using the PhoneValidator.compose() method. This method takes a list of built-in or custom validators as input and combines the functionality of all of the input validators.
-
-Note that when composing validators, the sorting is important as the error message displayed is the first validator failing.
-
-```dart
-
-PhoneFormField(
-  // ...
-  validator: PhoneValidator.compose([
-    // list of validators to use
-    PhoneValidator.required(errorText: "You must enter a value"),
-    PhoneValidator.validMobile(),
-    // ..
-  ]),
 )
 
 ```
 
 ## Country selector
 
-You can choose from many different selectors to select a country. All of them are flexibly customizable, and the default appearance selectors like dialog and bottom sheets depends on your app's theme settings.
+You can choose from many different selectors to select a country. All of them are flexibly customizable, and the default appearance selectors like dialog and bottom sheets depend on your app's theme settings.
 
-Here is the list of the parameters available for all built-in country selector:
+Here is the list of the parameters available for all built-in country selectors:
 
-| Name | Default value | Description |
-|---|---|---|
-| countries | null | Countries available in list view (all countries are listed when omitted) |
-| favorites | null | List of country code `['FR','UK']` to display on top of the list |
-| addSeparator | true | Whether to add a separator between favorite countries and others one. Useless if `favorites` parameter is null |
-| showCountryCode | true | Whether to display the country dial code as listTile item subtitle |
-| showCountryName | true | Determines if the country name should be shown. |
-| showCountryFlag | true | Determines if the country flag should be shown |
-| noResultMessage | null | The message to be displayed in place of the list when a search result is empty (a default localised message is used when omitted) |
-| countryCodeStyle | null | The text style of country code |
-| countryNameStyle | null | The text style of country name |
-| flagSize | 48 | Flag icon size |
-|isFlagCircle| true | Determines if the displayed flags should be circular. |
+* countries - The list of countries that will be available in the list view widget.
+* favorites - The list of countries to be displayed at the top of the list.
+* addFavouriteSeparator - The boolean value determines whether the divider between favorite and default countries will be visible or hidden.
+* showCountryCode - The boolean value determines whether to display the country dial code.
+* showCountryName - The boolean value determines whether to display the country name.
+* showCountryFlag - The boolean value determines whether to display the country flag.
+* noResultMessage - The String value that will display when a search result is empty.
+* countryCodeStyle - The text style of a country code.
+* countryNameStyle - The text style of a country name.
+* flagSize - Flag icon size.
+* flagShape - The BoxShape that determines if the displayed flags should be circular.
 
 ### Built-in country selector
 
+| Name            | Description                          |
+|-----------------|--------------------------------------|
+| Search Delegate | Open a page for choosing the country |
+| Dialog | Open a dialog for choosing the country |
+| Bottom Sheet | Open a bottom sheet that expands to occupy all available space in both the horizontal and vertical axes. |
+| Modal Bottom Sheet | Launch a modal bottom sheet that is expanded in the horizontal direction. |
+| Draggable Bottom Sheet | Open a modal bottom sheet that is expanded horizontally and can be dragged from a minimum to a maximum height based on the currently available space. |
+| Dropdown | Open a dropdown menu under text input with customizable height. |
+
+### Extra parameters
+
 * **CountrySelectorNavigator.searchDelegate**
-  Open a page for choosing the country.
   No extra parameters.
 
 * **CountrySelectorNavigator.dialog**
-  Open a dialog to select the country.
   Extra parameters:
   * `showSearchInput` Whether to show the search input
   * `searchInputDecoration` The [InputDecoration] of the Search Input
@@ -130,33 +102,27 @@ Here is the list of the parameters available for all built-in country selector:
   * `searchInputWidth` The width of the search input field, if specified.
 
 * **CountrySelectorNavigator.bottomSheet**
-  Open a bottom sheet expanding to all available space in both axis
   Extra parameters:
   * `bottomSheetDragHandlerColor` The [Color] of the divider at the top on the bottom sheet
     and other extra params as in the dialog
 
 * **CountrySelectorNavigator.modalBottomSheet**
-  Open a modal bottom sheet expanded horizontally
   Extra parameters:
-  * `height` (double, default null) Allow to determine the height of the bottom sheet
-    and other extra params as in the bottomSheet
+  * `height` Provides the capability to define the height of the bottom sheet.
 
 * **CountrySelectorNavigator.draggableBottomSheet**
-  Open a modal bottom sheet expanded horizontally which may be dragged from a minimum to a maximum of current available height.
-  Uses internally the `DraggableScrollableSheet` flutter widget
   Extra parameters:
-  * `initialChildSize` (double, default: `0.5`) factor of current available height used when opening
-  * `minChildSize` (double, default: `0.Z5`) : maximum factor of current available height
-  * `minChildSize` (double, default: `0.Z5`) : minimum factor of current available height
-  * `borderRadius` (BorderRadiusGeometry, default: 16px circular radius on top left/right)
+  * `initialChildSize` Defines the initial height of the bottom sheet.
+  * `minChildSize` Defines the minimum height that the bottom sheet can occupy.
+  * `maxChildSize` Defines the maximum height that the bottom sheet can occupy.
+  * `borderRadius` Controls the rounded corner radius of the bottom sheet.
     and other extra params as in the dialog
 
 * **CountrySelectorNavigator.dropdown**
-  Open a dropdown menu under text input with customizable height.
   Since dropdown is implemented using overlay it is necessary to pass Layer Link.
   Extra parameters:
   * required `layerLink` The LayerLink for overlay positioning
-  * `borderRadius` The dropdown's border radius
+  * `borderRadius` The dropdown's border-radius
   * `listHeight` The height of the dropdown list
   * `backgroundColor` The background color of the dropdown
     and other extra params as in the dialog
@@ -198,7 +164,7 @@ Builder(
 ```
 
 Also note that with dropdown selector, you need to additionally wrap TextField in CompositedTransformTarget, pass LayerLink to it and inside pass TextField wrapped in Builder.
-Also note the integration with the dropdown selector
+Also, note the integration with the dropdown selector
 1. Start by wrapping your TextField with CompositedTransformTarget.
 2. Provide a LayerLink to CompositedTransformTarget.
 3. Wrap Your TextField with a Builder.
@@ -225,24 +191,65 @@ CompositedTransformTarget(
 
 ```
 
+## Validation
+
+* With PhoneInput widget you can use a number of build-it validators for phone numbers.
+* You can customize validate behavior through autovalidateMode parameter in PhoneInput widget.
+* Each validator can be customized with an optional `errorText` property to change the displayed error message.
+* Most of the validators have an optional `allowEmpty` property that prevents the field from being flagged as valid if it is empty. This can be useful if you want to display a different error message for empty fields.
+
+### Built-in validators
+
+PhoneInput has the following built-in validators
+
+| Name                | Description                                                                                                                        |
+|---------------------|------------------------------------------------------------------------------------------------------------------------------------|
+| required            | This validator ensures that a phone number field is required and must be filled in.                                                |
+| valid               | This validator checks if the provided phone number is valid                                                                        |
+| valid country       | This validator checks if the provided phone number is valid within the specified country.                                          | 
+| valid type          | This validator validates the phone number based on its type, such as mobile or fixed-line, ensuring it matches the specified type. |
+| valid mobile number | This validator verifies that the phone number provided is a valid mobile number |                                                   |
+| valid fixed line number |  This validator confirms the validity of the phone number as a fixed-line number  |
+| none | Using this validator disables the default validation |
+
+### Composing validators
+
+You can also create your own custom validators by using the PhoneValidator.compose() method. This method takes a list of built-in or custom validators as input and combines the functionality of all of the input validators.
+
+Note that when composing validators, the sorting is important as the error message displayed is the first validator failing.
+
+```dart
+
+PhoneInput(
+// ...
+  validator: PhoneValidator.compose([
+// list of validators to use
+  PhoneValidator.required(errorText: "You must enter a value"),
+  PhoneValidator.validMobile(),
+// ..
+  ]),
+)
+
+```
+
 ## Internationalization
 
 Include the delegate
 
 ```dart
     return MaterialApp(
-localizationsDelegates: [
-GlobalMaterialLocalizations.delegate,
-PhoneFieldLocalization.delegate
-],
-supportedLocales: [
-const Locale('en', ''),
-const Locale('es', ''),
-const Locale('fr', ''),
-const Locale('ru', ''),
-const Locale('uk', ''),
-// ...
-],
+      localizationsDelegates: [
+      GlobalMaterialLocalizations.delegate,
+      PhoneFieldLocalization.delegate
+    ],
+      supportedLocales: [
+      const Locale('en', ''),
+      const Locale('es', ''),
+      const Locale('fr', ''),
+      const Locale('ru', ''),
+      const Locale('uk', ''),
+      // ...
+    ],
 ```
 
 A bunch of languages are built-in:

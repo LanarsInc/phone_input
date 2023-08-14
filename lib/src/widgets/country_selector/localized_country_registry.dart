@@ -1,5 +1,4 @@
 import 'package:phone_input/phone_input_package.dart';
-import 'package:phone_input/src/number_parser/models/iso_code.dart';
 
 /// This saves the localized countries for each country
 /// for a given language in a cache, so it does not

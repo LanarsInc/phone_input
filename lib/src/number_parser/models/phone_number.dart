@@ -3,8 +3,6 @@ import 'package:phone_input/src/number_parser/number_parser.dart';
 import 'package:phone_input/src/number_parser/parsers/_text_parser.dart';
 import 'package:phone_input/src/number_parser/parsers/_validator.dart';
 
-import 'iso_code.dart';
-
 /// represents a phone number
 ///
 /// Use [PhoneNumber.parse] to compute a phone number.

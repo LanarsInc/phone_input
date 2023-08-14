@@ -8,20 +8,20 @@ class Flag extends StatelessWidget {
   final BytesLoader loader;
 
   final double size;
-  final bool isFlagCircle;
+  final BoxShape shape;
 
   Flag(
     String isoCode, {
     super.key,
     this.size = 48,
-    this.isFlagCircle = true,
+    this.shape = BoxShape.circle,
   }) : loader = _createLoader(isoCode);
 
   static BytesLoader _createLoader(String isoCode) {
     return _FlagAssetLoader(isoCode);
   }
 
-  const Flag.fromLoader(this.loader, {super.key, this.size = 48, this.isFlagCircle = true});
+  const Flag.fromLoader(this.loader, {super.key, this.size = 48, this.shape = BoxShape.circle});
 
   @override
   Widget build(BuildContext context) {
@@ -29,13 +29,13 @@ class Flag extends StatelessWidget {
       alignment: Alignment.center,
       height: size,
       width: size,
-      decoration: BoxDecoration(shape: isFlagCircle ? BoxShape.circle : BoxShape.rectangle),
+      decoration: BoxDecoration(shape: shape),
       clipBehavior: Clip.hardEdge,
       child: SvgPicture(
         loader,
         width: size,
         height: size,
-        fit: isFlagCircle ? BoxFit.fill : BoxFit.contain,
+        fit: shape == BoxShape.circle ? BoxFit.fill : BoxFit.contain,
       ),
     );
   }

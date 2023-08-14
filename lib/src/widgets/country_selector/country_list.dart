@@ -15,7 +15,7 @@ class CountryList extends StatelessWidget {
   final double flagSize;
 
   /// Determines if the displayed flags should be circular.
-  final bool isFlagCircle;
+  final BoxShape flagShape;
 
   /// list of favorite countries to display at the top
   final List<Country> favorites;
@@ -59,7 +59,7 @@ class CountryList extends StatelessWidget {
     this.scrollPhysics,
     this.showDialCode = true,
     this.flagSize = 48,
-    this.isFlagCircle = true,
+    this.flagShape = BoxShape.circle,
     this.countryCodeStyle,
     this.countryNameStyle,
     this.showCountryName = true,
@@ -109,7 +109,7 @@ class CountryList extends StatelessWidget {
                     country.isoCode.name,
                     key: ValueKey('circle-flag-${country.isoCode.name}'),
                     size: flagSize,
-                    isFlagCircle: isFlagCircle,
+                    shape: flagShape,
                   )
                 : null,
             title: showCountryName || showDialCode

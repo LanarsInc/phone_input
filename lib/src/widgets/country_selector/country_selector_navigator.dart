@@ -20,7 +20,7 @@ abstract class CountrySelectorNavigator {
   final Color? defaultSearchInputIconColor;
   final ScrollPhysics? scrollPhysics;
   final double flagSize;
-  final bool isFlagCircle;
+  final BoxShape flagShape;
   final bool useRootNavigator;
   final bool showCountryName;
   final bool showCountryFlag;
@@ -42,7 +42,7 @@ abstract class CountrySelectorNavigator {
     this.defaultSearchInputIconColor,
     this.searchInputDecoration,
     this.scrollPhysics,
-    this.isFlagCircle = true,
+    this.flagShape = BoxShape.circle,
     this.flagSize = 48,
     this.useRootNavigator = true,
     this.showCountryName = true,
@@ -75,7 +75,7 @@ abstract class CountrySelectorNavigator {
       searchInputTextStyle: searchInputTextStyle,
       defaultSearchInputIconColor: defaultSearchInputIconColor,
       scrollPhysics: scrollPhysics,
-      isFlagCircle: isFlagCircle,
+      flagShape: flagShape,
       flagSize: flagSize,
       isBottomSheet: isBottomSheet,
       showCountryName: showCountryName,
@@ -104,7 +104,7 @@ abstract class CountrySelectorNavigator {
     Color? defaultSearchInputIconColor,
     ScrollPhysics? scrollPhysics,
     double flagSize,
-    bool isFlagCircle,
+    BoxShape flagShape,
     bool showCountryName,
     bool showCountryFlag,
     double? searchInputHeight,
@@ -122,7 +122,7 @@ abstract class CountrySelectorNavigator {
     TextStyle? countryNameStyle,
     ScrollPhysics? scrollPhysics,
     double flagSize,
-    bool isFlagCircle,
+    BoxShape flagShape,
     bool showCountryName,
     bool showCountryFlag,
   }) = SearchDelegateNavigator._;
@@ -143,7 +143,7 @@ abstract class CountrySelectorNavigator {
     Color? bottomSheetDragHandlerColor,
     ScrollPhysics? scrollPhysics,
     double flagSize,
-    bool isFlagCircle,
+    BoxShape flagShape,
     bool showCountryName,
     bool showCountryFlag,
     double? searchInputHeight,
@@ -167,7 +167,7 @@ abstract class CountrySelectorNavigator {
     Color? bottomSheetDragHandlerColor,
     ScrollPhysics? scrollPhysics,
     double flagSize,
-    bool isFlagCircle,
+    BoxShape flagShape,
     bool showCountryName,
     bool showCountryFlag,
     double? searchInputHeight,
@@ -194,7 +194,7 @@ abstract class CountrySelectorNavigator {
     Color? defaultSearchInputIconColor,
     Color? bottomSheetDragHandlerColor,
     // ScrollPhysics? scrollPhysics, //TODO Doesn't work yet
-    bool isFlagCircle,
+    BoxShape flagShape,
     bool showCountryName,
     bool showCountryFlag,
     double? searchInputHeight,
@@ -215,7 +215,7 @@ abstract class CountrySelectorNavigator {
     TextStyle? countryNameStyle,
     ScrollPhysics? scrollPhysics,
     double flagSize,
-    bool isFlagCircle,
+    BoxShape flagShape,
     double? offsetHeight,
     bool showCountryName,
     bool showCountryFlag,
@@ -251,7 +251,7 @@ class DialogNavigator extends CountrySelectorNavigator {
     super.defaultSearchInputIconColor,
     super.scrollPhysics,
     super.flagSize = 48,
-    super.isFlagCircle = true,
+    super.flagShape = BoxShape.circle,
     super.showCountryName = true,
     super.showCountryFlag = true,
     super.searchInputHeight,
@@ -289,7 +289,7 @@ class SearchDelegateNavigator extends CountrySelectorNavigator {
     super.countryNameStyle,
     super.scrollPhysics,
     super.flagSize = 48,
-    super.isFlagCircle = true,
+    super.flagShape = BoxShape.circle,
     super.showCountryName = true,
     super.showCountryFlag = true,
   });
@@ -311,7 +311,7 @@ class SearchDelegateNavigator extends CountrySelectorNavigator {
       countryNameStyle: countryNameStyle,
       countryCodeStyle: countryCodeStyle,
       flagSize: flagSize,
-      isFlagCircle: isFlagCircle,
+      flagShape: flagShape,
       showCountryFlag: showCountryFlag,
       showCountryName: showCountryName,
     );
@@ -345,7 +345,7 @@ class BottomSheetNavigator extends CountrySelectorNavigator {
     super.defaultSearchInputIconColor,
     super.scrollPhysics,
     super.flagSize = 48,
-    super.isFlagCircle = true,
+    super.flagShape = BoxShape.circle,
     super.showCountryName = true,
     super.showCountryFlag = true,
     super.searchInputHeight,
@@ -392,7 +392,7 @@ class ModalBottomSheetNavigator extends CountrySelectorNavigator {
     super.defaultSearchInputIconColor,
     super.scrollPhysics,
     super.flagSize = 48,
-    super.isFlagCircle = true,
+    super.flagShape = BoxShape.circle,
     super.showCountryName = true,
     super.showCountryFlag = true,
     super.searchInputHeight,
@@ -433,7 +433,7 @@ class DraggableModalBottomSheetNavigator extends CountrySelectorNavigator {
     super.favorites,
     super.addFavoriteSeparator = true,
     super.showCountryCode = true,
-    super.isFlagCircle = true,
+    super.flagShape = BoxShape.circle,
     super.flagSize = 40,
     super.noResultMessage,
     super.searchAutofocus,
@@ -513,7 +513,7 @@ class DropdownNavigator extends CountrySelectorNavigator {
     super.countryNameStyle,
     super.scrollPhysics,
     super.flagSize = 48,
-    super.isFlagCircle = true,
+    super.flagShape = BoxShape.circle,
     super.noResultMessage,
     super.searchInputDecoration,
     super.searchInputTextStyle,

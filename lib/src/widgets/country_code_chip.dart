@@ -26,7 +26,7 @@ class CountryCodeChip extends StatelessWidget {
   final double flagSize;
 
   /// Determines if the displayed flags should be circular.
-  final bool isFlagCircle;
+  final BoxShape flagShape;
 
   /// The direction of the text within the component.
   final TextDirection? textDirection;
@@ -37,7 +37,7 @@ class CountryCodeChip extends StatelessWidget {
     this.countryCodeTextStyle = const TextStyle(),
     this.showFlag = true,
     this.flagSize = 20,
-    this.isFlagCircle = true,
+    this.flagShape = BoxShape.circle,
     this.textDirection,
     this.showArrow = true,
     this.isListVisible = false,
@@ -52,7 +52,7 @@ class CountryCodeChip extends StatelessWidget {
           Flag(
             country.isoCode.name,
             size: flagSize,
-            isFlagCircle: isFlagCircle,
+            shape: flagShape,
           ),
           const SizedBox(width: 8),
         ],

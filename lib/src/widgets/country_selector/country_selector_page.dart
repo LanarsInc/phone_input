@@ -50,7 +50,7 @@ class CountrySelectorSearchDelegate extends SearchDelegate<Country> {
   final double flagSize;
 
   /// Determines if the displayed flags should be circular.
-  final bool isFlagCircle;
+  final BoxShape flagShape;
 
   /// Determines if the country name should be shown.
   final bool showCountryName;
@@ -78,7 +78,7 @@ class CountrySelectorSearchDelegate extends SearchDelegate<Country> {
     List<IsoCode>? countries,
     this.searchAutofocus = kIsWeb,
     this.flagSize = 48,
-    this.isFlagCircle = true,
+    this.flagShape = BoxShape.circle,
     this.countryNameStyle,
     this.countryCodeStyle,
     this.showCountryName = true,
@@ -138,7 +138,7 @@ class CountrySelectorSearchDelegate extends SearchDelegate<Country> {
       showDialCode: showCountryCode,
       onTap: onCountrySelected,
       flagSize: flagSize,
-      isFlagCircle: isFlagCircle,
+      flagShape: flagShape,
       scrollController: scrollController,
       scrollPhysics: scrollPhysics,
       noResultMessage: noResultMessage,

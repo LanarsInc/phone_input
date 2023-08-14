@@ -16,7 +16,7 @@ class PhoneField extends StatefulWidget {
   final bool showFlagInInput;
   final String? errorText;
   final double flagSize;
-  final bool isFlagCircle;
+  final BoxShape flagShape;
   final InputDecoration decoration;
   final bool isCountrySelectionEnabled;
   final bool showArrow;
@@ -71,7 +71,7 @@ class PhoneField extends StatefulWidget {
     required this.showFlagInInput,
     required this.selectorNavigator,
     required this.flagSize,
-    required this.isFlagCircle,
+    required this.flagShape,
     required this.errorText,
     required this.decoration,
     required this.isCountrySelectionEnabled,
@@ -258,7 +258,7 @@ class PhoneFieldState extends State<PhoneField> {
                       color: Theme.of(context).textTheme.bodySmall?.color,
                     ),
                 flagSize: widget.flagSize,
-                isFlagCircle: widget.isFlagCircle,
+                flagShape: widget.flagShape,
                 showArrow: widget.showArrow,
                 isListVisible: isListVisible,
               ),

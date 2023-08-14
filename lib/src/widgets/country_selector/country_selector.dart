@@ -70,7 +70,7 @@ class CountrySelector extends StatefulWidget {
   final double flagSize;
 
   /// Determines if the displayed flags should be circular.
-  final bool isFlagCircle;
+  final BoxShape flagShape;
 
   /// Determines if the component is being used within a bottom sheet.
   /// For display bottomSheetDragHandler and some paddings
@@ -107,7 +107,7 @@ class CountrySelector extends StatefulWidget {
     this.defaultSearchInputIconColor,
     this.bottomSheetDragHandlerColor,
     this.flagSize = 48,
-    this.isFlagCircle = true,
+    this.flagShape = BoxShape.circle,
     this.showCountryName = true,
     this.showCountryFlag = true,
     this.searchInputHeight,
@@ -191,7 +191,7 @@ class CountrySelectorState extends State<CountrySelector> {
             showDialCode: widget.showCountryCode,
             onTap: widget.onCountrySelected,
             flagSize: widget.flagSize,
-            isFlagCircle: widget.isFlagCircle,
+            flagShape: widget.flagShape,
             scrollController: widget.scrollController,
             scrollPhysics: widget.scrollPhysics,
             noResultMessage: widget.noResultMessage,

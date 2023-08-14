@@ -1,5 +1,5 @@
-import 'package:phone_form_field/src/number_parser/models/phone_number.dart';
-import 'package:phone_form_field/src/number_parser/parsers/_validator.dart';
+import 'package:phone_input/src/number_parser/models/phone_number.dart';
+import 'package:phone_input/src/number_parser/parsers/_validator.dart';
 
 import 'models/phone_metadata.dart';
 

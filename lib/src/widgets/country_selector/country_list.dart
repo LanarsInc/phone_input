@@ -1,5 +1,5 @@
-import 'package:phone_form_field/l10n/generated/phone_field_localization.dart';
-import 'package:phone_form_field/src/flags/flags.dart';
+import 'package:phone_input/l10n/generated/phone_field_localization.dart';
+import 'package:phone_input/src/flags/flags.dart';
 import 'package:flutter/material.dart';
 
 import 'country.dart';

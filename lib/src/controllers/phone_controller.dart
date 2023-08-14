@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:phone_form_field/src/number_parser/models/phone_number.dart';
+import 'package:phone_input/phone_input_package.dart';
 
 class PhoneController extends ValueNotifier<PhoneNumber?> {
   final PhoneNumber? initialValue;

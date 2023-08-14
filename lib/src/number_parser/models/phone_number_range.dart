@@ -1,4 +1,4 @@
-import 'package:phone_form_field/src/number_parser/models/phone_number.dart';
+import 'package:phone_input/src/number_parser/models/phone_number.dart';
 
 /// Describes a contiguous range of phone numbers
 class PhoneNumberRange {

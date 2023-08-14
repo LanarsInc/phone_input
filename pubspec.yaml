@@ -1,7 +1,7 @@
-name: phone_form_field
-description: Flutter phone input integrated with flutter internationalization
-version: 8.1.0
-homepage: https://github.com/cedvdb/phone_form_field
+name: phone_input
+description: This package is designed to simplify the process of capturing phone numbers from users.
+version: 0.0.1
+homepage: https://github.com/LanarsInc/phone_form_field
 
 environment:
   sdk: ">=3.0.0 <4.0.0"

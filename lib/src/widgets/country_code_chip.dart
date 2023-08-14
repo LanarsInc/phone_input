@@ -1,6 +1,6 @@
-import 'package:phone_form_field/src/flags/flags.dart';
+import 'package:phone_input/src/flags/flags.dart';
 import 'package:flutter/material.dart';
-import 'package:phone_form_field/src/number_parser/models/iso_code.dart';
+import 'package:phone_input/src/number_parser/models/iso_code.dart';
 
 import 'country_selector/country.dart';
 

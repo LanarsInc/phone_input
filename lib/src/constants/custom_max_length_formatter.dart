@@ -1,5 +1,5 @@
 import 'package:flutter/services.dart';
-import 'package:phone_form_field/src/constants/patterns.dart';
+import 'package:phone_input/src/constants/patterns.dart';
 
 class CustomMaxLengthFormatter extends TextInputFormatter {
   final int maxLength;

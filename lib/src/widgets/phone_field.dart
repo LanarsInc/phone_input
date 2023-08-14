@@ -1,18 +1,18 @@
 import 'dart:ui' as ui show BoxHeightStyle, BoxWidthStyle;
 
-import 'package:phone_form_field/phone_form_field_package.dart';
+import 'package:phone_input/phone_input_package.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:phone_form_field/src/constants/custom_max_length_formatter.dart';
-import 'package:phone_form_field/src/number_parser/metadata/metadata_finder.dart';
-import 'package:phone_form_field/src/constants/patterns.dart';
-import 'package:phone_form_field/src/controllers/phone_field_controller.dart';
+import 'package:phone_input/src/constants/custom_max_length_formatter.dart';
+import 'package:phone_input/src/number_parser/metadata/metadata_finder.dart';
+import 'package:phone_input/src/constants/patterns.dart';
+import 'package:phone_input/src/controllers/phone_field_controller.dart';
 
 /// Phone field
 ///
 /// This deals with mostly UI and has no dependency on any phone parser library
 class PhoneField extends StatefulWidget {
-  final PhoneFieldController controller;
+  final PhoneInputController controller;
   final bool showFlagInInput;
   final String? errorText;
   final double flagSize;
@@ -121,7 +121,7 @@ class PhoneField extends StatefulWidget {
 }
 
 class PhoneFieldState extends State<PhoneField> {
-  PhoneFieldController get controller => widget.controller;
+  PhoneInputController get controller => widget.controller;
   bool isListVisible = false;
 
   @override

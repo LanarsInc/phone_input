@@ -1,6 +1,6 @@
 import 'package:meta/meta.dart';
-import 'package:phone_form_field/src/number_parser/models/iso_code.dart';
-import 'package:phone_form_field/src/number_parser/models/phone_number.dart';
+import 'package:phone_input/src/number_parser/models/iso_code.dart';
+import 'package:phone_input/src/number_parser/models/phone_number.dart';
 
 import '../metadata/metadata_finder.dart';
 import '../metadata/models/phone_metadata.dart';

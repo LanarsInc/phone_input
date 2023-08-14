@@ -1,10 +1,7 @@
-import 'package:phone_form_field/src/number_parser/formatters/phone_number_formatter.dart';
-import 'package:phone_form_field/src/number_parser/metadata/metadata_finder.dart';
-import 'package:phone_form_field/src/number_parser/models/phone_number_range.dart';
-import 'package:phone_form_field/src/number_parser/models/phone_number_type.dart';
-import 'package:phone_form_field/src/number_parser/parsers/_text_parser.dart';
-import 'package:phone_form_field/src/number_parser/parsers/_validator.dart';
-import 'package:phone_form_field/src/number_parser/parsers/phone_parser.dart';
+import 'package:phone_input/src/number_parser/metadata/metadata_finder.dart';
+import 'package:phone_input/src/number_parser/number_parser.dart';
+import 'package:phone_input/src/number_parser/parsers/_text_parser.dart';
+import 'package:phone_input/src/number_parser/parsers/_validator.dart';
 
 import 'iso_code.dart';
 

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:phone_form_field/src/number_parser/models/iso_code.dart';
+import 'package:phone_input/phone_input_package.dart';
 
-class PhoneFieldController extends ChangeNotifier {
+
+class PhoneInputController extends ChangeNotifier {
   late final ValueNotifier<IsoCode> isoCodeController;
   late final TextEditingController nationalNumberController;
 
@@ -36,7 +37,7 @@ class PhoneFieldController extends ChangeNotifier {
     );
   }
 
-  PhoneFieldController({
+  PhoneInputController({
     required String? national,
     required IsoCode isoCode,
     required this.focusNode,

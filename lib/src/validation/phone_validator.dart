@@ -1,6 +1,6 @@
-import 'package:phone_form_field/src/number_parser/models/iso_code.dart';
-import 'package:phone_form_field/src/number_parser/models/phone_number.dart';
-import 'package:phone_form_field/src/number_parser/models/phone_number_type.dart';
+import 'package:phone_input/src/number_parser/models/iso_code.dart';
+import 'package:phone_input/src/number_parser/models/phone_number.dart';
+import 'package:phone_input/src/number_parser/models/phone_number_type.dart';
 
 typedef PhoneNumberInputValidator = String? Function(PhoneNumber? phoneNumber);
 

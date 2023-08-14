@@ -3,11 +3,11 @@ import 'dart:ui' as ui show BoxHeightStyle, BoxWidthStyle;
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:phone_form_field/phone_form_field_package.dart';
-import 'package:phone_form_field/src/constants/patterns.dart';
-import 'package:phone_form_field/src/controllers/phone_field_controller.dart';
-import 'package:phone_form_field/src/number_parser/models/phone_number_exceptions.dart';
-import 'package:phone_form_field/src/validation/validator_translator.dart';
+import 'package:phone_input/phone_input_package.dart';
+import 'package:phone_input/src/constants/patterns.dart';
+import 'package:phone_input/src/controllers/phone_field_controller.dart';
+import 'package:phone_input/src/number_parser/models/phone_number_exceptions.dart';
+import 'package:phone_input/src/validation/validator_translator.dart';
 
 import 'phone_field.dart';
 
@@ -59,7 +59,7 @@ import 'phone_field.dart';
 ///  - const ModalBottomSheetNavigator()
 ///  - const DialogNavigator()
 /// {@endtemplate}
-class PhoneFormField extends FormField<PhoneNumber> {
+class PhoneInput extends FormField<PhoneNumber> {
   /// {@macro controller}
   final PhoneController? controller;
 
@@ -75,7 +75,7 @@ class PhoneFormField extends FormField<PhoneNumber> {
   /// the focusNode of the national number
   final FocusNode? focusNode;
 
-    PhoneFormField({
+    PhoneInput({
     Key? key,
     this.controller,
     this.shouldFormat = true,
@@ -144,7 +144,7 @@ class PhoneFormField extends FormField<PhoneNumber> {
           validator: validator ?? PhoneValidator.valid(),
           restorationId: restorationId,
           builder: (state) {
-            final field = state as PhoneFormFieldState;
+            final field = state as PhoneInputState;
             return PhoneField(
               showArrow: showArrow,
               controller: field._childController,
@@ -198,22 +198,22 @@ class PhoneFormField extends FormField<PhoneNumber> {
         );
 
   @override
-  PhoneFormFieldState createState() => PhoneFormFieldState();
+  PhoneInputState createState() => PhoneInputState();
 }
 
-class PhoneFormFieldState extends FormFieldState<PhoneNumber> {
+class PhoneInputState extends FormFieldState<PhoneNumber> {
   late final PhoneController _controller;
-  late final PhoneFieldController _childController;
+  late final PhoneInputController _childController;
   late final StreamSubscription<void> _selectionSubscription;
 
   @override
-  PhoneFormField get widget => super.widget as PhoneFormField;
+  PhoneInput get widget => super.widget as PhoneInput;
 
   @override
   void initState() {
     super.initState();
     _controller = widget.controller ?? PhoneController(value);
-    _childController = PhoneFieldController(
+    _childController = PhoneInputController(
       isoCode: _controller.value?.isoCode ?? widget.defaultCountry,
       national: _getFormattedNsn(),
       focusNode: widget.focusNode ?? FocusNode(),

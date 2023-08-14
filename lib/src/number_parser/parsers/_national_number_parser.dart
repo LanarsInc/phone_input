@@ -1,6 +1,6 @@
-import 'package:phone_form_field/src/number_parser/metadata/metadata_finder.dart';
-import 'package:phone_form_field/src/number_parser/metadata/models/phone_metadata.dart';
-import 'package:phone_form_field/src/number_parser/regex/regexp_manager.dart';
+import 'package:phone_input/src/number_parser/metadata/metadata_finder.dart';
+import 'package:phone_input/src/number_parser/metadata/models/phone_metadata.dart';
+import 'package:phone_input/src/number_parser/regex/regexp_manager.dart';
 
 abstract class NationalNumberParser {
   /// extract the national prefix from the phone number if there is one

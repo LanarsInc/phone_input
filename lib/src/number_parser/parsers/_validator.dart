@@ -1,10 +1,9 @@
-import 'package:phone_form_field/src/number_parser/constants/constants.dart';
-import 'package:phone_form_field/src/number_parser/metadata/metadata_finder.dart';
-import 'package:phone_form_field/src/number_parser/metadata/models/phone_metadata_lengths.dart';
-import 'package:phone_form_field/src/number_parser/metadata/models/phone_metadata_patterns.dart';
-import 'package:phone_form_field/src/number_parser/models/phone_number.dart';
-import 'package:phone_form_field/src/number_parser/models/phone_number_type.dart';
-import 'package:phone_form_field/src/number_parser/regex/regexp_manager.dart';
+import 'package:phone_input/phone_input_package.dart';
+import 'package:phone_input/src/number_parser/constants/constants.dart';
+import 'package:phone_input/src/number_parser/metadata/metadata_finder.dart';
+import 'package:phone_input/src/number_parser/metadata/models/phone_metadata_lengths.dart';
+import 'package:phone_input/src/number_parser/metadata/models/phone_metadata_patterns.dart';
+import 'package:phone_input/src/number_parser/regex/regexp_manager.dart';
 
 /// Validates phone numbers
 abstract class Validator {

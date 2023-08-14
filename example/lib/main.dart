@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:phone_form_field/phone_form_field_package.dart';
+import 'package:phone_input/phone_input_package.dart';
 
 void main() {
-  runApp(const PhoneFormFieldApp());
+  runApp(const PhoneInputApp());
 }
 
-class PhoneFormFieldApp extends StatelessWidget {
-  const PhoneFormFieldApp({super.key});
+class PhoneInputApp extends StatelessWidget {
+  const PhoneInputApp({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -15,21 +15,21 @@ class PhoneFormFieldApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const PhoneFormFieldPage(),
+      home: const PhoneInputPage(),
     );
   }
 }
 
-class PhoneFormFieldPage extends StatefulWidget {
-  const PhoneFormFieldPage({super.key});
+class PhoneInputPage extends StatefulWidget {
+  const PhoneInputPage({super.key});
 
   @override
-  State<PhoneFormFieldPage> createState() => _PhoneFormFieldPageState();
+  State<PhoneInputPage> createState() => _PhoneInputPageState();
 }
 
 enum FieldType { outlined, underlined }
 
-class _PhoneFormFieldPageState extends State<PhoneFormFieldPage> {
+class _PhoneInputPageState extends State<PhoneInputPage> {
   FieldType fieldType = FieldType.outlined;
   LayerLink layerLink = LayerLink();
   bool _shouldFormat = true;
@@ -69,7 +69,7 @@ class _PhoneFormFieldPageState extends State<PhoneFormFieldPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Phone form field demo')),
+      appBar: AppBar(title: const Text('Phone input demo')),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -100,7 +100,7 @@ class _PhoneFormFieldPageState extends State<PhoneFormFieldPage> {
                 ),
               ),
               const SizedBox(height: 24),
-              PhoneFormField(
+              PhoneInput(
                 showArrow: _showArrow,
                 shouldFormat: _shouldFormat,
                 validator:

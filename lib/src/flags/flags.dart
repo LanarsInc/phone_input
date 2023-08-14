@@ -49,16 +49,7 @@ class _FlagAssetLoader extends SvgAssetLoader {
   _FlagAssetLoader(this.isoCode) : super(computeAssetName(isoCode));
 
   static String computeAssetName(String isoCode) {
-    return 'packages/phone_form_field/assets/svg/${isoCode.toLowerCase()}.svg';
-  }
-
-  static Future<ByteData> loadAsset(String assetName,
-      [BuildContext? context, AssetBundle? assetBundle]) {
-    final bundle = _FlagAssetLoader._resolveBundle(assetBundle, context);
-    return bundle
-        .load(assetName)
-        // if any error loading a flag try to show the "?" flag
-        .catchError((e) => rootBundle.load(_FlagAssetLoader.computeAssetName('xx')));
+    return 'packages/phone_input/assets/svg/${isoCode.toLowerCase()}.svg';
   }
 
   static AssetBundle _resolveBundle(AssetBundle? assetBundle, BuildContext? context) {

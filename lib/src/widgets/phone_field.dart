@@ -171,7 +171,7 @@ class PhoneFieldState extends State<PhoneField> {
     // field which doesn't span the whole input
     // When the country chip is shown, clicking on it request country selection
     final maxTextFieldLength =
-        MetadataFinder.getMetadataLengthForIsoCode(controller.isoCode).fixedLine.last;
+        MetadataFinder.getMetadataLengthForIsoCode(controller.isoCode).mobile.last;
     final item = MouseRegion(
       cursor: SystemMouseCursors.text,
       child: InputDecorator(

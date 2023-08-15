@@ -15,7 +15,7 @@ It was based on the phone Phone Form Field package - https://pub.dev/packages/ph
 
 ## Demo
 
-<img src="https://raw.githubusercontent.com/LanarsInc/phone_form_field/main/example/assets/phone_form_field_example.gif" width="356">
+<img src="https://raw.githubusercontent.com/LanarsInc/phone_input/main/example/assets/phone_input_example.gif" width="356">
 
 ## Getting Started
 
@@ -240,7 +240,7 @@ PhoneInput(
 
 ## Internationalization
 
-Include the delegate
+The following code demonstrates the integration of internationalization within your Flutter application using the MaterialApp widget:
 
 ```dart
     return MaterialApp(
@@ -252,9 +252,8 @@ Include the delegate
       const Locale('en', ''),
       const Locale('es', ''),
       const Locale('fr', ''),
-      const Locale('ru', ''),
       const Locale('uk', ''),
-      // ...
+      // Add more locales as needed
     ],
 ```
 

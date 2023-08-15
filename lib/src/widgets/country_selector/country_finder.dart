@@ -1,7 +1,7 @@
 // responsible of searching through the country list
 
 import 'package:diacritic/diacritic.dart';
-import 'package:phone_form_field/phone_form_field.dart';
+import 'package:phone_input/phone_input_package.dart';
 
 class CountryFinder {
   late final List<Country> _allCountries;

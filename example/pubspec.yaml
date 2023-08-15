@@ -10,7 +10,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  phone_form_field:
+  phone_input:
     path: ../
 
   flutter_localizations: # Add this line

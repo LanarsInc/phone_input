@@ -1,15 +1,14 @@
-import 'package:circle_flags/circle_flags.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:phone_form_field/l10n/generated/phone_field_localization.dart';
-import 'package:phone_form_field/l10n/generated/phone_field_localization_en.dart';
-import 'package:phone_form_field/src/widgets/country_selector/localized_country_registry.dart';
-import 'package:phone_numbers_parser/phone_numbers_parser.dart';
+import 'package:phone_input/l10n/generated/phone_field_localization.dart';
+import 'package:phone_input/l10n/generated/phone_field_localization_en.dart';
+import 'package:phone_input/src/number_parser/models/iso_code.dart';
+import 'package:phone_input/src/widgets/country_selector/localized_country_registry.dart';
 
 import 'country_finder.dart';
 import 'country.dart';
 import 'country_list.dart';
-import 'search_box.dart';
+import 'search_input.dart';
 
 class CountrySelector extends StatefulWidget {
   /// List of countries to display in the selector
@@ -27,13 +26,13 @@ class CountrySelector extends StatefulWidget {
   final ScrollPhysics? scrollPhysics;
 
   /// Determine the countries to be displayed on top of the list
-  /// Check [addFavoritesSeparator] property to enable/disable adding a
+  /// Check [addFavouriteSeparator] property to enable/disable adding a
   /// list divider between favorites and others defaults countries
   final List<IsoCode> favoriteCountries;
 
   /// Whether to add a list divider between favorites & defaults
   /// countries.
-  final bool addFavoritesSeparator;
+  final bool addFavouriteSeparator;
 
   /// Whether to show the country country code (ie: +1 / +33 /...)
   /// as a listTile subtitle
@@ -45,42 +44,75 @@ class CountrySelector extends StatefulWidget {
   /// whether the search input is auto focussed
   final bool searchAutofocus;
 
+  /// Whether to show the search input
+  final bool showSearchInput;
+
   /// The [TextStyle] of the country subtitle
-  final TextStyle? subtitleStyle;
+  final TextStyle? countryCodeStyle;
 
   /// The [TextStyle] of the country title
-  final TextStyle? titleStyle;
+  final TextStyle? countryNameStyle;
 
   /// The [InputDecoration] of the Search Box
-  final InputDecoration? searchBoxDecoration;
+  final InputDecoration? searchInputDecoration;
 
   /// The [TextStyle] of the Search Box
-  final TextStyle? searchBoxTextStyle;
+  final TextStyle? searchInputTextStyle;
 
   /// The [Color] of the Search Icon in the Search Box
-  final Color? searchBoxIconColor;
+  final Color? defaultSearchInputIconColor;
+
+  /// The [Color] of the divider at the top on the bottom sheet
+  final Color? bottomSheetDragHandlerColor;
+
+  /// The size factor for displaying flags within the UI.
   final double flagSize;
-  final FlagCache flagCache;
+
+  /// Determines if the displayed flags should be circular.
+  final BoxShape flagShape;
+
+  /// Determines if the component is being used within a bottom sheet.
+  /// For display bottomSheetDragHandler and some paddings
+  final bool isBottomSheet;
+
+  /// Determines if the country name should be shown.
+  final bool showCountryName;
+
+  /// Determines if the country flag should be shown
+  final bool showCountryFlag;
+
+  /// The height of the search input field, if specified.
+  final double? searchInputHeight;
+
+  /// The width of the search input field, if specified.
+  final double? searchInputWidth;
 
   const CountrySelector({
-    Key? key,
     required this.onCountrySelected,
-    required this.flagCache,
+    required this.isBottomSheet,
     this.scrollController,
     this.scrollPhysics,
-    this.addFavoritesSeparator = true,
+    this.addFavouriteSeparator = true,
     this.showCountryCode = false,
     this.noResultMessage,
     this.favoriteCountries = const [],
     this.countries,
     this.searchAutofocus = kIsWeb,
-    this.subtitleStyle,
-    this.titleStyle,
-    this.searchBoxDecoration,
-    this.searchBoxTextStyle,
-    this.searchBoxIconColor,
-    this.flagSize = 40,
-  }) : super(key: key);
+    this.showSearchInput = true,
+    this.countryCodeStyle,
+    this.countryNameStyle,
+    this.searchInputDecoration,
+    this.searchInputTextStyle,
+    this.defaultSearchInputIconColor,
+    this.bottomSheetDragHandlerColor,
+    this.flagSize = 48,
+    this.flagShape = BoxShape.circle,
+    this.showCountryName = true,
+    this.showCountryFlag = true,
+    this.searchInputHeight,
+    this.searchInputWidth,
+    super.key,
+  });
 
   @override
   CountrySelectorState createState() => CountrySelectorState();
@@ -93,14 +125,12 @@ class CountrySelectorState extends State<CountrySelector> {
   @override
   didChangeDependencies() {
     super.didChangeDependencies();
-    final localization =
-        PhoneFieldLocalization.of(context) ?? PhoneFieldLocalizationEn();
+    final localization = PhoneFieldLocalization.of(context) ?? PhoneFieldLocalizationEn();
     final isoCodes = widget.countries ?? IsoCode.values;
     final countryRegistry = LocalizedCountryRegistry.cached(localization);
     final notFavoriteCountries =
         countryRegistry.whereIsoIn(isoCodes, omit: widget.favoriteCountries);
-    final favoriteCountries =
-        countryRegistry.whereIsoIn(widget.favoriteCountries);
+    final favoriteCountries = countryRegistry.whereIsoIn(widget.favoriteCountries);
     _countryFinder = CountryFinder(notFavoriteCountries);
     _favoriteCountryFinder = CountryFinder(favoriteCountries, sort: false);
   }
@@ -123,42 +153,49 @@ class CountrySelectorState extends State<CountrySelector> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        const SizedBox(height: 8),
-        Container(
-          width: 50,
-          height: 4,
-          decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.secondary,
-            borderRadius: BorderRadius.circular(8),
-          ),
-        ),
-        SizedBox(
-          height: 70,
-          width: double.infinity,
-          child: SearchBox(
-            autofocus: widget.searchAutofocus,
-            onChanged: _onSearch,
-            onSubmitted: onSubmitted,
-            decoration: widget.searchBoxDecoration,
-            style: widget.searchBoxTextStyle,
-            searchIconColor: widget.searchBoxIconColor,
-          ),
-        ),
-        const SizedBox(height: 16),
-        const Divider(height: 0, thickness: 1.2),
+        widget.isBottomSheet ? const SizedBox(height: 16) : const SizedBox.shrink(),
+        widget.isBottomSheet ? Container(
+                width: 50,
+                height: 4,
+                decoration: BoxDecoration(
+                  color:
+                      widget.bottomSheetDragHandlerColor ?? Theme.of(context).colorScheme.secondary,
+                  borderRadius: BorderRadius.circular(8),
+                ),
+              ) : const SizedBox.shrink(),
+        widget.showSearchInput ? Padding(
+                padding: const EdgeInsets.all(16),
+                child: SizedBox(
+                  height: widget.searchInputHeight,
+                  width: widget.searchInputWidth ?? double.infinity,
+                  child: SearchInput(
+                    autofocus: widget.searchAutofocus,
+                    onChanged: _onSearch,
+                    onSubmitted: onSubmitted,
+                    decoration: widget.searchInputDecoration,
+                    style: widget.searchInputTextStyle,
+                    defaultSearchInputIconColor: widget.defaultSearchInputIconColor,
+                  ),
+                ),
+              )
+            : const SizedBox.shrink(),
+        widget.showSearchInput ? const Divider(height: 0, thickness: 1.2) : const SizedBox.shrink(),
         Flexible(
           child: CountryList(
+            addFavouriteSeparator: widget.addFavouriteSeparator,
+            showCountryFlag: widget.showCountryFlag,
+            showCountryName: widget.showCountryName,
             favorites: _favoriteCountryFinder.filteredCountries,
             countries: _countryFinder.filteredCountries,
             showDialCode: widget.showCountryCode,
             onTap: widget.onCountrySelected,
             flagSize: widget.flagSize,
+            flagShape: widget.flagShape,
             scrollController: widget.scrollController,
             scrollPhysics: widget.scrollPhysics,
             noResultMessage: widget.noResultMessage,
-            titleStyle: widget.titleStyle,
-            subtitleStyle: widget.subtitleStyle,
-            flagCache: widget.flagCache,
+            countryNameStyle: widget.countryNameStyle,
+            countryCodeStyle: widget.countryCodeStyle,
           ),
         ),
       ],

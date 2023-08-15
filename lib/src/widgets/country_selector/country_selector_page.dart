@@ -1,10 +1,9 @@
-import 'package:circle_flags/circle_flags.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:phone_form_field/l10n/generated/phone_field_localization.dart';
-import 'package:phone_form_field/l10n/generated/phone_field_localization_en.dart';
-import 'package:phone_form_field/src/widgets/country_selector/localized_country_registry.dart';
-import 'package:phone_numbers_parser/phone_numbers_parser.dart';
+import 'package:phone_input/l10n/generated/phone_field_localization.dart';
+import 'package:phone_input/l10n/generated/phone_field_localization_en.dart';
+import 'package:phone_input/src/number_parser/models/iso_code.dart';
+import 'package:phone_input/src/widgets/country_selector/localized_country_registry.dart';
 
 import 'country_finder.dart';
 import 'country.dart';
@@ -44,24 +43,32 @@ class CountrySelectorSearchDelegate extends SearchDelegate<Country> {
   /// The message displayed instead of the list when the search has no results
   final String? noResultMessage;
 
-  /// whether the search input is auto focussed
+  /// Whether the search input is auto focussed
   final bool searchAutofocus;
+
+  /// The size factor for displaying flags within the UI.
   final double flagSize;
 
-  LocalizedCountryRegistry? _localizedCountryRegistry;
+  /// Determines if the displayed flags should be circular.
+  final BoxShape flagShape;
+
+  /// Determines if the country name should be shown.
+  final bool showCountryName;
+
+  /// Determines if the country flag should be shown
+  final bool showCountryFlag;
 
   /// Override default title TextStyle
-  final TextStyle? titleStyle;
+  final TextStyle? countryNameStyle;
 
   /// Override default subtitle TextStyle
-  final TextStyle? subtitleStyle;
+  final TextStyle? countryCodeStyle;
 
-  final FlagCache? flagCache;
+  LocalizedCountryRegistry? _localizedCountryRegistry;
 
   CountrySelectorSearchDelegate({
     Key? key,
     required this.onCountrySelected,
-    required this.flagCache,
     this.scrollController,
     this.scrollPhysics,
     this.addFavoritesSeparator = true,
@@ -70,9 +77,12 @@ class CountrySelectorSearchDelegate extends SearchDelegate<Country> {
     List<IsoCode> favoriteCountries = const [],
     List<IsoCode>? countries,
     this.searchAutofocus = kIsWeb,
-    this.flagSize = 40,
-    this.titleStyle,
-    this.subtitleStyle,
+    this.flagSize = 48,
+    this.flagShape = BoxShape.circle,
+    this.countryNameStyle,
+    this.countryCodeStyle,
+    this.showCountryName = true,
+    this.showCountryFlag = true,
   })  : countriesIso = countries ?? IsoCode.values,
         favoriteCountriesIso = favoriteCountries;
 
@@ -122,17 +132,20 @@ class CountrySelectorSearchDelegate extends SearchDelegate<Country> {
     _updateList();
 
     return CountryList(
+      addFavouriteSeparator: addFavoritesSeparator,
       favorites: _favoriteCountryFinder.filteredCountries,
       countries: _countryFinder.filteredCountries,
       showDialCode: showCountryCode,
       onTap: onCountrySelected,
       flagSize: flagSize,
+      flagShape: flagShape,
       scrollController: scrollController,
       scrollPhysics: scrollPhysics,
       noResultMessage: noResultMessage,
-      titleStyle: titleStyle,
-      subtitleStyle: subtitleStyle,
-      flagCache: flagCache,
+      countryNameStyle: countryNameStyle,
+      countryCodeStyle: countryCodeStyle,
+      showCountryName: showCountryName,
+      showCountryFlag: showCountryFlag,
     );
   }
 

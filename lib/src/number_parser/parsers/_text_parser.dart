@@ -1,4 +1,4 @@
-import '../constants/constants.dart';
+import 'package:phone_input/src/constants/patterns.dart';
 
 /// responsible of normalizing and finding phone numbers in text
 abstract class TextParser {
@@ -12,7 +12,7 @@ abstract class TextParser {
   static String normalize(String unformatedPhoneNumber) {
     return unformatedPhoneNumber
         .split('')
-        .map((char) => Constants.allNormalizationMappings[char] ?? '')
+        .map((char) => Patterns.allNormalizationMappings[char] ?? '')
         .join('');
   }
 
@@ -21,6 +21,6 @@ abstract class TextParser {
   /// It is possible that a match could be a date or anything else ressembling a phone number.
   /// To verify it is in fact a phone number you can parse it and check its validity
   static Iterable<Match> findPotentialPhoneNumbers(String text) {
-    return RegExp(Constants.possiblePhoneNumber).allMatches(text);
+    return RegExp(Patterns.possiblePhoneNumber).allMatches(text);
   }
 }

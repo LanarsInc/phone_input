@@ -2,7 +2,7 @@
 
 The Phone Input is a versatile package that provides cross-platform support for phone number input fields. This package is designed to simplify the process of capturing phone numbers from users.
 
-It was based on the phone Phone Form Field package - https://pub.dev/packages/phone_form_field
+It was based on the Phone Form Field package - https://pub.dev/packages/phone_form_field
 
 ## Features
 
@@ -39,7 +39,6 @@ PhoneInput(
   decoration: InputDecoration(
   labelText: 'Phone',          // default to null
   border: OutlineInputBorder() // default to UnderlineInputBorder(),
-// ...
   validator: PhoneValidator.validMobile(),   // default PhoneValidator.valid()
   isCountrySelectionEnabled: true, // default
   countrySelectorNavigator: CountrySelectorNavigator.bottomSheet(),
@@ -199,7 +198,8 @@ CompositedTransformTarget(
 
 ## Validation
 
-* With Phone Input widget you can use a number of build-it validators for phone numbers.
+With Phone Input widget you can use a number of build-it and your own custom validators for phone numbers.
+
 * You can customize validate behavior through autovalidateMode parameter in Phone Input widget.
 * Each validator can be customized with an optional `errorText` property to change the displayed error message.
 * Most of the validators have an optional `allowEmpty` property that prevents the field from being flagged as valid if it is empty. This can be useful if you want to display a different error message for empty fields.

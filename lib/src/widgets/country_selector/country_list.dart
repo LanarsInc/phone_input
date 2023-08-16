@@ -50,7 +50,7 @@ class CountryList extends StatelessWidget {
   late final List<Country?> _allListElement;
 
   CountryList({
-    Key? key,
+    super.key,
     required this.countries,
     required this.favorites,
     required this.onTap,
@@ -65,7 +65,7 @@ class CountryList extends StatelessWidget {
     this.showCountryName = true,
     this.showCountryFlag = true,
     this.addFavouriteSeparator = true,
-  }) : super(key: key) {
+  }) {
     _allListElement = [
       ...favorites,
       if (favorites.isNotEmpty) null, // delimiter

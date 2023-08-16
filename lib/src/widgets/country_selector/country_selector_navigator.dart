@@ -183,7 +183,7 @@ abstract class CountrySelectorNavigator {
     TextStyle? searchInputTextStyle,
     Color? defaultSearchInputIconColor,
     Color? bottomSheetDragHandlerColor,
-    ScrollPhysics? scrollPhysics, //TODO Doesn't work yet
+    ScrollPhysics? scrollPhysics,
     BoxShape flagShape,
     bool showCountryName,
     bool showCountryFlag,

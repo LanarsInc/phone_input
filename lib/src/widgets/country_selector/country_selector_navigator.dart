@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:phone_input/phone_input_package.dart';
 import 'package:phone_input/src/widgets/country_selector/country_selector_page.dart';
@@ -11,7 +10,6 @@ abstract class CountrySelectorNavigator {
   final bool addFavoriteSeparator;
   final bool showCountryCode;
   final String? noResultMessage;
-  final bool searchAutofocus; //TODO Doesn't work with searchDelegate, bottomSheet and dropdown
   final TextStyle? countryCodeStyle;
   final TextStyle? countryNameStyle;
   final InputDecoration? searchInputDecoration;
@@ -34,7 +32,6 @@ abstract class CountrySelectorNavigator {
     this.addFavoriteSeparator = true,
     this.showCountryCode = true,
     this.noResultMessage,
-    this.searchAutofocus = kIsWeb,
     this.countryCodeStyle,
     this.countryNameStyle,
     this.searchInputTextStyle,
@@ -67,7 +64,6 @@ abstract class CountrySelectorNavigator {
       showCountryCode: showCountryCode,
       noResultMessage: noResultMessage,
       scrollController: scrollController,
-      searchAutofocus: searchAutofocus,
       countryCodeStyle: countryCodeStyle,
       countryNameStyle: countryNameStyle,
       searchInputDecoration: searchInputDecoration,
@@ -94,7 +90,6 @@ abstract class CountrySelectorNavigator {
     bool addFavoriteSeparator,
     bool showCountryCode,
     String? noResultMessage,
-    bool searchAutofocus,
     bool showSearchInput,
     TextStyle? countryCodeStyle,
     TextStyle? countryNameStyle,
@@ -116,7 +111,6 @@ abstract class CountrySelectorNavigator {
     bool addFavoriteSeparator,
     bool showCountryCode,
     String? noResultMessage,
-    // bool searchAutofocus, //TODO not implemented yet
     TextStyle? countryCodeStyle,
     TextStyle? countryNameStyle,
     ScrollPhysics? scrollPhysics,
@@ -132,7 +126,6 @@ abstract class CountrySelectorNavigator {
     bool addFavoriteSeparator,
     bool showCountryCode,
     String? noResultMessage,
-    // bool searchAutofocus, //TODO not implemented yet
     bool showSearchInput,
     TextStyle? countryCodeStyle,
     TextStyle? countryNameStyle,
@@ -156,7 +149,6 @@ abstract class CountrySelectorNavigator {
     bool addFavoriteSeparator,
     bool showCountryCode,
     String? noResultMessage,
-    bool searchAutofocus,
     bool showSearchInput,
     TextStyle? countryCodeStyle,
     TextStyle? countryNameStyle,
@@ -184,7 +176,6 @@ abstract class CountrySelectorNavigator {
     bool showCountryCode,
     double flagSize,
     String? noResultMessage,
-    bool searchAutofocus,
     bool showSearchInput,
     TextStyle? countryCodeStyle,
     TextStyle? countryNameStyle,
@@ -192,7 +183,7 @@ abstract class CountrySelectorNavigator {
     TextStyle? searchInputTextStyle,
     Color? defaultSearchInputIconColor,
     Color? bottomSheetDragHandlerColor,
-    // ScrollPhysics? scrollPhysics, //TODO Doesn't work yet
+    ScrollPhysics? scrollPhysics, //TODO Doesn't work yet
     BoxShape flagShape,
     bool showCountryName,
     bool showCountryFlag,
@@ -219,7 +210,6 @@ abstract class CountrySelectorNavigator {
     bool showCountryName,
     bool showCountryFlag,
     String? noResultMessage,
-    // bool searchAutofocus, //TODO not implemented yet
     InputDecoration? searchInputDecoration,
     TextStyle? searchInputTextStyle,
     Color? defaultSearchInputIconColor,
@@ -242,7 +232,6 @@ class DialogNavigator extends CountrySelectorNavigator {
     super.addFavoriteSeparator = true,
     super.showCountryCode = true,
     super.noResultMessage,
-    super.searchAutofocus,
     super.countryCodeStyle,
     super.countryNameStyle,
     super.searchInputDecoration,
@@ -283,7 +272,6 @@ class SearchDelegateNavigator extends CountrySelectorNavigator {
     super.addFavoriteSeparator = true,
     super.showCountryCode = true,
     super.noResultMessage,
-    // super.searchAutofocus,
     super.countryCodeStyle,
     super.countryNameStyle,
     super.scrollPhysics,
@@ -305,7 +293,6 @@ class SearchDelegateNavigator extends CountrySelectorNavigator {
       countries: countries,
       favoriteCountries: favorites ?? [],
       noResultMessage: noResultMessage,
-      // searchAutofocus: searchAutofocus,
       showCountryCode: showCountryCode,
       countryNameStyle: countryNameStyle,
       countryCodeStyle: countryCodeStyle,
@@ -336,7 +323,6 @@ class BottomSheetNavigator extends CountrySelectorNavigator {
     super.addFavoriteSeparator = true,
     super.showCountryCode = true,
     super.noResultMessage,
-    // super.searchAutofocus,
     super.countryCodeStyle,
     super.countryNameStyle,
     super.searchInputDecoration,
@@ -383,7 +369,6 @@ class ModalBottomSheetNavigator extends CountrySelectorNavigator {
     super.addFavoriteSeparator = true,
     super.showCountryCode = true,
     super.noResultMessage,
-    super.searchAutofocus,
     super.countryCodeStyle,
     super.countryNameStyle,
     super.searchInputDecoration,
@@ -435,13 +420,12 @@ class DraggableModalBottomSheetNavigator extends CountrySelectorNavigator {
     super.flagShape = BoxShape.circle,
     super.flagSize = 40,
     super.noResultMessage,
-    super.searchAutofocus,
     super.countryCodeStyle,
     super.countryNameStyle,
     super.searchInputDecoration,
     super.searchInputTextStyle,
     super.defaultSearchInputIconColor,
-    // super.scrollPhysics,
+    super.scrollPhysics,
     super.useRootNavigator = true,
     super.showCountryName = true,
     super.showCountryFlag = true,
@@ -507,7 +491,6 @@ class DropdownNavigator extends CountrySelectorNavigator {
     super.favorites,
     super.addFavoriteSeparator = true,
     super.showCountryCode = true,
-    // super.searchAutofocus,
     super.countryCodeStyle,
     super.countryNameStyle,
     super.scrollPhysics,

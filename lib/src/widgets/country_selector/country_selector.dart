@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:phone_input/l10n/generated/phone_field_localization.dart';
 import 'package:phone_input/l10n/generated/phone_field_localization_en.dart';

@@ -3,7 +3,6 @@ import 'dart:ui' as ui show BoxHeightStyle, BoxWidthStyle;
 import 'package:phone_input/phone_input_package.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:phone_input/src/constants/phone_length_limiting_text_input_formatter.dart';
 import 'package:phone_input/src/number_parser/metadata/metadata_finder.dart';
 import 'package:phone_input/src/constants/patterns.dart';
 import 'package:phone_input/src/controllers/phone_field_controller.dart';

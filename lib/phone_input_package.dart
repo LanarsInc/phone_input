@@ -13,5 +13,7 @@ export 'src/controllers/phone_controller.dart';
 export 'src/widgets/country_selector/country.dart';
 export 'src/widgets/country_selector/localized_country_registry.dart';
 
+export 'src/constants/phone_length_limiting_text_input_formatter.dart';
+
 export 'src/number_parser/number_parser.dart'
     show PhoneNumber, PhoneNumberType, IsoCode;

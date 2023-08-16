@@ -7,9 +7,6 @@ class SearchInput extends StatelessWidget {
   /// Callback triggered when the search input is submitted.
   final Function() onSubmitted;
 
-  /// Determines if the search input should automatically receive focus.
-  final bool autofocus;
-
   /// Custom decoration for styling the search input field.
   final InputDecoration? decoration;
 
@@ -23,7 +20,6 @@ class SearchInput extends StatelessWidget {
     Key? key,
     required this.onChanged,
     required this.onSubmitted,
-    required this.autofocus,
     this.decoration,
     this.style,
     this.defaultSearchInputIconColor,
@@ -32,7 +28,6 @@ class SearchInput extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextField(
-      autofocus: autofocus,
       onChanged: onChanged,
       onSubmitted: (_) => onSubmitted(),
       cursorColor: style?.color,

@@ -3,7 +3,7 @@ import 'dart:ui' as ui show BoxHeightStyle, BoxWidthStyle;
 import 'package:phone_input/phone_input_package.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:phone_input/src/constants/custom_max_length_formatter.dart';
+import 'package:phone_input/src/constants/phone_length_limiting_text_input_formatter.dart';
 import 'package:phone_input/src/number_parser/metadata/metadata_finder.dart';
 import 'package:phone_input/src/constants/patterns.dart';
 import 'package:phone_input/src/controllers/phone_field_controller.dart';
@@ -184,7 +184,7 @@ class PhoneFieldState extends State<PhoneField> {
           decoration: _getInnerInputDecoration(),
           inputFormatters: widget.inputFormatters ??
               [
-                CustomMaxLengthFormatter(maxTextFieldLength),
+                PhoneLengthLimitingTextInputFormatter(maxTextFieldLength),
                 FilteringTextInputFormatter.allow(
                     RegExp('[${Patterns.plus}${Patterns.digits}${Patterns.punctuation}]')),
               ],
@@ -254,6 +254,7 @@ class PhoneFieldState extends State<PhoneField> {
                 countryCodeTextStyle: widget.countryCodeStyle ??
                     widget.decoration.labelStyle ??
                     TextStyle(
+                      height: 1.2,
                       fontSize: 16,
                       color: Theme.of(context).textTheme.bodySmall?.color,
                     ),

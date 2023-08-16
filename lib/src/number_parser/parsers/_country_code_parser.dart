@@ -1,6 +1,4 @@
 import 'dart:math';
-
-
 import 'package:phone_input/src/number_parser/constants/constants.dart';
 import 'package:phone_input/src/number_parser/metadata/metadata_finder.dart';
 import 'package:phone_input/src/number_parser/models/phone_number_exceptions.dart';

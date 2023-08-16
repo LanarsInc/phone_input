@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:phone_input/phone_input_package.dart';
 
-
 class PhoneInputController extends ChangeNotifier {
   late final ValueNotifier<IsoCode> isoCodeController;
   late final TextEditingController nationalNumberController;

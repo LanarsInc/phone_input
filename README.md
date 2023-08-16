@@ -2,7 +2,7 @@
 
 The Phone Input is a versatile package that provides cross-platform support for phone number input fields. This package is designed to simplify the process of capturing phone numbers from users.
 
-It was based on the phone Phone Form Field package - https://pub.dev/packages/phone_form_field
+It was based on the Phone Form Field package - https://pub.dev/packages/phone_form_field
 
 ## Features
 
@@ -19,7 +19,7 @@ It was based on the phone Phone Form Field package - https://pub.dev/packages/ph
 
 ## Getting Started
 
-Just create a phone form field widget and pass desired country selector that's it, you can already use it.
+Just create a PhoneInput widget and pass desired country selector that's it, you can already use it.
 
 ```dart
 
@@ -39,13 +39,12 @@ PhoneInput(
   decoration: InputDecoration(
   labelText: 'Phone',          // default to null
   border: OutlineInputBorder() // default to UnderlineInputBorder(),
-// ...
   validator: PhoneValidator.validMobile(),   // default PhoneValidator.valid()
   isCountrySelectionEnabled: true, // default
-  countrySelectorNavigator: CountrySelectorNavigator.bottomSheet(),
+  countrySelectorNavigator: CountrySelectorNavigator.bottomSheet(), // required 
   showFlagInInput: true,  // default
   flagShape: BoxShape.circle, // default
-  showArrow: true,
+  showArrow: true,  // default
   flagSize: 16,           // default
   autofillHints: [AutofillHints.telephoneNumber], // default to null
   enabled: true,          // default
@@ -138,6 +137,7 @@ Here is the list of the parameters available for all built-in country selectors:
 
 You can utilize any country selectors with either a customized or standard text field, allowing you to obtain an instance of the chosen country.
 To achieve this, you only need to invoke the requestCountrySelector() function on the desired selector while providing the necessary parameters.
+
 For example:
 
 ```dart
@@ -153,6 +153,7 @@ TextField(
 ```
 
 Note that with bottomSheet selector, you need to additionally wrap the TextField in Builder.
+
 Example:
 
 ```dart
@@ -174,7 +175,8 @@ Also, note what you need to do with with dropdown selector:
 1. Start by wrapping your TextField with CompositedTransformTarget.
 2. Provide a LayerLink to CompositedTransformTarget.
 3. Wrap Your TextField with a Builder.
-   For example:
+
+For example:
 
 ```dart 
 
@@ -199,14 +201,15 @@ CompositedTransformTarget(
 
 ## Validation
 
-* With Phone Input widget you can use a number of build-it validators for phone numbers.
+With Phone Input widget you can use a number of build-it and your own custom validators for phone numbers.
+
 * You can customize validate behavior through autovalidateMode parameter in Phone Input widget.
 * Each validator can be customized with an optional `errorText` property to change the displayed error message.
 * Most of the validators have an optional `allowEmpty` property that prevents the field from being flagged as valid if it is empty. This can be useful if you want to display a different error message for empty fields.
 
 ### Built-in validators
 
-PhoneInput has the following built-in validators
+Phone Input has the following built-in validators
 
 | Name                | Description                                                                                                                        |
 |---------------------|------------------------------------------------------------------------------------------------------------------------------------|

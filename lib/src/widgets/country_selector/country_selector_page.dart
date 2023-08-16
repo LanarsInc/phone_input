@@ -10,9 +10,6 @@ import 'country.dart';
 import 'country_list.dart';
 
 class CountrySelectorSearchDelegate extends SearchDelegate<Country> {
-  late CountryFinder _countryFinder;
-  late CountryFinder _favoriteCountryFinder;
-
   /// List of countries to display in the selector
   /// Value optional in constructor.
   /// when omitted, the full country list is displayed
@@ -64,6 +61,8 @@ class CountrySelectorSearchDelegate extends SearchDelegate<Country> {
   /// Override default subtitle TextStyle
   final TextStyle? countryCodeStyle;
 
+  late CountryFinder _countryFinder;
+  late CountryFinder _favoriteCountryFinder;
   LocalizedCountryRegistry? _localizedCountryRegistry;
 
   CountrySelectorSearchDelegate({

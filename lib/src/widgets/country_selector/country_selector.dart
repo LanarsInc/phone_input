@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:phone_input/l10n/generated/phone_field_localization.dart';
 import 'package:phone_input/l10n/generated/phone_field_localization_en.dart';
@@ -40,9 +39,6 @@ class CountrySelector extends StatefulWidget {
 
   /// The message displayed instead of the list when the search has no results
   final String? noResultMessage;
-
-  /// whether the search input is auto focussed
-  final bool searchAutofocus;
 
   /// Whether to show the search input
   final bool showSearchInput;
@@ -97,7 +93,6 @@ class CountrySelector extends StatefulWidget {
     this.noResultMessage,
     this.favoriteCountries = const [],
     this.countries,
-    this.searchAutofocus = kIsWeb,
     this.showSearchInput = true,
     this.countryCodeStyle,
     this.countryNameStyle,
@@ -169,7 +164,6 @@ class CountrySelectorState extends State<CountrySelector> {
                   height: widget.searchInputHeight,
                   width: widget.searchInputWidth ?? double.infinity,
                   child: SearchInput(
-                    autofocus: widget.searchAutofocus,
                     onChanged: _onSearch,
                     onSubmitted: onSubmitted,
                     decoration: widget.searchInputDecoration,
@@ -178,7 +172,7 @@ class CountrySelectorState extends State<CountrySelector> {
                   ),
                 ),
               )
-            : const SizedBox.shrink(),
+            : const SizedBox(height: 8),
         widget.showSearchInput ? const Divider(height: 0, thickness: 1.2) : const SizedBox.shrink(),
         Flexible(
           child: CountryList(
@@ -198,6 +192,7 @@ class CountrySelectorState extends State<CountrySelector> {
             countryCodeStyle: widget.countryCodeStyle,
           ),
         ),
+        const SizedBox(height: 8),
       ],
     );
   }

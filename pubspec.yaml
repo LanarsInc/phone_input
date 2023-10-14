@@ -1,6 +1,6 @@
 name: phone_input
 description: This package is designed to simplify the process of capturing phone numbers from users.
-version: 1.0.0
+version: 1.0.1
 homepage: https://github.com/LanarsInc/phone_input
 
 environment:
@@ -21,7 +21,7 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^2.0.0
+  flutter_lints: ^2.0.3
 
 flutter:
   assets:

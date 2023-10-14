@@ -19,6 +19,7 @@ class PhoneField extends StatefulWidget {
   final InputDecoration decoration;
   final bool isCountrySelectionEnabled;
   final bool showArrow;
+
   /// configures the way the country picker selector is shown
   final CountrySelectorNavigator selectorNavigator;
 
@@ -149,7 +150,8 @@ class PhoneFieldState extends State<PhoneField> {
       isListVisible = true;
     });
 
-    final selected = await widget.selectorNavigator.requestCountrySelector(context);
+    final selected =
+        await widget.selectorNavigator.requestCountrySelector(context);
     if (selected != null) {
       controller.isoCode = selected.isoCode;
     }
@@ -170,58 +172,56 @@ class PhoneFieldState extends State<PhoneField> {
     // field which doesn't span the whole input
     // When the country chip is shown, clicking on it request country selection
     final maxTextFieldLength =
-        MetadataFinder.getMetadataLengthForIsoCode(controller.isoCode).mobile.last;
+        MetadataFinder.getMetadataLengthForIsoCode(controller.isoCode)
+            .mobile
+            .last;
     final item = MouseRegion(
       cursor: SystemMouseCursors.text,
-      child: InputDecorator(
+      child: TextField(
+        focusNode: controller.focusNode,
+        controller: controller.nationalNumberController,
+        enabled: widget.enabled,
         decoration: _getOutterInputDecoration(),
-        isFocused: controller.focusNode.hasFocus,
-        child: TextField(
-          focusNode: controller.focusNode,
-          controller: controller.nationalNumberController,
-          enabled: widget.enabled,
-          decoration: _getInnerInputDecoration(),
-          inputFormatters: widget.inputFormatters ??
-              [
-                PhoneLengthLimitingTextInputFormatter(maxTextFieldLength),
-                FilteringTextInputFormatter.allow(
-                    RegExp('[${Patterns.plus}${Patterns.digits}${Patterns.punctuation}]')),
-              ],
-          autofillHints: widget.autofillHints,
-          keyboardType: widget.keyboardType,
-          textInputAction: widget.textInputAction,
-          style: widget.style,
-          strutStyle: widget.strutStyle,
-          textAlign: widget.textAlign,
-          textAlignVertical: widget.textAlignVertical,
-          autofocus: widget.autofocus,
-          obscuringCharacter: widget.obscuringCharacter,
-          obscureText: widget.obscureText,
-          autocorrect: widget.autocorrect,
-          smartDashesType: widget.smartDashesType,
-          smartQuotesType: widget.smartQuotesType,
-          enableSuggestions: widget.enableSuggestions,
-          contextMenuBuilder: widget.contextMenuBuilder,
-          showCursor: widget.showCursor,
-          onEditingComplete: widget.onEditingComplete,
-          onSubmitted: widget.onSubmitted,
-          onAppPrivateCommand: widget.onAppPrivateCommand,
-          cursorWidth: widget.cursorWidth,
-          cursorHeight: widget.cursorHeight,
-          cursorRadius: widget.cursorRadius,
-          cursorColor: widget.cursorColor,
-          selectionHeightStyle: widget.selectionHeightStyle,
-          selectionWidthStyle: widget.selectionWidthStyle,
-          keyboardAppearance: widget.keyboardAppearance,
-          scrollPadding: widget.scrollPadding,
-          enableInteractiveSelection: widget.enableInteractiveSelection,
-          selectionControls: widget.selectionControls,
-          mouseCursor: widget.mouseCursor,
-          scrollController: widget.scrollController,
-          scrollPhysics: widget.scrollPhysics,
-          restorationId: widget.restorationId,
-          enableIMEPersonalizedLearning: widget.enableIMEPersonalizedLearning,
-        ),
+        inputFormatters: widget.inputFormatters ??
+            [
+              PhoneLengthLimitingTextInputFormatter(maxTextFieldLength),
+              FilteringTextInputFormatter.allow(RegExp(
+                  '[${Patterns.plus}${Patterns.digits}${Patterns.punctuation}]')),
+            ],
+        autofillHints: widget.autofillHints,
+        keyboardType: widget.keyboardType,
+        textInputAction: widget.textInputAction,
+        style: widget.style,
+        strutStyle: widget.strutStyle,
+        textAlign: widget.textAlign,
+        textAlignVertical: widget.textAlignVertical,
+        autofocus: widget.autofocus,
+        obscuringCharacter: widget.obscuringCharacter,
+        obscureText: widget.obscureText,
+        autocorrect: widget.autocorrect,
+        smartDashesType: widget.smartDashesType,
+        smartQuotesType: widget.smartQuotesType,
+        enableSuggestions: widget.enableSuggestions,
+        contextMenuBuilder: widget.contextMenuBuilder,
+        showCursor: widget.showCursor,
+        onEditingComplete: widget.onEditingComplete,
+        onSubmitted: widget.onSubmitted,
+        onAppPrivateCommand: widget.onAppPrivateCommand,
+        cursorWidth: widget.cursorWidth,
+        cursorHeight: widget.cursorHeight,
+        cursorRadius: widget.cursorRadius,
+        cursorColor: widget.cursorColor,
+        selectionHeightStyle: widget.selectionHeightStyle,
+        selectionWidthStyle: widget.selectionWidthStyle,
+        keyboardAppearance: widget.keyboardAppearance,
+        scrollPadding: widget.scrollPadding,
+        enableInteractiveSelection: widget.enableInteractiveSelection,
+        selectionControls: widget.selectionControls,
+        mouseCursor: widget.mouseCursor,
+        scrollController: widget.scrollController,
+        scrollPhysics: widget.scrollPhysics,
+        restorationId: widget.restorationId,
+        enableIMEPersonalizedLearning: widget.enableIMEPersonalizedLearning,
       ),
     );
     final navigator = widget.selectorNavigator;
@@ -237,11 +237,10 @@ class PhoneFieldState extends State<PhoneField> {
       textDirection: TextDirection.ltr,
       child: MouseRegion(
         cursor: SystemMouseCursors.click,
-        child: GestureDetector(
-          onTap: selectCountry,
-          // material here else the click pass through empty spaces
-          child: Material(
-            color: Colors.transparent,
+        child: Material(
+          color: Colors.transparent,
+          child: InkWell(
+            onTap: selectCountry,
             child: Padding(
               padding: !widget.showFlagInInput
                   ? const EdgeInsets.only(right: 4)
@@ -269,27 +268,18 @@ class PhoneFieldState extends State<PhoneField> {
     );
   }
 
-  InputDecoration _getInnerInputDecoration() {
-    return InputDecoration.collapsed(
-      hintText: widget.decoration.hintText,
-      hintStyle: widget.decoration.hintStyle,
-    ).copyWith(
-      focusedBorder: InputBorder.none,
-      errorBorder: InputBorder.none,
-      disabledBorder: InputBorder.none,
-      enabledBorder: InputBorder.none,
-      focusedErrorBorder: InputBorder.none,
-    );
-  }
-
   InputDecoration _getOutterInputDecoration() {
     final directionality = Directionality.of(context);
 
     return widget.decoration.copyWith(
-      hintText: null,
+      hintText: widget.decoration.hintText,
+      hintStyle: widget.decoration.hintStyle,
       errorText: widget.errorText,
-      prefix: directionality == TextDirection.ltr ? _getCountryCodeChip() : null,
-      suffix: directionality == TextDirection.rtl ? _getCountryCodeChip() : null,
+      prefixIcon:
+          directionality == TextDirection.ltr ? _getCountryCodeChip() : null,
+      suffixIcon:
+          directionality == TextDirection.rtl ? _getCountryCodeChip() : null,
+      contentPadding: const EdgeInsets.only(right: 20),
     );
   }
 }

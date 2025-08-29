@@ -6,20 +6,25 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:intl/intl.dart' as intl;
 
 import 'phone_field_localization_ar.dart';
+import 'phone_field_localization_cs.dart';
 import 'phone_field_localization_de.dart';
 import 'phone_field_localization_el.dart';
 import 'phone_field_localization_en.dart';
 import 'phone_field_localization_es.dart';
+import 'phone_field_localization_fa.dart';
 import 'phone_field_localization_fr.dart';
 import 'phone_field_localization_hi.dart';
 import 'phone_field_localization_it.dart';
 import 'phone_field_localization_nl.dart';
 import 'phone_field_localization_pt.dart';
 import 'phone_field_localization_ru.dart';
+import 'phone_field_localization_sk.dart';
 import 'phone_field_localization_sv.dart';
 import 'phone_field_localization_tr.dart';
 import 'phone_field_localization_uk.dart';
 import 'phone_field_localization_zh.dart';
+
+// ignore_for_file: type=lint
 
 /// Callers can lookup localized strings with an instance of PhoneFieldLocalization
 /// returned by `PhoneFieldLocalization.of(context)`.
@@ -107,16 +112,19 @@ abstract class PhoneFieldLocalization {
   /// A list of this localizations delegate's supported locales.
   static const List<Locale> supportedLocales = <Locale>[
     Locale('ar'),
+    Locale('cs'),
     Locale('de'),
     Locale('el'),
     Locale('en'),
     Locale('es'),
+    Locale('fa'),
     Locale('fr'),
     Locale('hi'),
     Locale('it'),
     Locale('nl'),
     Locale('pt'),
     Locale('ru'),
+    Locale('sk'),
     Locale('sv'),
     Locale('tr'),
     Locale('uk'),
@@ -1631,16 +1639,19 @@ class _PhoneFieldLocalizationDelegate
   @override
   bool isSupported(Locale locale) => <String>[
         'ar',
+        'cs',
         'de',
         'el',
         'en',
         'es',
+        'fa',
         'fr',
         'hi',
         'it',
         'nl',
         'pt',
         'ru',
+        'sk',
         'sv',
         'tr',
         'uk',
@@ -1656,6 +1667,8 @@ PhoneFieldLocalization lookupPhoneFieldLocalization(Locale locale) {
   switch (locale.languageCode) {
     case 'ar':
       return PhoneFieldLocalizationAr();
+    case 'cs':
+      return PhoneFieldLocalizationCs();
     case 'de':
       return PhoneFieldLocalizationDe();
     case 'el':
@@ -1664,6 +1677,8 @@ PhoneFieldLocalization lookupPhoneFieldLocalization(Locale locale) {
       return PhoneFieldLocalizationEn();
     case 'es':
       return PhoneFieldLocalizationEs();
+    case 'fa':
+      return PhoneFieldLocalizationFa();
     case 'fr':
       return PhoneFieldLocalizationFr();
     case 'hi':
@@ -1676,6 +1691,8 @@ PhoneFieldLocalization lookupPhoneFieldLocalization(Locale locale) {
       return PhoneFieldLocalizationPt();
     case 'ru':
       return PhoneFieldLocalizationRu();
+    case 'sk':
+      return PhoneFieldLocalizationSk();
     case 'sv':
       return PhoneFieldLocalizationSv();
     case 'tr':

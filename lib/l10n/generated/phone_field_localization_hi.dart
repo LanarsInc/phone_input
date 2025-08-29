@@ -1,4 +1,8 @@
+// ignore: unused_import
+import 'package:intl/intl.dart' as intl;
 import 'phone_field_localization.dart';
+
+// ignore_for_file: type=lint
 
 /// The translations for Hindi (`hi`).
 class PhoneFieldLocalizationHi extends PhoneFieldLocalization {

@@ -56,7 +56,7 @@ const metadataPatternsByIsoCode = {
     nationalPrefixForParsing: null,
     nationalPrefixTransformRule: null,
     general: r"(?:[1-489]\d|55|60|77)\d{6}",
-    mobile: r"(?:33|4[1349]|55|77|88|9[13-9])\d{6}",
+    mobile: r"(?:1[12]|33|4[13479]|5[05]|6[06]|77|88|9[13-9])\d{6}",
     fixedLine:
         r"(?:(?:1[0-25]|47)\d|2(?:2[2-46]|3[1-8]|4[2-69]|5[2-7]|6[1-9]|8[1-7])|3[12]2)\d{5}",
   ),

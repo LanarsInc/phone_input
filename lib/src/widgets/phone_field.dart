@@ -174,7 +174,7 @@ class PhoneFieldState extends State<PhoneField> {
     final item = MouseRegion(
       cursor: SystemMouseCursors.text,
       child: InputDecorator(
-        decoration: _getOutterInputDecoration(),
+        decoration: _getOuterInputDecoration(),
         isFocused: controller.focusNode.hasFocus,
         child: TextField(
           focusNode: controller.focusNode,
@@ -282,7 +282,7 @@ class PhoneFieldState extends State<PhoneField> {
     );
   }
 
-  InputDecoration _getOutterInputDecoration() {
+  InputDecoration _getOuterInputDecoration() {
     final directionality = Directionality.of(context);
 
     return widget.decoration.copyWith(

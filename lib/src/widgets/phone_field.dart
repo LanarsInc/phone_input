@@ -238,6 +238,7 @@ class PhoneFieldState extends State<PhoneField> {
       child: MouseRegion(
         cursor: SystemMouseCursors.click,
         child: GestureDetector(
+          behavior: HitTestBehavior.opaque,
           onTap: selectCountry,
           // material here else the click pass through empty spaces
           child: Material(

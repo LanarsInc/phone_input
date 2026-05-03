@@ -1,4 +1,8 @@
+// ignore: unused_import
+import 'package:intl/intl.dart' as intl;
 import 'phone_field_localization.dart';
+
+// ignore_for_file: type=lint
 
 /// The translations for Arabic (`ar`).
 class PhoneFieldLocalizationAr extends PhoneFieldLocalization {
@@ -116,7 +120,7 @@ class PhoneFieldLocalizationAr extends PhoneFieldLocalization {
   String get bo_ => 'بوليفيا ، دولة متعددة القوميات';
 
   @override
-  String get bq_ => 'Bonaire';
+  String get bq_ => 'بونير';
 
   @override
   String get br_ => 'البرازيل';
@@ -647,7 +651,7 @@ class PhoneFieldLocalizationAr extends PhoneFieldLocalization {
   String get sz_ => 'سوازيلاند';
 
   @override
-  String get ta_ => 'Tristan da Cunha';
+  String get ta_ => 'تريستان دا كونها';
 
   @override
   String get tc_ => 'جزر تركس وكايكوس';

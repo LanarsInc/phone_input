@@ -3,4 +3,3 @@ template-arb-file: en.arb
 output-localization-file: phone_field_localization.dart
 output-class: PhoneFieldLocalization
 output-dir: lib/l10n/generated
-synthetic-package: false

@@ -41,7 +41,6 @@ class PhoneValidator {
     /// determine whether a missing value should be reported as invalid
     bool allowEmpty = true,
   }) {
-    
     return (PhoneNumber? valueCandidate) {
       if (valueCandidate == null && !allowEmpty) {
         return errorText ?? 'invalidPhoneNumber';

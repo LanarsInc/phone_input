@@ -9,11 +9,17 @@ class PhoneLengthLimitingTextInputFormatter extends TextInputFormatter {
   PhoneLengthLimitingTextInputFormatter(this.maxLength);
 
   @override
-  TextEditingValue formatEditUpdate(TextEditingValue oldValue, TextEditingValue newValue) {
-    String newText = newValue.text.replaceAll(RegExp(Patterns.numberDividers), '');
+  TextEditingValue formatEditUpdate(
+      TextEditingValue oldValue, TextEditingValue newValue) {
+    String newText =
+        newValue.text.replaceAll(RegExp(Patterns.numberDividers), '');
     return newText.length > maxLength ? oldValue : newValue;
   }
 
-  PhoneLengthLimitingTextInputFormatter.fromController(PhoneController controller)
-      : maxLength = MetadataFinder.getMetadataLengthForIsoCode(controller.value!.isoCode).mobile.last;
+  PhoneLengthLimitingTextInputFormatter.fromController(
+      PhoneController controller)
+      : maxLength = MetadataFinder.getMetadataLengthForIsoCode(
+                controller.value!.isoCode)
+            .mobile
+            .last;
 }

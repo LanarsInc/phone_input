@@ -257,7 +257,8 @@ class DialogNavigator extends CountrySelectorNavigator {
           height: height,
           child: _getCountrySelector(
             isBottomSheet: false,
-            onCountrySelected: (country) => Navigator.of(context, rootNavigator: true).pop(country),
+            onCountrySelected: (country) =>
+                Navigator.of(context, rootNavigator: true).pop(country),
           ),
         ),
       ),

@@ -21,7 +21,8 @@ class Flag extends StatelessWidget {
     return _FlagAssetLoader(isoCode);
   }
 
-  const Flag.fromLoader(this.loader, {super.key, this.size = 48, this.shape = BoxShape.circle});
+  const Flag.fromLoader(this.loader,
+      {super.key, this.size = 48, this.shape = BoxShape.circle});
 
   @override
   Widget build(BuildContext context) {
@@ -52,7 +53,8 @@ class _FlagAssetLoader extends SvgAssetLoader {
     return 'packages/phone_input/assets/svg/${isoCode.toLowerCase()}.svg';
   }
 
-  static AssetBundle _resolveBundle(AssetBundle? assetBundle, BuildContext? context) {
+  static AssetBundle _resolveBundle(
+      AssetBundle? assetBundle, BuildContext? context) {
     if (assetBundle != null) {
       return assetBundle;
     }
@@ -77,6 +79,7 @@ class _FlagAssetLoader extends SvgAssetLoader {
 
   @override
   SvgCacheKey cacheKey(BuildContext? context) {
-    return SvgCacheKey(keyData: isoCode, theme: theme, colorMapper: colorMapper);
+    return SvgCacheKey(
+        keyData: isoCode, theme: theme, colorMapper: colorMapper);
   }
 }

@@ -75,7 +75,7 @@ class PhoneInput extends FormField<PhoneNumber> {
   /// the focusNode of the national number
   final FocusNode? focusNode;
 
-    PhoneInput({
+  PhoneInput({
     Key? key,
     this.controller,
     this.shouldFormat = true,
@@ -85,7 +85,8 @@ class PhoneInput extends FormField<PhoneNumber> {
     required CountrySelectorNavigator countrySelectorNavigator,
     Function(PhoneNumber?)? onSaved,
     this.defaultCountry = IsoCode.US,
-    InputDecoration decoration = const InputDecoration(border: UnderlineInputBorder()),
+    InputDecoration decoration =
+        const InputDecoration(border: UnderlineInputBorder()),
     AutovalidateMode autovalidateMode = AutovalidateMode.onUserInteraction,
     PhoneNumber? initialValue,
     double flagSize = 20,

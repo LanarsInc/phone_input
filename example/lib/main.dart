@@ -103,8 +103,8 @@ class _PhoneInputPageState extends State<PhoneInputPage> {
               PhoneInput(
                 showArrow: _showArrow,
                 shouldFormat: _shouldFormat,
-                validator:
-                    PhoneValidator.compose([PhoneValidator.required(), PhoneValidator.valid()]),
+                validator: PhoneValidator.compose(
+                    [PhoneValidator.required(), PhoneValidator.valid()]),
                 flagShape: _isFlagCircle ? BoxShape.circle : BoxShape.rectangle,
                 showFlagInInput: _showFlagInInput,
                 decoration: InputDecoration(

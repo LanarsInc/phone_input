@@ -1,3 +1,7 @@
+## 1.0.2 - 03.05.2026
+
+* chore: resolve the dependency resolution failure and unblock static analysis, platform detection, and dartdoc
+
 ## 1.0.1 - 03.05.2026
 
 * fix: fixed phone number parsing when the + prefix is omitted but the country code is present. Thanks to [matteovhaxt](https://github.com/matteovhaxt).

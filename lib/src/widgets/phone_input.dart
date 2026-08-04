@@ -85,8 +85,7 @@ class PhoneInput extends FormField<PhoneNumber> {
     required CountrySelectorNavigator countrySelectorNavigator,
     Function(PhoneNumber?)? onSaved,
     this.defaultCountry = IsoCode.US,
-    InputDecoration decoration =
-        const InputDecoration(border: UnderlineInputBorder()),
+    InputDecoration decoration = const InputDecoration(border: UnderlineInputBorder()),
     AutovalidateMode autovalidateMode = AutovalidateMode.onUserInteraction,
     PhoneNumber? initialValue,
     double flagSize = 20,
@@ -222,8 +221,8 @@ class PhoneInputState extends FormFieldState<PhoneNumber> {
     _controller.addListener(_onControllerChange);
     _childController.addListener(() => _onChildControllerChange());
     // to expose text selection of national number
-    _selectionSubscription = _controller.selectionRequestStream
-        .listen((event) => _childController.selectNationalNumber());
+    _selectionSubscription =
+        _controller.selectionRequestStream.listen((event) => _childController.selectNationalNumber());
   }
 
   @override
@@ -265,8 +264,7 @@ class PhoneInputState extends FormFieldState<PhoneNumber> {
   /// when the base controller changes (when the user manually input something)
   /// then we need to update the local controller's value.
   void _onChildControllerChange() {
-    if (_childController.national == _controller.value?.nsn &&
-        _childController.isoCode == _controller.value?.isoCode) {
+    if (_childController.national == _controller.value?.nsn && _childController.isoCode == _controller.value?.isoCode) {
       return;
     }
 

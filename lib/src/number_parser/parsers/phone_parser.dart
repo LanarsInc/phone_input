@@ -38,12 +38,9 @@ abstract class PhoneParser {
     IsoCode? destinationCountry,
   }) {
     phoneNumber = TextParser.normalize(phoneNumber);
-    final callerMetadata = callerCountry != null
-        ? MetadataFinder.getMetadataForIsoCode(callerCountry)
-        : null;
-    var destinationMetadata = destinationCountry != null
-        ? MetadataFinder.getMetadataForIsoCode(destinationCountry)
-        : null;
+    final callerMetadata = callerCountry != null ? MetadataFinder.getMetadataForIsoCode(callerCountry) : null;
+    var destinationMetadata =
+        destinationCountry != null ? MetadataFinder.getMetadataForIsoCode(destinationCountry) : null;
 
     final withoutExitCode = InternationalPrefixParser.removeExitCode(
       phoneNumber,
@@ -99,10 +96,8 @@ abstract class PhoneParser {
       return callerMetadata;
     }
     // if no caller was provided we need to make a best guess given the country code
-    final countryCode =
-        CountryCodeParser.extractCountryCode(phoneWithoutExitCode);
-    final national =
-        CountryCodeParser.removeCountryCode(phoneWithoutExitCode, countryCode);
+    final countryCode = CountryCodeParser.extractCountryCode(phoneWithoutExitCode);
+    final national = CountryCodeParser.removeCountryCode(phoneWithoutExitCode, countryCode);
     // multiple countries use the same country code
     final metadatas = MetadataFinder.getMetadatasForCountryCode(countryCode);
     // if multiple countries share the same country code, patterns on the national number

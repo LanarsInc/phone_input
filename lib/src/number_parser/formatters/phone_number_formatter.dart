@@ -42,8 +42,7 @@ class PhoneNumberFormatter {
   static String _removeMissingDigits(String formatted, String missingDigits) {
     while (missingDigits.isNotEmpty) {
       // not an ending digit
-      final isEndingWithSpecialChar =
-          int.tryParse(formatted[formatted.length - 1]) == null;
+      final isEndingWithSpecialChar = int.tryParse(formatted[formatted.length - 1]) == null;
       if (isEndingWithSpecialChar) {
         formatted = formatted.substring(0, formatted.length - 1);
       } else {
@@ -51,8 +50,7 @@ class PhoneNumberFormatter {
         missingDigits = missingDigits.substring(0, missingDigits.length - 1);
       }
     }
-    final isEndingWithSpecialChar =
-        int.tryParse(formatted[formatted.length - 1]) == null;
+    final isEndingWithSpecialChar = int.tryParse(formatted[formatted.length - 1]) == null;
     if (isEndingWithSpecialChar) {
       formatted = formatted.substring(0, formatted.length - 1);
     }

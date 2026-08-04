@@ -39,9 +39,7 @@ class SearchInput extends StatelessWidget {
             prefixIcon: Icon(
               Icons.search,
               color: defaultSearchInputIconColor ??
-                  (Theme.of(context).brightness == Brightness.dark
-                      ? Colors.white54
-                      : Colors.black38),
+                  (Theme.of(context).brightness == Brightness.dark ? Colors.white54 : Colors.black38),
             ),
             filled: true,
           ),

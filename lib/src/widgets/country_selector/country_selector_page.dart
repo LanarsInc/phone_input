@@ -96,8 +96,7 @@ class CountrySelectorSearchDelegate extends SearchDelegate<Country> {
   }
 
   void _initIfRequired(BuildContext context) {
-    final localization =
-        PhoneFieldLocalization.of(context) ?? PhoneFieldLocalizationEn();
+    final localization = PhoneFieldLocalization.of(context) ?? PhoneFieldLocalizationEn();
     final countryRegistry = LocalizedCountryRegistry.cached(localization);
     // if localization has not changed no need to do anything
     if (countryRegistry == _localizedCountryRegistry) {

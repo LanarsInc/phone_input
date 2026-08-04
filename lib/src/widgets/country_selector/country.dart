@@ -15,15 +15,11 @@ class Country {
   /// returns "+ [countryCode]"
   String get displayCountryCode => '+ $countryCode';
 
-  Country(this.isoCode, this.name)
-      : countryCode = metadataByIsoCode[isoCode]?.countryCode ?? '';
+  Country(this.isoCode, this.name) : countryCode = metadataByIsoCode[isoCode]?.countryCode ?? '';
 
   @override
   bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is Country &&
-          runtimeType == other.runtimeType &&
-          isoCode == other.isoCode;
+      identical(this, other) || other is Country && runtimeType == other.runtimeType && isoCode == other.isoCode;
 
   @override
   int get hashCode => isoCode.hashCode;

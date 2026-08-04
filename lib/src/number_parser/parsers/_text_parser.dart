@@ -10,10 +10,7 @@ abstract class TextParser {
   /// [unformatedPhoneNumber]: (+32) 0489/99.99.99
   /// Returns: +320489999999
   static String normalize(String unformatedPhoneNumber) {
-    return unformatedPhoneNumber
-        .split('')
-        .map((char) => Patterns.allNormalizationMappings[char] ?? '')
-        .join('');
+    return unformatedPhoneNumber.split('').map((char) => Patterns.allNormalizationMappings[char] ?? '').join('');
   }
 
   /// Extracts phone numbers from a [text].

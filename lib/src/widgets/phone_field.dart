@@ -150,8 +150,7 @@ class PhoneFieldState extends State<PhoneField> {
       isListVisible = true;
     });
 
-    final selected =
-        await widget.selectorNavigator.requestCountrySelector(context);
+    final selected = await widget.selectorNavigator.requestCountrySelector(context);
     if (selected != null) {
       controller.isoCode = selected.isoCode;
     }
@@ -171,10 +170,7 @@ class PhoneFieldState extends State<PhoneField> {
     // When the country chip is not shown it request focus to the inner text
     // field which doesn't span the whole input
     // When the country chip is shown, clicking on it request country selection
-    final maxTextFieldLength =
-        MetadataFinder.getMetadataLengthForIsoCode(controller.isoCode)
-            .mobile
-            .last;
+    final maxTextFieldLength = MetadataFinder.getMetadataLengthForIsoCode(controller.isoCode).mobile.last;
     final item = MouseRegion(
       cursor: SystemMouseCursors.text,
       child: InputDecorator(
@@ -188,8 +184,8 @@ class PhoneFieldState extends State<PhoneField> {
           inputFormatters: widget.inputFormatters ??
               [
                 PhoneLengthLimitingTextInputFormatter(maxTextFieldLength),
-                FilteringTextInputFormatter.allow(RegExp(
-                    '[${Patterns.plus}${Patterns.digits}${Patterns.punctuation}]')),
+                FilteringTextInputFormatter.allow(
+                    RegExp('[${Patterns.plus}${Patterns.digits}${Patterns.punctuation}]')),
               ],
           autofillHints: widget.autofillHints,
           keyboardType: widget.keyboardType,
@@ -293,10 +289,8 @@ class PhoneFieldState extends State<PhoneField> {
     return widget.decoration.copyWith(
       hintText: null,
       errorText: widget.errorText,
-      prefix:
-          directionality == TextDirection.ltr ? _getCountryCodeChip() : null,
-      suffix:
-          directionality == TextDirection.rtl ? _getCountryCodeChip() : null,
+      prefix: directionality == TextDirection.ltr ? _getCountryCodeChip() : null,
+      suffix: directionality == TextDirection.rtl ? _getCountryCodeChip() : null,
     );
   }
 }

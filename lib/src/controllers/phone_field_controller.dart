@@ -45,7 +45,7 @@ class PhoneInputController extends ChangeNotifier {
     nationalNumberController.addListener(notifyListeners);
   }
 
-  selectNationalNumber() {
+  void selectNationalNumber() {
     nationalNumberController.selection = TextSelection(
       baseOffset: 0,
       extentOffset: nationalNumberController.value.text.length,

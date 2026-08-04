@@ -129,13 +129,13 @@ class CountrySelectorState extends State<CountrySelector> {
     _favoriteCountryFinder = CountryFinder(favoriteCountries, sort: false);
   }
 
-  _onSearch(String searchedText) {
+  void _onSearch(String searchedText) {
     _countryFinder.filter(searchedText);
     _favoriteCountryFinder.filter(searchedText);
     setState(() {});
   }
 
-  onSubmitted() {
+  void onSubmitted() {
     if (_favoriteCountryFinder.filteredCountries.isNotEmpty) {
       widget.onCountrySelected(_favoriteCountryFinder.filteredCountries.first);
     } else if (_countryFinder.filteredCountries.isNotEmpty) {

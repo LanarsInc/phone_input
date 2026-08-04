@@ -17,13 +17,13 @@ class SearchInput extends StatelessWidget {
   final Color? defaultSearchInputIconColor;
 
   const SearchInput({
-    Key? key,
+    super.key,
     required this.onChanged,
     required this.onSubmitted,
     this.decoration,
     this.style,
     this.defaultSearchInputIconColor,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

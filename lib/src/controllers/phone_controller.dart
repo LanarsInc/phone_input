@@ -10,11 +10,11 @@ class PhoneController extends ValueNotifier<PhoneNumber?> {
 
   PhoneController(super.initialValue);
 
-  selectNationalNumber() {
+  void selectNationalNumber() {
     _selectionRequestController.add(null);
   }
 
-  reset() {
+  void reset() {
     value = null;
   }
 

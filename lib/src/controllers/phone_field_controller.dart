@@ -15,10 +15,8 @@ class PhoneInputController extends ChangeNotifier {
 
   set national(String? national) {
     national = national ?? '';
-    final currentSelectionOffset =
-        nationalNumberController.selection.extentOffset;
-    final isCursorAtEnd =
-        currentSelectionOffset == nationalNumberController.text.length;
+    final currentSelectionOffset = nationalNumberController.selection.extentOffset;
+    final isCursorAtEnd = currentSelectionOffset == nationalNumberController.text.length;
     var offset = national.length;
 
     if (isCursorAtEnd) {
@@ -47,7 +45,7 @@ class PhoneInputController extends ChangeNotifier {
     nationalNumberController.addListener(notifyListeners);
   }
 
-  selectNationalNumber() {
+  void selectNationalNumber() {
     nationalNumberController.selection = TextSelection(
       baseOffset: 0,
       extentOffset: nationalNumberController.value.text.length,

@@ -45,9 +45,7 @@ class PhoneValidator {
       if (valueCandidate == null && !allowEmpty) {
         return errorText ?? 'invalidPhoneNumber';
       }
-      if (valueCandidate != null &&
-          (!allowEmpty || valueCandidate.nsn.isNotEmpty) &&
-          !valueCandidate.isValid()) {
+      if (valueCandidate != null && (!allowEmpty || valueCandidate.nsn.isNotEmpty) && !valueCandidate.isValid()) {
         return errorText ?? 'invalidPhoneNumber';
       }
       return null;
@@ -63,9 +61,8 @@ class PhoneValidator {
     /// determine whether a missing value should be reported as invalid
     bool allowEmpty = true,
   }) {
-    final defaultMessage = expectedType == PhoneNumberType.mobile
-        ? 'invalidMobilePhoneNumber'
-        : 'invalidFixedLinePhoneNumber';
+    final defaultMessage =
+        expectedType == PhoneNumberType.mobile ? 'invalidMobilePhoneNumber' : 'invalidFixedLinePhoneNumber';
     return (PhoneNumber? valueCandidate) {
       if (valueCandidate != null &&
           (!allowEmpty || valueCandidate.nsn.isNotEmpty) &&

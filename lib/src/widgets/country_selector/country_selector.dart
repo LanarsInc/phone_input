@@ -120,25 +120,22 @@ class CountrySelectorState extends State<CountrySelector> {
   @override
   didChangeDependencies() {
     super.didChangeDependencies();
-    final localization =
-        PhoneFieldLocalization.of(context) ?? PhoneFieldLocalizationEn();
+    final localization = PhoneFieldLocalization.of(context) ?? PhoneFieldLocalizationEn();
     final isoCodes = widget.countries ?? IsoCode.values;
     final countryRegistry = LocalizedCountryRegistry.cached(localization);
-    final notFavoriteCountries =
-        countryRegistry.whereIsoIn(isoCodes, omit: widget.favoriteCountries);
-    final favoriteCountries =
-        countryRegistry.whereIsoIn(widget.favoriteCountries);
+    final notFavoriteCountries = countryRegistry.whereIsoIn(isoCodes, omit: widget.favoriteCountries);
+    final favoriteCountries = countryRegistry.whereIsoIn(widget.favoriteCountries);
     _countryFinder = CountryFinder(notFavoriteCountries);
     _favoriteCountryFinder = CountryFinder(favoriteCountries, sort: false);
   }
 
-  _onSearch(String searchedText) {
+  void _onSearch(String searchedText) {
     _countryFinder.filter(searchedText);
     _favoriteCountryFinder.filter(searchedText);
     setState(() {});
   }
 
-  onSubmitted() {
+  void onSubmitted() {
     if (_favoriteCountryFinder.filteredCountries.isNotEmpty) {
       widget.onCountrySelected(_favoriteCountryFinder.filteredCountries.first);
     } else if (_countryFinder.filteredCountries.isNotEmpty) {
@@ -150,16 +147,13 @@ class CountrySelectorState extends State<CountrySelector> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        widget.isBottomSheet
-            ? const SizedBox(height: 16)
-            : const SizedBox.shrink(),
+        widget.isBottomSheet ? const SizedBox(height: 16) : const SizedBox.shrink(),
         widget.isBottomSheet
             ? Container(
                 width: 50,
                 height: 4,
                 decoration: BoxDecoration(
-                  color: widget.bottomSheetDragHandlerColor ??
-                      Theme.of(context).colorScheme.secondary,
+                  color: widget.bottomSheetDragHandlerColor ?? Theme.of(context).colorScheme.secondary,
                   borderRadius: BorderRadius.circular(8),
                 ),
               )
@@ -175,15 +169,12 @@ class CountrySelectorState extends State<CountrySelector> {
                     onSubmitted: onSubmitted,
                     decoration: widget.searchInputDecoration,
                     style: widget.searchInputTextStyle,
-                    defaultSearchInputIconColor:
-                        widget.defaultSearchInputIconColor,
+                    defaultSearchInputIconColor: widget.defaultSearchInputIconColor,
                   ),
                 ),
               )
             : const SizedBox(height: 8),
-        widget.showSearchInput
-            ? const Divider(height: 0, thickness: 1.2)
-            : const SizedBox.shrink(),
+        widget.showSearchInput ? const Divider(height: 0, thickness: 1.2) : const SizedBox.shrink(),
         Flexible(
           child: CountryList(
             addFavouriteSeparator: widget.addFavouriteSeparator,

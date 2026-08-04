@@ -27,8 +27,7 @@ abstract class InternationalPrefixParser {
     String phoneNumber,
     PhoneMetadata metadata,
   ) {
-    final match =
-        RegExp(metadata.internationalPrefix).matchAsPrefix(phoneNumber);
+    final match = RegExp(metadata.internationalPrefix).matchAsPrefix(phoneNumber);
     if (match != null) {
       return phoneNumber.substring(match.end);
     }

@@ -38,8 +38,7 @@ class PhoneMetadataPatterns {
 
   String toJson() => json.encode(toMap());
 
-  factory PhoneMetadataPatterns.fromJson(String source) =>
-      PhoneMetadataPatterns.fromMap(json.decode(source));
+  factory PhoneMetadataPatterns.fromJson(String source) => PhoneMetadataPatterns.fromMap(json.decode(source));
 
   @override
   String toString() {

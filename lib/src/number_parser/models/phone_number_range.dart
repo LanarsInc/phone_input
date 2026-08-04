@@ -9,8 +9,7 @@ class PhoneNumberRange {
   PhoneNumberRange(
     this.start,
     this.end,
-  )   : assert(start.isoCode == end.isoCode,
-            'Cannot range with different iso codes'),
+  )   : assert(start.isoCode == end.isoCode, 'Cannot range with different iso codes'),
         countryCode = start.countryCode;
 
   @override
@@ -20,9 +19,7 @@ class PhoneNumberRange {
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
 
-    return other is PhoneNumberRange &&
-        other.start == start &&
-        other.end == end;
+    return other is PhoneNumberRange && other.start == start && other.end == end;
   }
 
   @override

@@ -17,8 +17,7 @@ abstract class CountryCodeParser {
     if (countryCode.startsWith('0')) {
       throw PhoneNumberException(
           code: Code.invalidCountryCallingCode,
-          description:
-              'country calling code do not start with 0, was $countryCode');
+          description: 'country calling code do not start with 0, was $countryCode');
     }
     if (int.tryParse(countryCode) == null) {
       throw PhoneNumberException(
@@ -30,16 +29,14 @@ abstract class CountryCodeParser {
         countryCode.length > Constants.maxLengthCountryCallingCode) {
       throw PhoneNumberException(
           code: Code.invalidCountryCallingCode,
-          description:
-              'country calling code has an invalid length, was $countryCode');
+          description: 'country calling code has an invalid length, was $countryCode');
     }
     return countryCode;
   }
 
   /// tries to find a country calling code at the start of a phone number
   static String extractCountryCode(String phoneNumber) {
-    final maxLength =
-        min(phoneNumber.length, Constants.maxLengthCountryCallingCode);
+    final maxLength = min(phoneNumber.length, Constants.maxLengthCountryCallingCode);
     var potentialCountryCode = phoneNumber.substring(0, maxLength);
     potentialCountryCode = normalizeCountryCode(potentialCountryCode);
     for (var i = 1; i <= potentialCountryCode.length; i++) {
@@ -51,9 +48,7 @@ abstract class CountryCodeParser {
       } catch (e) {}
     }
     throw PhoneNumberException(
-        code: Code.notFound,
-        description:
-            'country calling code not found in phone number $phoneNumber');
+        code: Code.notFound, description: 'country calling code not found in phone number $phoneNumber');
   }
 
   // removes the country code at the start of a phone number

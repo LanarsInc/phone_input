@@ -16,8 +16,7 @@ class PhoneNumber {
   final IsoCode isoCode;
 
   /// territory numerical code that precedes a phone number. Example 33 for france
-  String get countryCode =>
-      MetadataFinder.getMetadataForIsoCode(isoCode).countryCode;
+  String get countryCode => MetadataFinder.getMetadataForIsoCode(isoCode).countryCode;
 
   /// international version of phone number
   String get international => '+$countryCode$nsn';
@@ -59,20 +58,17 @@ class PhoneNumber {
       );
 
   /// formats the nsn, if no [isoCode] is provided the phone number region is used.
-  String getFormattedNsn({IsoCode? isoCode}) =>
-      PhoneNumberFormatter.formatNsn(nsn, isoCode ?? this.isoCode);
+  String getFormattedNsn({IsoCode? isoCode}) => PhoneNumberFormatter.formatNsn(nsn, isoCode ?? this.isoCode);
 
   //
   //  Validation
   //
 
   /// validates a phone number by first checking its length then pattern matching
-  bool isValid({PhoneNumberType? type}) =>
-      Validator.validateWithPattern(this, type);
+  bool isValid({PhoneNumberType? type}) => Validator.validateWithPattern(this, type);
 
   /// validates a phone number by only checking its length
-  bool isValidLength({PhoneNumberType? type}) =>
-      Validator.validateWithLength(this, type);
+  bool isValidLength({PhoneNumberType? type}) => Validator.validateWithLength(this, type);
 
   //
   //  text
@@ -91,8 +87,7 @@ class PhoneNumber {
   //  inequalities
   //
 
-  static PhoneNumberRange getRange(PhoneNumber start, PhoneNumber end) =>
-      PhoneNumberRange(start, end);
+  static PhoneNumberRange getRange(PhoneNumber start, PhoneNumber end) => PhoneNumberRange(start, end);
 
   @override
   bool operator ==(Object other) {
@@ -174,8 +169,7 @@ class PhoneNumber {
   }
 
   @override
-  String toString() =>
-      'PhoneNumber(isoCode: $isoCode, countryCode: $countryCode, nsn: $nsn)';
+  String toString() => 'PhoneNumber(isoCode: $isoCode, countryCode: $countryCode, nsn: $nsn)';
 
   Map<String, dynamic> toJson() {
     return {

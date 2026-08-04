@@ -8,8 +8,7 @@ class PhoneNumberException {
   });
 
   @override
-  String toString() =>
-      'PhoneNumberException(code: $code, description: $description)';
+  String toString() => 'PhoneNumberException(code: $code, description: $description)';
 }
 
 enum Code {

@@ -79,18 +79,15 @@ import 'phone_field_localization_zh.dart';
 /// be consistent with the languages listed in the PhoneFieldLocalization.supportedLocales
 /// property.
 abstract class PhoneFieldLocalization {
-  PhoneFieldLocalization(String locale)
-      : localeName = intl.Intl.canonicalizedLocale(locale.toString());
+  PhoneFieldLocalization(String locale) : localeName = intl.Intl.canonicalizedLocale(locale.toString());
 
   final String localeName;
 
   static PhoneFieldLocalization? of(BuildContext context) {
-    return Localizations.of<PhoneFieldLocalization>(
-        context, PhoneFieldLocalization);
+    return Localizations.of<PhoneFieldLocalization>(context, PhoneFieldLocalization);
   }
 
-  static const LocalizationsDelegate<PhoneFieldLocalization> delegate =
-      _PhoneFieldLocalizationDelegate();
+  static const LocalizationsDelegate<PhoneFieldLocalization> delegate = _PhoneFieldLocalizationDelegate();
 
   /// A list of this localizations delegate along with the default localizations
   /// delegates.
@@ -102,8 +99,7 @@ abstract class PhoneFieldLocalization {
   /// Additional delegates can be added by appending to this list in
   /// MaterialApp. This list does not have to be used at all if a custom list
   /// of delegates is preferred or required.
-  static const List<LocalizationsDelegate<dynamic>> localizationsDelegates =
-      <LocalizationsDelegate<dynamic>>[
+  static const List<LocalizationsDelegate<dynamic>> localizationsDelegates = <LocalizationsDelegate<dynamic>>[
     delegate,
     GlobalMaterialLocalizations.delegate,
     GlobalCupertinoLocalizations.delegate,
@@ -1628,14 +1624,12 @@ abstract class PhoneFieldLocalization {
   String get zw_;
 }
 
-class _PhoneFieldLocalizationDelegate
-    extends LocalizationsDelegate<PhoneFieldLocalization> {
+class _PhoneFieldLocalizationDelegate extends LocalizationsDelegate<PhoneFieldLocalization> {
   const _PhoneFieldLocalizationDelegate();
 
   @override
   Future<PhoneFieldLocalization> load(Locale locale) {
-    return SynchronousFuture<PhoneFieldLocalization>(
-        lookupPhoneFieldLocalization(locale));
+    return SynchronousFuture<PhoneFieldLocalization>(lookupPhoneFieldLocalization(locale));
   }
 
   @override
@@ -1708,8 +1702,7 @@ PhoneFieldLocalization lookupPhoneFieldLocalization(Locale locale) {
       return PhoneFieldLocalizationZh();
   }
 
-  throw FlutterError(
-      'PhoneFieldLocalization.delegate failed to load unsupported locale "$locale". This is likely '
+  throw FlutterError('PhoneFieldLocalization.delegate failed to load unsupported locale "$locale". This is likely '
       'an issue with the localizations generation tool. Please file an issue '
       'on GitHub with a reproducible sample app and the gen-l10n configuration '
       'that was used.');

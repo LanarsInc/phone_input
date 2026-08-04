@@ -11,8 +11,7 @@ abstract class MetadataMatcher {
     if (potentialFits.length == 1) return potentialFits[0];
     potentialFits = reducePotentialMetadatasFits(nationalNumber, potentialFits);
     for (var fit in potentialFits) {
-      final isValidForIso = Validator.validateWithPattern(
-          PhoneNumber(nsn: nationalNumber, isoCode: fit.isoCode));
+      final isValidForIso = Validator.validateWithPattern(PhoneNumber(nsn: nationalNumber, isoCode: fit.isoCode));
       if (isValidForIso) {
         return fit;
       }

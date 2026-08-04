@@ -76,18 +76,17 @@ class PhoneInput extends FormField<PhoneNumber> {
   final FocusNode? focusNode;
 
   PhoneInput({
-    Key? key,
+    super.key,
     this.controller,
     this.shouldFormat = true,
     this.onChanged,
     this.focusNode,
     bool showFlagInInput = true,
     required CountrySelectorNavigator countrySelectorNavigator,
-    Function(PhoneNumber?)? onSaved,
+    Function(PhoneNumber?)? super.onSaved,
     this.defaultCountry = IsoCode.US,
-    InputDecoration decoration =
-        const InputDecoration(border: UnderlineInputBorder()),
-    AutovalidateMode autovalidateMode = AutovalidateMode.onUserInteraction,
+    InputDecoration decoration = const InputDecoration(border: UnderlineInputBorder()),
+    AutovalidateMode super.autovalidateMode = AutovalidateMode.onUserInteraction,
     PhoneNumber? initialValue,
     double flagSize = 20,
     BoxShape flagShape = BoxShape.circle,
@@ -115,7 +114,7 @@ class PhoneInput extends FormField<PhoneNumber> {
     ValueChanged<String>? onSubmitted,
     AppPrivateCommandCallback? onAppPrivateCommand,
     List<TextInputFormatter>? inputFormatters,
-    bool enabled = true,
+    super.enabled,
     double cursorWidth = 2.0,
     double? cursorHeight,
     Radius? cursorRadius,
@@ -130,20 +129,15 @@ class PhoneInput extends FormField<PhoneNumber> {
     ScrollPhysics? scrollPhysics,
     ScrollController? scrollController,
     Iterable<String>? autofillHints,
-    String? restorationId,
+    super.restorationId,
     bool enableIMEPersonalizedLearning = true,
   })  : assert(
           initialValue == null || controller == null,
           'One of initialValue or controller can be specified at a time',
         ),
         super(
-          key: key,
-          autovalidateMode: autovalidateMode,
-          enabled: enabled,
           initialValue: controller != null ? controller.value : initialValue,
-          onSaved: onSaved,
           validator: validator ?? PhoneValidator.valid(),
-          restorationId: restorationId,
           builder: (state) {
             final field = state as PhoneInputState;
             return PhoneField(
@@ -222,8 +216,8 @@ class PhoneInputState extends FormFieldState<PhoneNumber> {
     _controller.addListener(_onControllerChange);
     _childController.addListener(() => _onChildControllerChange());
     // to expose text selection of national number
-    _selectionSubscription = _controller.selectionRequestStream
-        .listen((event) => _childController.selectNationalNumber());
+    _selectionSubscription =
+        _controller.selectionRequestStream.listen((event) => _childController.selectNationalNumber());
   }
 
   @override
@@ -265,8 +259,7 @@ class PhoneInputState extends FormFieldState<PhoneNumber> {
   /// when the base controller changes (when the user manually input something)
   /// then we need to update the local controller's value.
   void _onChildControllerChange() {
-    if (_childController.national == _controller.value?.nsn &&
-        _childController.isoCode == _controller.value?.isoCode) {
+    if (_childController.national == _controller.value?.nsn && _childController.isoCode == _controller.value?.isoCode) {
       return;
     }
 

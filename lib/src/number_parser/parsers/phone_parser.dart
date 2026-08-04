@@ -38,32 +38,24 @@ abstract class PhoneParser {
     IsoCode? destinationCountry,
   }) {
     phoneNumber = TextParser.normalize(phoneNumber);
-    final callerMetadata = callerCountry != null
-        ? MetadataFinder.getMetadataForIsoCode(callerCountry)
-        : null;
-    var destinationMetadata = destinationCountry != null
-        ? MetadataFinder.getMetadataForIsoCode(destinationCountry)
-        : null;
+    final callerMetadata = callerCountry != null ? MetadataFinder.getMetadataForIsoCode(callerCountry) : null;
+    var destinationMetadata =
+        destinationCountry != null ? MetadataFinder.getMetadataForIsoCode(destinationCountry) : null;
 
     final withoutExitCode = InternationalPrefixParser.removeExitCode(
       phoneNumber,
       destinationCountryMetadata: destinationMetadata,
       callerCountryMetadata: callerMetadata,
     );
-    final containsExitCode = withoutExitCode.length != phoneNumber.length;
     // if no destination metadata was provided we have to find it,
     destinationMetadata ??= _findDestinationMetadata(
       phoneWithoutExitCode: withoutExitCode,
       callerMetadata: callerMetadata,
     );
-    var national = withoutExitCode;
-    // if there was no exit code then we assume we are dealing with a national number
-    if (containsExitCode) {
-      national = CountryCodeParser.removeCountryCode(
-        withoutExitCode,
-        destinationMetadata.countryCode,
-      );
-    }
+    final national = CountryCodeParser.removeCountryCode(
+      withoutExitCode,
+      destinationMetadata.countryCode,
+    );
     final containsCountryCode = national.length != withoutExitCode.length;
     // normally a phone number should not contain a national prefix after the country
     // code. However we let it slide to cover a wider range of incorrect input
@@ -104,10 +96,8 @@ abstract class PhoneParser {
       return callerMetadata;
     }
     // if no caller was provided we need to make a best guess given the country code
-    final countryCode =
-        CountryCodeParser.extractCountryCode(phoneWithoutExitCode);
-    final national =
-        CountryCodeParser.removeCountryCode(phoneWithoutExitCode, countryCode);
+    final countryCode = CountryCodeParser.extractCountryCode(phoneWithoutExitCode);
+    final national = CountryCodeParser.removeCountryCode(phoneWithoutExitCode, countryCode);
     // multiple countries use the same country code
     final metadatas = MetadataFinder.getMetadatasForCountryCode(countryCode);
     // if multiple countries share the same country code, patterns on the national number

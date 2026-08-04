@@ -1,4 +1,8 @@
+// ignore: unused_import
+import 'package:intl/intl.dart' as intl;
 import 'phone_field_localization.dart';
+
+// ignore_for_file: type=lint
 
 /// The translations for Modern Greek (`el`).
 class PhoneFieldLocalizationEl extends PhoneFieldLocalization {
@@ -14,8 +18,7 @@ class PhoneFieldLocalizationEl extends PhoneFieldLocalization {
   String get invalidMobilePhoneNumber => 'Μη έγκυρος αριθμός κινητού τηλεφώνου';
 
   @override
-  String get invalidFixedLinePhoneNumber =>
-      'Μη έγκυρος αριθμός σταθερού τηλεφώνου';
+  String get invalidFixedLinePhoneNumber => 'Μη έγκυρος αριθμός σταθερού τηλεφώνου';
 
   @override
   String get requiredPhoneNumber => 'Απαιτούμενος αριθμός τηλεφώνου';

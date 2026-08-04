@@ -103,8 +103,7 @@ class _PhoneInputPageState extends State<PhoneInputPage> {
               PhoneInput(
                 showArrow: _showArrow,
                 shouldFormat: _shouldFormat,
-                validator:
-                    PhoneValidator.compose([PhoneValidator.required(), PhoneValidator.valid()]),
+                validator: PhoneValidator.compose([PhoneValidator.required(), PhoneValidator.valid()]),
                 flagShape: _isFlagCircle ? BoxShape.circle : BoxShape.rectangle,
                 showFlagInInput: _showFlagInInput,
                 decoration: InputDecoration(
@@ -166,10 +165,7 @@ class _PhoneInputPageState extends State<PhoneInputPage> {
                           setState(() => selectorNavigator = value);
                         }
                       },
-                      items: navigators
-                          .asMap()
-                          .entries
-                          .map<DropdownMenuItem<CountrySelectorNavigator>>(
+                      items: navigators.asMap().entries.map<DropdownMenuItem<CountrySelectorNavigator>>(
                         (entry) {
                           int index = entry.key;
                           CountrySelectorNavigator value = entry.value;

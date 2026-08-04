@@ -17,17 +17,12 @@ class RegexpManager {
     }
     // if there is no group caught there is no need to transform
     // it is possible for a group to be null despite the group count being 1
-    if (transformRule == null ||
-        match.groupCount == 0 ||
-        match.group(1) == null) {
+    if (transformRule == null || match.groupCount == 0 || match.group(1) == null) {
       return appliedTo.substring(match.end);
     }
 
     var transformed = transformRule;
-    bool shouldContinueLoop(int i) =>
-        match.groupCount >= i &&
-        match.group(i) != null &&
-        transformed.contains('\$$i');
+    bool shouldContinueLoop(int i) => match.groupCount >= i && match.group(i) != null && transformed.contains('\$$i');
     for (var i = 1; shouldContinueLoop(i); i++) {
       transformed = transformed.replaceFirst('\$$i', match.group(i)!);
     }

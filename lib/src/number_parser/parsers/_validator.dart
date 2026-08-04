@@ -16,8 +16,7 @@ abstract class Validator {
     PhoneNumberType? type,
   ]) {
     final metadata = MetadataFinder.getMetadataForIsoCode(phoneNumber.isoCode);
-    final patternMetadatas =
-        MetadataFinder.getMetadataPatternsForIsoCode(metadata.isoCode);
+    final patternMetadatas = MetadataFinder.getMetadataPatternsForIsoCode(metadata.isoCode);
     // if it's not matching the length it won't match the pattern
     if (!validateWithLength(phoneNumber)) {
       return false;
@@ -33,8 +32,7 @@ abstract class Validator {
     } else {
       patterns.add(_getPatterns(patternMetadatas, type));
     }
-    return patterns
-        .any((r) => RegexpManager.matchEntirely(r, phoneNumber.nsn) != null);
+    return patterns.any((r) => RegexpManager.matchEntirely(r, phoneNumber.nsn) != null);
   }
 
   /// Returns whether or not a national number is viable using length
@@ -45,8 +43,7 @@ abstract class Validator {
     PhoneNumber phoneNumber, [
     PhoneNumberType? type,
   ]) {
-    final lengthMetadatas =
-        MetadataFinder.getMetadataLengthForIsoCode(phoneNumber.isoCode);
+    final lengthMetadatas = MetadataFinder.getMetadataLengthForIsoCode(phoneNumber.isoCode);
     if (phoneNumber.nsn.length < Constants.minLengthNsn) {
       return false;
     }
@@ -70,8 +67,7 @@ abstract class Validator {
     } else {
       // if the type is not specified it can be either mobile or fixedLine
       // so we return a set containing both
-      final rulesFixed =
-          _getLengths(lengthMetadatas, PhoneNumberType.fixedLine);
+      final rulesFixed = _getLengths(lengthMetadatas, PhoneNumberType.fixedLine);
       final rulesMobile = _getLengths(lengthMetadatas, PhoneNumberType.mobile);
       return {...rulesFixed, ...rulesMobile};
     }

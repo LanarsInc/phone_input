@@ -72,8 +72,7 @@ class _FlagAssetLoader extends SvgAssetLoader {
   }
 
   @override
-  String provideSvg(ByteData? message) =>
-      utf8.decode(message!.buffer.asUint8List(), allowMalformed: true);
+  String provideSvg(ByteData? message) => utf8.decode(message!.buffer.asUint8List(), allowMalformed: true);
 
   @override
   SvgCacheKey cacheKey(BuildContext? context) {

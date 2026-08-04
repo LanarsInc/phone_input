@@ -1,4 +1,8 @@
+// ignore: unused_import
+import 'package:intl/intl.dart' as intl;
 import 'phone_field_localization.dart';
+
+// ignore_for_file: type=lint
 
 /// The translations for French (`fr`).
 class PhoneFieldLocalizationFr extends PhoneFieldLocalization {
@@ -11,8 +15,7 @@ class PhoneFieldLocalizationFr extends PhoneFieldLocalization {
   String get invalidCountry => 'Pays invalide';
 
   @override
-  String get invalidMobilePhoneNumber =>
-      'Numéro de téléphone portable invalide';
+  String get invalidMobilePhoneNumber => 'Numéro de téléphone portable invalide';
 
   @override
   String get invalidFixedLinePhoneNumber => 'Numéro de téléphone fixe invalide';

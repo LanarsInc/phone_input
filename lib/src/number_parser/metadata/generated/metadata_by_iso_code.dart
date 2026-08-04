@@ -358,8 +358,7 @@ const metadataByIsoCode = {
     countryCode: r"56",
     isoCode: IsoCode.CL,
     leadingDigits: null,
-    internationalPrefix:
-        r"(?:0|1(?:1[0-69]|2[02-5]|5[13-58]|69|7[0167]|8[018]))0",
+    internationalPrefix: r"(?:0|1(?:1[0-69]|2[02-5]|5[13-58]|69|7[0167]|8[018]))0",
     nationalPrefix: null,
     isMainCountryForDialCode: false,
   ),

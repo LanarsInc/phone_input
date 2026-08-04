@@ -29,10 +29,8 @@ class PhoneMetadataLengths {
 
   String toJson() => json.encode(toMap());
 
-  factory PhoneMetadataLengths.fromJson(String source) =>
-      PhoneMetadataLengths.fromMap(json.decode(source));
+  factory PhoneMetadataLengths.fromJson(String source) => PhoneMetadataLengths.fromMap(json.decode(source));
 
   @override
-  String toString() =>
-      'PhoneMetadataLengths(general: $general, mobile: $mobile, fixedLine: $fixedLine)';
+  String toString() => 'PhoneMetadataLengths(general: $general, mobile: $mobile, fixedLine: $fixedLine)';
 }

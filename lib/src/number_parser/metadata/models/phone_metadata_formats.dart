@@ -31,8 +31,7 @@ class PhoneMetadataFormat {
     return PhoneMetadataFormat(
       pattern: map['pattern'],
       nationalPrefixFormattingRule: map['nationalPrefixFormattingRule'],
-      leadingDigits:
-          (map['leadingDigits'] as List).map((el) => el as String).toList(),
+      leadingDigits: (map['leadingDigits'] as List).map((el) => el as String).toList(),
       format: map['format'],
       intlFormat: map['intlFormat'],
     );
@@ -40,8 +39,7 @@ class PhoneMetadataFormat {
 
   String toJson() => json.encode(toMap());
 
-  factory PhoneMetadataFormat.fromJson(String source) =>
-      PhoneMetadataFormat.fromMap(json.decode(source));
+  factory PhoneMetadataFormat.fromJson(String source) => PhoneMetadataFormat.fromMap(json.decode(source));
 
   @override
   String toString() {

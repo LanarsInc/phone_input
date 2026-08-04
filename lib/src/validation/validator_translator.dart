@@ -4,17 +4,12 @@ import 'package:phone_input/l10n/generated/phone_field_localization.dart';
 typedef _PhoneValidatorMessageDelegate = String? Function(BuildContext context);
 
 class ValidatorTranslator {
-  static final Map<String, _PhoneValidatorMessageDelegate> _validatorMessages =
-      {
-    'invalidPhoneNumber': (ctx) =>
-        PhoneFieldLocalization.of(ctx)?.invalidPhoneNumber,
+  static final Map<String, _PhoneValidatorMessageDelegate> _validatorMessages = {
+    'invalidPhoneNumber': (ctx) => PhoneFieldLocalization.of(ctx)?.invalidPhoneNumber,
     'invalidCountry': (ctx) => PhoneFieldLocalization.of(ctx)?.invalidCountry,
-    'invalidMobilePhoneNumber': (ctx) =>
-        PhoneFieldLocalization.of(ctx)?.invalidMobilePhoneNumber,
-    'invalidFixedLinePhoneNumber': (ctx) =>
-        PhoneFieldLocalization.of(ctx)?.invalidFixedLinePhoneNumber,
-    'requiredPhoneNumber': (ctx) =>
-        PhoneFieldLocalization.of(ctx)?.requiredPhoneNumber,
+    'invalidMobilePhoneNumber': (ctx) => PhoneFieldLocalization.of(ctx)?.invalidMobilePhoneNumber,
+    'invalidFixedLinePhoneNumber': (ctx) => PhoneFieldLocalization.of(ctx)?.invalidFixedLinePhoneNumber,
+    'requiredPhoneNumber': (ctx) => PhoneFieldLocalization.of(ctx)?.requiredPhoneNumber,
   };
 
   static final Map<String, String> _defaults = {

@@ -123,20 +123,19 @@ class CountrySelectorState extends State<CountrySelector> {
     final localization = PhoneFieldLocalization.of(context) ?? PhoneFieldLocalizationEn();
     final isoCodes = widget.countries ?? IsoCode.values;
     final countryRegistry = LocalizedCountryRegistry.cached(localization);
-    final notFavoriteCountries =
-        countryRegistry.whereIsoIn(isoCodes, omit: widget.favoriteCountries);
+    final notFavoriteCountries = countryRegistry.whereIsoIn(isoCodes, omit: widget.favoriteCountries);
     final favoriteCountries = countryRegistry.whereIsoIn(widget.favoriteCountries);
     _countryFinder = CountryFinder(notFavoriteCountries);
     _favoriteCountryFinder = CountryFinder(favoriteCountries, sort: false);
   }
 
-  _onSearch(String searchedText) {
+  void _onSearch(String searchedText) {
     _countryFinder.filter(searchedText);
     _favoriteCountryFinder.filter(searchedText);
     setState(() {});
   }
 
-  onSubmitted() {
+  void onSubmitted() {
     if (_favoriteCountryFinder.filteredCountries.isNotEmpty) {
       widget.onCountrySelected(_favoriteCountryFinder.filteredCountries.first);
     } else if (_countryFinder.filteredCountries.isNotEmpty) {
@@ -149,16 +148,18 @@ class CountrySelectorState extends State<CountrySelector> {
     return Column(
       children: [
         widget.isBottomSheet ? const SizedBox(height: 16) : const SizedBox.shrink(),
-        widget.isBottomSheet ? Container(
+        widget.isBottomSheet
+            ? Container(
                 width: 50,
                 height: 4,
                 decoration: BoxDecoration(
-                  color:
-                      widget.bottomSheetDragHandlerColor ?? Theme.of(context).colorScheme.secondary,
+                  color: widget.bottomSheetDragHandlerColor ?? Theme.of(context).colorScheme.secondary,
                   borderRadius: BorderRadius.circular(8),
                 ),
-              ) : const SizedBox.shrink(),
-        widget.showSearchInput ? Padding(
+              )
+            : const SizedBox.shrink(),
+        widget.showSearchInput
+            ? Padding(
                 padding: const EdgeInsets.all(16),
                 child: SizedBox(
                   height: widget.searchInputHeight,

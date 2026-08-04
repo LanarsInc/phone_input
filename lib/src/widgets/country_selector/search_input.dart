@@ -17,13 +17,13 @@ class SearchInput extends StatelessWidget {
   final Color? defaultSearchInputIconColor;
 
   const SearchInput({
-    Key? key,
+    super.key,
     required this.onChanged,
     required this.onSubmitted,
     this.decoration,
     this.style,
     this.defaultSearchInputIconColor,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -39,9 +39,7 @@ class SearchInput extends StatelessWidget {
             prefixIcon: Icon(
               Icons.search,
               color: defaultSearchInputIconColor ??
-                  (Theme.of(context).brightness == Brightness.dark
-                      ? Colors.white54
-                      : Colors.black38),
+                  (Theme.of(context).brightness == Brightness.dark ? Colors.white54 : Colors.black38),
             ),
             filled: true,
           ),

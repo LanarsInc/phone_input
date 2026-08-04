@@ -19,6 +19,7 @@ class PhoneField extends StatefulWidget {
   final InputDecoration decoration;
   final bool isCountrySelectionEnabled;
   final bool showArrow;
+
   /// configures the way the country picker selector is shown
   final CountrySelectorNavigator selectorNavigator;
 
@@ -169,12 +170,11 @@ class PhoneFieldState extends State<PhoneField> {
     // When the country chip is not shown it request focus to the inner text
     // field which doesn't span the whole input
     // When the country chip is shown, clicking on it request country selection
-    final maxTextFieldLength =
-        MetadataFinder.getMetadataLengthForIsoCode(controller.isoCode).mobile.last;
+    final maxTextFieldLength = MetadataFinder.getMetadataLengthForIsoCode(controller.isoCode).mobile.last;
     final item = MouseRegion(
       cursor: SystemMouseCursors.text,
       child: InputDecorator(
-        decoration: _getOutterInputDecoration(),
+        decoration: _getOuterInputDecoration(),
         isFocused: controller.focusNode.hasFocus,
         child: TextField(
           focusNode: controller.focusNode,
@@ -238,6 +238,7 @@ class PhoneFieldState extends State<PhoneField> {
       child: MouseRegion(
         cursor: SystemMouseCursors.click,
         child: GestureDetector(
+          behavior: HitTestBehavior.opaque,
           onTap: selectCountry,
           // material here else the click pass through empty spaces
           child: Material(
@@ -282,7 +283,7 @@ class PhoneFieldState extends State<PhoneField> {
     );
   }
 
-  InputDecoration _getOutterInputDecoration() {
+  InputDecoration _getOuterInputDecoration() {
     final directionality = Directionality.of(context);
 
     return widget.decoration.copyWith(

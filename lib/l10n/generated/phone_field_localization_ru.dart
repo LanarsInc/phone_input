@@ -1,4 +1,8 @@
+// ignore: unused_import
+import 'package:intl/intl.dart' as intl;
 import 'phone_field_localization.dart';
+
+// ignore_for_file: type=lint
 
 /// The translations for Russian (`ru`).
 class PhoneFieldLocalizationRu extends PhoneFieldLocalization {
@@ -14,8 +18,7 @@ class PhoneFieldLocalizationRu extends PhoneFieldLocalization {
   String get invalidMobilePhoneNumber => 'Неверный номер мобильного телефона';
 
   @override
-  String get invalidFixedLinePhoneNumber =>
-      'Недействительный номер стационарного телефона';
+  String get invalidFixedLinePhoneNumber => 'Недействительный номер стационарного телефона';
 
   @override
   String get requiredPhoneNumber => 'Требуется номер телефона';

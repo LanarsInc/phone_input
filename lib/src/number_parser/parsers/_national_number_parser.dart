@@ -30,8 +30,7 @@ abstract class NationalNumberParser {
     String nationalNumber,
     PhoneMetadata metadata,
   ) {
-    final patterns =
-        MetadataFinder.getMetadataPatternsForIsoCode(metadata.isoCode);
+    final patterns = MetadataFinder.getMetadataPatternsForIsoCode(metadata.isoCode);
     final nationalPrefixForParsing = patterns.nationalPrefixForParsing;
     final transformRule = patterns.nationalPrefixTransformRule;
 

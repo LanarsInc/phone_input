@@ -527,9 +527,8 @@ class DropdownNavigator extends CountrySelectorNavigator {
             clipBehavior: Clip.hardEdge,
             children: [
               CompositedTransformFollower(
-                offset: offsetHeight != null
-                    ? Offset(0, size.height).translate(0, offsetHeight!)
-                    : Offset(0, size.height),
+                offset:
+                    offsetHeight != null ? Offset(0, size.height).translate(0, offsetHeight!) : Offset(0, size.height),
                 link: layerLink,
                 showWhenUnlinked: false,
                 child: Material(

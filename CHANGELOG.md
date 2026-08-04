@@ -1,3 +1,8 @@
+## 1.0.3 - 04.08.2026
+
+* feat: added Armenian (hy) translation by [rutikeyone](https://github.com/rutikeyone)
+* chore: upgraded flutter_lints to ^6.0.0
+
 ## 1.0.2 - 03.05.2026
 
 * chore: resolve the dependency resolution failure and unblock static analysis, platform detection, and dartdoc
